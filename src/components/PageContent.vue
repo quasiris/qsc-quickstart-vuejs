@@ -1,4 +1,5 @@
 <template>
+<PageHead />
   <v-container fluid>
     <v-row>
       <v-col cols="3">
@@ -6,18 +7,6 @@
           <h1> All Categories</h1>
         </v-card>
         <v-divider></v-divider>
-        <v-card>
-          <v-toolbar height="1000" width="400">
-            <v-list dense class="mt-n5" width="500px" height="1000">
-<v-list-item v-for="style in styles" :key="style.title"> 
-
-                <v-list-item-content>
-                  <v-list-item-title width="200"><v-btn>{{ style.title }}</v-btn></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-toolbar>
-        </v-card>
       </v-col>
 
       <v-col cols="9">
@@ -31,7 +20,12 @@
 
         <container fluid>
           <v-row>
-            <v-col cols="4" v-for="(product) in displayedProducts" :key="product">
+            <v-col cols="12">
+              <v-text-field v-model="searchQuery" label="Search Products" outlined></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" v-for="product in products" :key="product">
               <v-card height="150px" width="300px">
                 <img class="image" :src="product.document.previewImageUrl" />
                 <br />
@@ -39,56 +33,39 @@
               </v-card>
             </v-col>
           </v-row>
-        </container>
+          <v-toolbar>
+            
+            <button @click="loadPreviousPage" :disabled="currentPage === 1">
+              <v-icon>mdi-chevron-left</v-icon></button>
+            <span>Page {{ currentPage }}</span>
+            
+            <button @click="loadNextPage" :disabled="currentPage === totalPages">
+              <v-icon>mdi-chevron-right</v-icon></button>
+            <div>Total Pages: {{totalPage}}</div>
 
-        
+          </v-toolbar>
+        </container>
       </v-col>
-     
     </v-row>
-     <v-pagination class="pagination"
-          v-model="currentPage"
-          :length="totalPages"
-          :total-visible="7"
-          :prev-icon="$vuetify.icons.prevPage"
-          :next-icon="$vuetify.icons.nextPage"
-          :disabled="isLoading"
-          @input="fetchProducts"
-        />
   </v-container>
 </template>
 
 <script>
+import PageHead from './PageHead.vue';
 import axios from "axios";
 export default {
   name: "PageContent",
+  components: {
+    PageHead,
+  },
 
   data() {
     return {
-      products: [],
-      styles: [
-        { title: "wires" },
-        { title: "wires" },
-        { title: "wires" },
-        { title: "wires" },
-        { title: "wires" },
-        { title: "wires" },
-      ],
       currentPage: 1,
-      itemsPerPage: 9,
-      isLoading: false,
+      products: [],
+      totalPages: "",
+      searchQuery: "",
     };
-  },
-
-  computed: {
-    totalPages() {
-      return Math.ceil(this.products.length / this.itemsPerPage);
-    },
-
-    displayedProducts() {
-      const start = (this.currentPage - 1) * this.itemsPerPage;
-      const end = start + this.itemsPerPage;
-      return this.products.slice(start, end);
-    },
   },
 
   async mounted() {
@@ -96,13 +73,45 @@ export default {
   },
 
   methods: {
-    async fetchProducts() {
-      this.isLoading = true;
-      const apiData = await axios.get(
-        "https://qsc-dev.quasiris.de/api/v1/search/ab/products"
-      );
-      this.products = apiData.data.result.products.documents;
-      this.isLoading = false;
+    fetchProducts() {
+      axios
+        .get(
+          `https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=${this.searchQuery}&page=${this.currentPage}`
+        )
+        .then((response) => {
+          this.products = response.data.result.products.documents;
+          this.totalPages = response.data.result.products.total;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    loadPreviousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.fetchProducts();
+      }
+    },
+
+    loadNextPage() {
+      // Check if there are more products available in the next page
+      if (this.products.length > 0) {
+        this.currentPage++;
+        this.fetchProducts();
+      }
+    },
+  },
+
+  computed: {
+    totalPage() {
+      return Math.ceil(this.totalPages / 24);
+    },
+  },
+
+  watch: {
+    searchQuery() {
+      this.fetchProducts();
     },
   },
 };
@@ -113,11 +122,10 @@ export default {
   height: 120px;
   width: 250px;
 }
-.pagination{
-  
+.pagination {
   bottom: 0;
-  right: 10;
+  left: 10;
   padding: 10px;
-
 }
+
 </style>

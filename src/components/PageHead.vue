@@ -22,14 +22,10 @@
       
       </div>
  
-<div>
-  <v-card  class="searchbar">
-    <input type="text"> <v-btn>Search</v-btn>
-  </v-card>
-    
-    
-    
-    </div>
+      <div>
+    <input  class="searchbar" type="text" v-model="searchQuery" placeholder=" article/keyword"/>
+    <button class="button" @click="performSearch">Search</button>
+  </div>
     <v-spacer></v-spacer>
 
       <button class="login" @click="showLoginForm = true">
@@ -63,12 +59,21 @@ export default {
 
   data () { 
 return{
-  showLoginForm: false
+  showLoginForm: false,
+  searchQuery: '',
 
 
-}
+};
    },
-}
+  methods: {
+    performSearch() {
+      // Call your search function here with this.searchQuery
+      this.$emit('search', this.searchQuery);
+      console.log('Performing search for:', this.searchQuery);
+    }
+  } 
+
+};
 </script>
 <style>
 
@@ -96,11 +101,18 @@ return{
 .searchbar{
  align-items: center;
  margin-left: 80px;
-
+ background-color: white;
+ width: 300px;
+ height: 35px;
+ 
  
  
 }
-
+.button{
+  background-color: lightblue;
+   width: 65px;
+ height: 35px;
+}
 .login{
   background-color: white;
   padding-top: 30px;
