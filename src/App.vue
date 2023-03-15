@@ -1,28 +1,41 @@
 <template>
   <v-app>
+    <page-head @onSearch="performSearch1"></page-head>
+    <page-content :searchQuery="searchQuery" :currentPage="currentPage" ></page-content>
     
-    <PageContent />
     <PageFooter />
   </v-app>
 </template>
 
 <script>
+import PageHead from "./components/PageHead.vue";
+import PageContent from "./components/PageContent.vue";
 
-
-import PageContent from './components/PageContent.vue';
-import PageFooter from './components/PageFooter.vue';
+import PageFooter from "./components/PageFooter.vue";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
-    
+    PageHead,
     PageContent,
-    PageFooter, 
+    PageFooter,
+  
   },
 
-  data: () => ({
-    //
-  }),
-}
+  data() {
+    return {
+      searchQuery: "",
+      currentPage: 1,
+    };
+  },
+  methods: {
+    performSearch1(keyword) {
+      this.searchQuery = keyword;
+    },
+  
+  
+   
+  },
+};
 </script>
