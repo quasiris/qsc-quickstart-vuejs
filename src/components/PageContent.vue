@@ -7,13 +7,15 @@
           <v-col cols="12" v-for="facet in facets" :key="facet">
           <button>  <h2>{{facet.name}}</h2> </button>
       <ul>
-      <li v-for="value in facet.values" :key="value"  @click="selectValue = value.filter">
+      <li v-for="value in facet.values" :key="value">
+        
+        <input type="checkbox" :value="value.filter" v-model="selectedFilters">
         {{ value.value }}
       </li>
     </ul>
         
           </v-col>
-          {{selectValue}}
+          {{selectedFilters}}
         </v-card>
 
         <PageFacet />
@@ -34,7 +36,7 @@
           <v-row>
             <v-col cols="4" v-for="product in products" :key="product">
               <v-card height="150px" width="300px">
-                <img class="image" />
+                <img class="image"  :src="product.document.previewImageUrl"/>
                 <br />
                 {{ product.document.name }}
               </v-card>
@@ -59,6 +61,7 @@
 </template>
 
 <script>
+
 import PageFacet from "./PageFacet.vue";
 import PagePagination from "./PagePagination.vue";
 import axios from "axios";
@@ -75,7 +78,8 @@ export default {
       currentPage: 1,
       totalpages: "",
       facets: [],
-      selectValue: '',
+      selectedFilters: [],
+      
     };
   },
   props: {
@@ -123,7 +127,10 @@ export default {
     },
   
   },
-  computed: {},
+  computed: {
+
+    
+  },
 };
 </script>
 
