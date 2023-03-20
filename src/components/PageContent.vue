@@ -5,17 +5,22 @@
         <h2>Our Products Range</h2>
         <v-card>
           <v-col cols="12" v-for="facet in facets" :key="facet">
-          <button>  <h2>{{facet.name}}</h2> </button>
-      <ul>
-      <li v-for="value in facet.values" :key="value">
-        
-        <input type="checkbox" :value="value.filter" v-model="selectedFilters">
-        {{ value.value }}
-      </li>
-    </ul>
-        
+            <button>
+              <h2>{{ facet.name }}</h2>
+            </button>
+            <ul>
+              <li v-for="value in facet.values" :key="value">
+                <input
+                  type="checkbox"
+                  :value="value.filter"
+                  v-model="selectedFilters"
+                />
+                {{ value.value }}
+              </li>
+            </ul>
           </v-col>
-          {{selectedFilters}}
+          
+          {{ selectedFilters }} {{currentPage}}
         </v-card>
 
         <PageFacet />
@@ -36,7 +41,7 @@
           <v-row>
             <v-col cols="4" v-for="product in products" :key="product">
               <v-card height="150px" width="300px">
-                <img class="image"  :src="product.document.previewImageUrl"/>
+                <img class="image" :src="product.document.previewImageUrl" />
                 <br />
                 {{ product.document.name }}
               </v-card>
@@ -48,7 +53,7 @@
           <v-col cols="3">
             <div class="pagein">
               <Page-pagination
-                :currentPage="currentPage"
+                :currentPages="currentPage"
                 @page-changed="onPageChanged"
                 :totalpage="totalpages"
               />
@@ -61,7 +66,6 @@
 </template>
 
 <script>
-
 import PageFacet from "./PageFacet.vue";
 import PagePagination from "./PagePagination.vue";
 import axios from "axios";
@@ -75,11 +79,10 @@ export default {
   data() {
     return {
       products: [],
-      currentPage: 1,
+      currentPage: 2,
       totalpages: "",
       facets: [],
-      selectedFilters: [],
-      
+      selectedFilters: [""],
     };
   },
   props: {
@@ -97,17 +100,17 @@ export default {
     currentPage() {
       this.fetchProducts();
     },
-    selectValue(){
+    selectedFilters() {
       this.fetchProducts();
-    }
-   
+    },
   },
 
   methods: {
     fetchProducts() {
+      const selectedFilters = this.selectedFilters.join("&");
       axios
         .get(
-          `https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=${this.searchQuery}&${this.selectValue}&page=${this.currentPage}`
+          `https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=${this.searchQuery}&${selectedFilters}&page=${this.currentPage}`
 
           // curl https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=wago&f.available=true&f.categories=Reihenklemmen&sort=pricdesc&page=3
         )
@@ -122,15 +125,13 @@ export default {
           console.log(error);
         });
     },
-    onPageChanged(page) {
-      this.currentPage = page;
-    },
-  
+     onPageChanged(page) {
+    this.currentPage = page;
   },
-  computed: {
+  },
+ 
 
-    
-  },
+  computed: {},
 };
 </script>
 

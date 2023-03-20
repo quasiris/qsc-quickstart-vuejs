@@ -1,10 +1,11 @@
 <template>
   <v-app>
     <page-head @onSearch="performSearch1"></page-head>
-    <page-content :searchQuery="searchQuery" :currentPage="currentPage" ></page-content>
+    <page-content :searchQuery="searchQuery"  ></page-content>
     
     <PageFooter />
   </v-app>
+
 </template>
 
 <script>
@@ -26,7 +27,7 @@ export default {
   data() {
     return {
       searchQuery: "",
-      currentPage: 1,
+    
     };
   },
   methods: {

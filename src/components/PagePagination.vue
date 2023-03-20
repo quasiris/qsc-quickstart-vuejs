@@ -2,12 +2,12 @@
   <v-container fluid>
     <div class="pagination">
       <v-toolbar>
-        <button @click="loadPreviousPage" :disabled="currentPage === 1">
+        <button @click="loadPreviousPage" :disabled="currentPages === 1">
           <v-icon>mdi-chevron-left</v-icon>
         </button>
 
-        <p>Page {{ currentPage }}</p>
-        <button @click="loadNextPage" :disabled="currentPage === totalPages">
+        <p>Page {{ currentPages }}</p>
+        <button @click="loadNextPage" :disabled="currentPages === totalPage">
           <v-icon>mdi-chevron-right</v-icon>
         </button>
         <p>Total:{{ totalPage }}</p>
@@ -21,15 +21,16 @@ export default {
   name: "PagePagination",
   data() {
     return {
-      currentPage: 1,
+    
     };
   },
   props: {
     totalpage: { type: Number },
-    currentPageNo: { type: Number },
+    currentPages: { type: Number },
   },
   mounted() {
-    if (this.currentPageNo) this.currentPage = this.currentPageNo;
+    if (this.currentPages)
+     this.currentPage = this.currentPages;
   },
   methods: {
     loadPreviousPage() {
