@@ -38,13 +38,11 @@ export default {
   data() {
     return {
       searchQuery: "",
-      
     };
   },
   watch: {
     searchQuery(newValue) {
       this.$emit("onSearch", newValue);
-      
     },
   },
 };

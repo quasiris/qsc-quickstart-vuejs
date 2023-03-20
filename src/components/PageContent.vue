@@ -2,35 +2,21 @@
   <v-container fluid>
     <v-row>
       <v-col cols="3">
-        <h2>Our Products Range</h2>
-        <v-card>
-          <v-col cols="12" v-for="facet in facets" :key="facet">
-            <button>
-              <h2>{{ facet.name }}</h2>
-            </button>
-            <ul>
-              <li v-for="value in facet.values" :key="value">
-                <input
-                  type="checkbox"
-                  :value="value.filter"
-                  v-model="selectedFilters"
-                />
-                {{ value.value }}
-              </li>
-            </ul>
-          </v-col>
-          
-          {{ selectedFilters }} {{currentPage}}
-        </v-card>
-
-        <PageFacet />
+        <PageFacet
+          :facets="facets"
+          :selectedFilters="selectedFilters"
+          @selectedFilters="selectmyFilters"
+        />
         <v-divider></v-divider>
       </v-col>
 
       <v-col cols="9">
         <v-row>
           <v-col cols="12">
-            <v-card><h1>All Products</h1> </v-card>
+            <v-card
+              ><h1>All Products</h1>
+              {{ totalproducts }} items found</v-card
+            >
           </v-col>
         </v-row>
 
@@ -53,9 +39,9 @@
           <v-col cols="3">
             <div class="pagein">
               <Page-pagination
-                :currentPages="currentPage"
+                :currentPage="currentPage"
                 @page-changed="onPageChanged"
-                :totalpage="totalpages"
+                :totalproducts="totalproducts"
               />
             </div>
           </v-col>
@@ -79,10 +65,10 @@ export default {
   data() {
     return {
       products: [],
-      currentPage: 2,
-      totalpages: "",
+      currentPage: 1,
+      totalproducts: "",
       facets: [],
-      selectedFilters: [""],
+      selectedFilters: [],
     };
   },
   props: {
@@ -117,7 +103,7 @@ export default {
         .then((response) => {
           this.products = response.data.result.products.documents;
           console.log(12, this.products);
-          this.totalpages = response.data.result.products.total;
+          this.totalproducts = response.data.result.products.total;
           console.log(1, this.totalPages);
           this.facets = response.data.result.products.facets;
         })
@@ -125,11 +111,13 @@ export default {
           console.log(error);
         });
     },
-     onPageChanged(page) {
-    this.currentPage = page;
+    onPageChanged(page) {
+      this.currentPage = page;
+    },
+    selectmyFilters(filter) {
+      this.selectedFilters = filter;
+    },
   },
-  },
- 
 
   computed: {},
 };

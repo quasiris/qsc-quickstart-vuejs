@@ -1,11 +1,10 @@
 <template>
   <v-app>
     <page-head @onSearch="performSearch1"></page-head>
-    <page-content :searchQuery="searchQuery"  ></page-content>
-    
+    <page-content :searchQuery="searchQuery"></page-content>
+
     <PageFooter />
   </v-app>
-
 </template>
 
 <script>
@@ -21,22 +20,17 @@ export default {
     PageHead,
     PageContent,
     PageFooter,
-  
   },
 
   data() {
     return {
       searchQuery: "",
-    
     };
   },
   methods: {
     performSearch1(keyword) {
       this.searchQuery = keyword;
     },
-  
-  
-   
   },
 };
 </script>
