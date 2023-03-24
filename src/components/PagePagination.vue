@@ -2,15 +2,17 @@
   <v-container fluid class="pagination">
     <div>
       <v-toolbar>
-        <button @click="loadPreviousPage" :disabled="currentPage === 1">
-          <v-icon>mdi-chevron-left</v-icon>
-        </button>
-
-        <p>Page {{ currentPage }}</p>
-        <button @click="loadNextPage" :disabled="currentPage === totalPage">
-          <v-icon>mdi-chevron-right</v-icon>
-        </button>
-        <p>Total:{{ totalPage }}</p>
+       
+        <div>
+          <v-pagination
+            v-model="currentPage" 
+            :length="totalPage"
+            :total-visible="7"
+          ></v-pagination>
+        </div>
+       
+        
+      
       </v-toolbar>
     </div>
   </v-container>
@@ -26,36 +28,33 @@ export default {
   },
   props: {
     totalproducts: { type: Number },
-    currentPageNo: { type: Number },
+    searchQuery: { type: String, default: "" },
+    selectedFilters: { type: Array, required: true },
   },
-  mounted() {
-    if (this.currentPageNo) this.currentPage = this.currentPageNo;
-  },
-  methods: {
-    loadPreviousPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-        this.$emit("page-changed", this.currentPage);
-      }
-    },
 
-    loadNextPage() {
-      this.currentPage++;
-      this.$emit("page-changed", this.currentPage);
-    },
+  methods: {
+   
+
+  
   },
   computed: {
     totalPage() {
       return Math.ceil(this.totalproducts / 24);
     },
   },
+  watch: {
+    searchQuery() {
+      this.currentPage = 1;
+    },
+    selectedFilters() {
+      this.currentPage = 1;
+    },
+    currentPage(){
+      this.$emit("page-changed", this.currentPage)
+    }
+  },
 };
 </script>
 <style>
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 500px;
-}
+
 </style>

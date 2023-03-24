@@ -13,7 +13,9 @@
           type="text"
           v-model="searchQuery"
           placeholder=" article/keyword"
+          @keyup.enter="searchProducts"
         />
+        <v-btn class="button" @click="searchProducts">Search</v-btn>
       </div>
 
       <v-spacer></v-spacer>
@@ -40,11 +42,13 @@ export default {
       searchQuery: "",
     };
   },
-  watch: {
-    searchQuery(newValue) {
-      this.$emit("onSearch", newValue);
-    },
+  methods:{
+    searchProducts(){
+     this.searchQuery;
+      this.$emit("onSearch", this.searchQuery);
+    }
   },
+
 };
 </script>
 <style>
@@ -101,5 +105,9 @@ export default {
   width: 150px;
   text-align: center;
   height: 150px;
+}
+.button {
+  background-color: lightblue;
+  color: white;
 }
 </style>

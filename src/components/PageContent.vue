@@ -3,6 +3,7 @@
     <v-row>
       <v-col cols="3">
         <PageFacet
+          :searchQuery="searchQuery"
           :facets="facets"
           :selectedFilters="selectedFilters"
           @selectedFilters="selectmyFilters"
@@ -27,7 +28,7 @@
           <v-row>
             <v-col cols="4" v-for="product in products" :key="product">
               <v-card height="150px" width="300px">
-                <img class="image" :src="product.document.previewImageUrl" />
+                <img class="image" :src="product.document.previewImageUrl"/>
                 <br />
                 {{ product.document.name }}
               </v-card>
@@ -35,10 +36,10 @@
           </v-row>
         </container>
         <v-row>
-          <v-col cols="9"> </v-col>
-          <v-col cols="3">
-            <div class="pagein">
+          <v-col cols="10">
+            <div>
               <Page-pagination
+                :searchQuery="searchQuery"
                 :currentPage="currentPage"
                 @page-changed="onPageChanged"
                 :totalproducts="totalproducts"
@@ -69,13 +70,18 @@ export default {
       totalproducts: "",
       facets: [],
       selectedFilters: [],
-    };
+   
+
+
+       };
   },
   props: {
     searchQuery: { type: String, default: "" },
   },
 
-  async mounted() {
+ async  mounted() {
+
+   
     this.fetchProducts();
   },
   watch: {
@@ -89,9 +95,11 @@ export default {
     selectedFilters() {
       this.fetchProducts();
     },
+    
   },
 
   methods: {
+      
     fetchProducts() {
       const selectedFilters = this.selectedFilters.join("&");
       axios
@@ -117,9 +125,13 @@ export default {
     selectmyFilters(filter) {
       this.selectedFilters = filter;
     },
+     
   },
 
-  computed: {},
+  computed: {
+
+  
+  }
 };
 </script>
 
