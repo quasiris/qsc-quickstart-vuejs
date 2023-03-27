@@ -7,15 +7,22 @@
         </v-toolbar-title>
       </div>
 
-      <div>
-        <input
+      <div >
+     <v-toolbar class="mysearch" >  <input
           class="searchbar"
           type="text"
           v-model="searchQuery"
           placeholder=" article/keyword"
           @keyup.enter="searchProducts"
         />
-        <v-btn class="button" @click="searchProducts">Search</v-btn>
+
+<v-spacer></v-spacer>
+        <span v-if="searchQuery" class="clear-input" @click="clearSearchQuery">
+          &times;
+        </span>
+        <button class="button" @click="searchProducts"
+          ><v-icon>mdi-magnify </v-icon></button>
+      </v-toolbar>
       </div>
 
       <v-spacer></v-spacer>
@@ -42,13 +49,15 @@ export default {
       searchQuery: "",
     };
   },
-  methods:{
-    searchProducts(){
-     this.searchQuery;
+  methods: {
+    clearSearchQuery() {
+      this.searchQuery = "";
+    },
+    searchProducts() {
+      this.searchQuery;
       this.$emit("onSearch", this.searchQuery);
-    }
+    },
   },
-
 };
 </script>
 <style>
@@ -62,24 +71,48 @@ export default {
   font-size: 36px;
   padding-top: 30px;
 }
+.mysearch {
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 450px;
+  height: 50px;
+  background-color: white;
+  border: 2px solid red;
+  margin-left: 40px;
+  margin-top: 20px;
+}
 
 .searchbar {
-  align-items: center;
-  margin-left: 80px;
-  background-color: white;
-  width: 300px;
-  height: 35px;
+  width: 350px;
+  margin-left:  10px;
+
+  
+}
+.searchbar:focus {
+  outline: none;
+}
+.clear-input {
+  font-size: 30px;
+  color: red;
+  cursor: pointer;
+}
+
+.clear-input:hover {
+  color: #000;
 }
 .button {
-  background-color: lightblue;
-  width: 65px;
-  height: 35px;
+  color: black;
+
+  width: 50px;
+ 
 }
+
 .login {
   background-color: white;
   padding-top: 30px;
   text-align: center;
-  width: 300px;
+  width: 200px;
   height: 150px;
 }
 .cart {
@@ -105,9 +138,5 @@ export default {
   width: 150px;
   text-align: center;
   height: 150px;
-}
-.button {
-  background-color: lightblue;
-  color: white;
 }
 </style>

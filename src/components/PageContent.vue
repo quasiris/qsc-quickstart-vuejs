@@ -2,54 +2,53 @@
   <v-container fluid>
     <v-row>
       <v-col cols="3">
+       
         <PageFacet
           :searchQuery="searchQuery"
           :facets="facets"
           :selectedFilters="selectedFilters"
           @selectedFilters="selectmyFilters"
         />
-        <v-divider></v-divider>
       </v-col>
 
       <v-col cols="9">
-        <v-row>
-          <v-col cols="12">
-            <v-card
-              ><h1>All Products</h1>
-              {{ totalproducts }} items found</v-card
-            >
-          </v-col>
-        </v-row>
+        <v-card
+          ><h1>All Products</h1>
+          {{ totalproducts }} items found</v-card
+        >
 
-        <container fluid>
-          <v-row>
-            <v-col cols="12"> </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="4" v-for="product in products" :key="product">
-              <v-card height="150px" width="300px">
-                <img class="image" :src="product.document.previewImageUrl"/>
-                <br />
-                {{ product.document.name }}
-              </v-card>
-            </v-col>
-          </v-row>
-        </container>
+        <br />
         <v-row>
-          <v-col cols="10">
-            <div>
-              <Page-pagination
-                :searchQuery="searchQuery"
-                :currentPage="currentPage"
-                @page-changed="onPageChanged"
-                :totalproducts="totalproducts"
-              />
-            </div>
+          <v-col cols="4" v-for="product in products" :key="product">
+            <v-card height="150px" width="300px">
+              <img class="image" :src="product.document.previewImageUrl" />
+              <br />
+              {{ product.document.name }}
+            </v-card>
           </v-col>
         </v-row>
+        <br>
+    <br> 
+  <Page-pagination
+        :selectedFilters="selectedFilters"
+        :searchQuery="searchQuery"
+        :currentPage="currentPage"
+        @page-changed="onPageChanged"
+        :totalproducts="totalproducts"
+      />
+
       </v-col>
     </v-row>
-  </v-container>
+    
+    
+
+     </v-container>
+ 
+ 
+    
+    
+    
+ 
 </template>
 
 <script>
@@ -70,19 +69,15 @@ export default {
       totalproducts: "",
       facets: [],
       selectedFilters: [],
-   
-
-
-       };
+    };
   },
   props: {
     searchQuery: { type: String, default: "" },
   },
 
- async  mounted() {
-
-   
+  async mounted() {
     this.fetchProducts();
+   
   },
   watch: {
     searchQuery() {
@@ -95,11 +90,10 @@ export default {
     selectedFilters() {
       this.fetchProducts();
     },
-    
   },
 
   methods: {
-      
+   
     fetchProducts() {
       const selectedFilters = this.selectedFilters.join("&");
       axios
@@ -114,6 +108,7 @@ export default {
           this.totalproducts = response.data.result.products.total;
           console.log(1, this.totalPages);
           this.facets = response.data.result.products.facets;
+
         })
         .catch((error) => {
           console.log(error);
@@ -125,19 +120,21 @@ export default {
     selectmyFilters(filter) {
       this.selectedFilters = filter;
     },
-     
   },
 
   computed: {
-
-  
-  }
+    
+  },
 };
 </script>
 
 <style>
 .image {
   height: 120px;
+
   width: 250px;
+}
+.toolbar {
+  background-color: white;
 }
 </style>

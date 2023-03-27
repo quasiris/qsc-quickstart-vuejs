@@ -1,5 +1,5 @@
 <template>
-  <h2>Our Products Range {{  searchQuery}}</h2>
+  <h2>Our Products Range</h2>
   <v-card>
     <v-col cols="12" v-for="facet in facets" :key="facet">
       <button>

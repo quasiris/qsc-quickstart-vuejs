@@ -1,21 +1,14 @@
 <template>
-  <v-container fluid class="pagination">
-    <div>
-      <v-toolbar>
-       
-        <div>
-          <v-pagination
-            v-model="currentPage" 
-            :length="totalPage"
-            :total-visible="7"
-          ></v-pagination>
-        </div>
-       
-        
-      
-      </v-toolbar>
-    </div>
-  </v-container>
+
+
+<div class= "pagination">
+  <v-pagination
+    v-model="currentPage"
+    :length="totalPage"
+    :total-visible="7"
+  ></v-pagination> 
+  </div>
+
 </template>
 
 <script>
@@ -32,15 +25,12 @@ export default {
     selectedFilters: { type: Array, required: true },
   },
 
-  methods: {
-   
-
-  
-  },
+  methods: {},
   computed: {
     totalPage() {
       return Math.ceil(this.totalproducts / 24);
     },
+    
   },
   watch: {
     searchQuery() {
@@ -49,12 +39,14 @@ export default {
     selectedFilters() {
       this.currentPage = 1;
     },
-    currentPage(){
-      this.$emit("page-changed", this.currentPage)
-    }
+
+    currentPage() {
+      this.$emit("page-changed", this.currentPage);
+    },
   },
 };
 </script>
 <style>
+
 
 </style>
