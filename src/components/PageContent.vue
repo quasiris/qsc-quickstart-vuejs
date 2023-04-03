@@ -15,24 +15,37 @@
           ><h1>All Products</h1>
           {{ totalproducts }} items found</v-card
         >
-        
-         
 
         <br />
 
         <v-row>
           <v-col cols="4" v-for="product in products" :key="product">
-            <v-card width="300px">
+            <v-card width="300px" height="360px">
               <a
                 v-bind:href="
                   'https://alexander-buerkle.com/de-de/produkt/?' +
                   product.document.sku
                 "
-              >
-                <img class="image" :src="product.document.previewImageUrl" />
+              > 
+              <div class="image" 
+                  >
+                <img  class="pimage"
+                  v-if="product.document && product.document.previewImageUrl"
+                  :src="
+                    product.document.previewImageUrl.replace(
+                      /^.*?format=auto\//,
+                      ''
+                    )
+                  "
+               
+                 
+                />
+               
+                </div>
+         
+                <div class="name"> item no. {{product.document.sku}}<br>
 
-                <br />
-                <div class="name">{{ product.document.name }}</div></a
+                  {{ product.document.name }} </div> </a
               >
             </v-card>
           </v-col>
@@ -96,7 +109,7 @@ export default {
       const selectedFilters = this.selectedFilters.join("&");
       axios
         .get(
-          `https://qsc.quasiris.de/api/v1/search/ab/products?q=${this.searchQuery}&${selectedFilters}&page=${this.currentPage}`
+          `https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=${this.searchQuery}&${selectedFilters}&page=${this.currentPage}`
 
           // curl https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=wago&f.available=true&f.categories=Reihenklemmen&sort=pricdesc&page=3
         )
@@ -124,10 +137,16 @@ export default {
 </script>
 
 <style>
+.pimage {
+  width: 250px; /* Set the width of the container to match the image width */
+  height: 250px;
+margin-left: 25px;
+margin-top: 20px;
+}
 .image {
-  height: 200px;
-
-  width: 300px;
+    
+  width: 200px; /* Set the width of the container to match the image width */
+  height: 300px;
 }
 .toolbar {
   background-color: white;
