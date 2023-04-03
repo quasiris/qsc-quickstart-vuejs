@@ -1,10 +1,8 @@
 <template>
   <v-card color="grey-lighten-4" flat height="90px">
     <v-toolbar extended>
-      <div>
-        <v-toolbar-title>
-          <button class="title">Quasiris</button>
-        </v-toolbar-title>
+      <div >
+        <img class="logo"   src="https://www.quasiris.de/wp-content/uploads/2017/03/logo.png" >
       </div>
 
       <div >
@@ -54,6 +52,12 @@ export default {
 };
 </script>
 <style>
+.logo{
+  height: 64px;
+  width: 200px;
+  margin-left: 20px;
+  margin-top: 30px;
+}
 .title {
   color: red;
   background-color: white;
@@ -77,6 +81,7 @@ export default {
 }
 .searchbar {
   width: 350px;
+  margin-left: 10px;
 
   
 }
