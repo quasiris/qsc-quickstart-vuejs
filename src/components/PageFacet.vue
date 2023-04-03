@@ -2,22 +2,18 @@
   <h2>Our Products Range</h2>
   <v-card>
     <v-col cols="12" v-for="facet in facets" :key="facet">
-     
-        <h2>{{ facet.name }}</h2>
-   
-      <ul>
-      
+      <h2>{{ facet.name }}</h2>
+      <div class="filters" v-for="value in facet.values" :key="value">
         
-        <div class="filters" v-for="value in facet.values" :key="value">
-  <v-toolbar class="toolbar">        <input class="checkbox"
+          <input
+            class="checkbox"
             type="checkbox"
             :value="value.filter"
             v-model="selectedFilters"
-          /> &nbsp;
-         {{ value.value }} <v-spacer></v-spacer> {{value.count}} </v-toolbar>
-        </div>
-      
-      </ul>
+          />
+          {{ value.value }} ({{ value.count }})
+ 
+      </div>
     </v-col>
   </v-card>
 </template>
@@ -34,30 +30,26 @@ export default {
     selectedFilters() {
       this.$emit("selectedFilters", this.selectedFilters);
     },
-    searchQuery(){
-      this.selectedFilters= []
+    searchQuery() {
+      this.selectedFilters = [];
     },
   },
   props: {
     facets: { type: Array, required: true },
-      searchQuery: { type: String, default: "" },
+    searchQuery: { type: String, default: "" },
   },
-
 };
 </script>
 
 <style>
-.filters{
-     font-size: 13px;
-     font-weight: bold;
-
+.filters {
+  font-size: 13px;
+  font-weight: bold;
 }
 .checkbox {
   transform: scale(0.9);
 }
-.toolbar{
+.toolbar {
   background-color: white;
 }
-
-
 </style>

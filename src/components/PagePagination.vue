@@ -1,14 +1,11 @@
 <template>
-
-
-<div class= "pagination">
-  <v-pagination
-    v-model="currentPage"
-    :length="totalPage"
-    :total-visible="7"
-  ></v-pagination> 
+  <div class="pagination">
+    <v-pagination
+      v-model="currentPage"
+      :length="totalPage"
+      :total-visible="7"
+    ></v-pagination>
   </div>
-
 </template>
 
 <script>
@@ -30,7 +27,6 @@ export default {
     totalPage() {
       return Math.ceil(this.totalproducts / 24);
     },
-    
   },
   watch: {
     searchQuery() {
@@ -46,7 +42,4 @@ export default {
   },
 };
 </script>
-<style>
-
-
-</style>
+<style></style>

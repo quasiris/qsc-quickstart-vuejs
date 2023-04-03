@@ -2,7 +2,6 @@
   <v-container fluid>
     <v-row>
       <v-col cols="3">
-       
         <PageFacet
           :searchQuery="searchQuery"
           :facets="facets"
@@ -16,39 +15,40 @@
           ><h1>All Products</h1>
           {{ totalproducts }} items found</v-card
         >
+        
+         
 
         <br />
+
         <v-row>
           <v-col cols="4" v-for="product in products" :key="product">
-            <v-card height="150px" width="300px">
-              <img class="image" :src="product.document.previewImageUrl" />
-              <br />
-              {{ product.document.name }}
+            <v-card width="300px">
+              <a
+                v-bind:href="
+                  'https://alexander-buerkle.com/de-de/produkt/?' +
+                  product.document.sku
+                "
+              >
+                <img class="image" :src="product.document.previewImageUrl" />
+
+                <br />
+                <div class="name">{{ product.document.name }}</div></a
+              >
             </v-card>
           </v-col>
         </v-row>
-        <br>
-    <br> 
-  <Page-pagination
-        :selectedFilters="selectedFilters"
-        :searchQuery="searchQuery"
-        :currentPage="currentPage"
-        @page-changed="onPageChanged"
-        :totalproducts="totalproducts"
-      />
-
+        <br />
+        <br />
+        <Page-pagination
+          :selectedFilters="selectedFilters"
+          :searchQuery="searchQuery"
+          :currentPage="currentPage"
+          @page-changed="onPageChanged"
+          :totalproducts="totalproducts"
+        />
       </v-col>
     </v-row>
-    
-    
-
-     </v-container>
- 
- 
-    
-    
-    
- 
+  </v-container>
 </template>
 
 <script>
@@ -77,7 +77,6 @@ export default {
 
   async mounted() {
     this.fetchProducts();
-   
   },
   watch: {
     searchQuery() {
@@ -93,12 +92,11 @@ export default {
   },
 
   methods: {
-   
     fetchProducts() {
       const selectedFilters = this.selectedFilters.join("&");
       axios
         .get(
-          `https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=${this.searchQuery}&${selectedFilters}&page=${this.currentPage}`
+          `https://qsc.quasiris.de/api/v1/search/ab/products?q=${this.searchQuery}&${selectedFilters}&page=${this.currentPage}`
 
           // curl https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=wago&f.available=true&f.categories=Reihenklemmen&sort=pricdesc&page=3
         )
@@ -108,7 +106,6 @@ export default {
           this.totalproducts = response.data.result.products.total;
           console.log(1, this.totalPages);
           this.facets = response.data.result.products.facets;
-
         })
         .catch((error) => {
           console.log(error);
@@ -122,19 +119,23 @@ export default {
     },
   },
 
-  computed: {
-    
-  },
+  computed: {},
 };
 </script>
 
 <style>
 .image {
-  height: 120px;
+  height: 200px;
 
-  width: 250px;
+  width: 300px;
 }
 .toolbar {
   background-color: white;
+}
+.name {
+  font-weight: bold;
+  background-color: aliceblue;
+  font-size: 14px;
+  color: black;
 }
 </style>

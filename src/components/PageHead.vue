@@ -20,22 +20,15 @@
         <span v-if="searchQuery" class="clear-input" @click="clearSearchQuery">
           &times;
         </span>
-        <button class="button" @click="searchProducts"
-          ><v-icon>mdi-magnify </v-icon></button>
+        <v-btn class="button" @click="searchProducts"
+          ><v-icon>mdi-magnify </v-icon></v-btn
+        >
       </v-toolbar>
       </div>
 
       <v-spacer></v-spacer>
 
-      <button class="login" @click="showLoginForm = true">
-        <v-icon>mdi-login </v-icon> Login/Register
-      </button>
-
-      <button class="cart">My Cart <v-icon>mdi-cart </v-icon></button>
-
-      <button class="menu">
-        <p>Menu<v-icon>mdi-dots-vertical</v-icon></p>
-      </button>
+     
     </v-toolbar>
   </v-card>
 </template>
@@ -79,13 +72,11 @@ export default {
   height: 50px;
   background-color: white;
   border: 2px solid red;
-  margin-left: 40px;
+  margin-left: 140px;
   margin-top: 20px;
 }
-
 .searchbar {
   width: 350px;
-  margin-left:  10px;
 
   
 }
@@ -93,7 +84,7 @@ export default {
   outline: none;
 }
 .clear-input {
-  font-size: 30px;
+  font-size: 40px;
   color: red;
   cursor: pointer;
 }
@@ -102,9 +93,9 @@ export default {
   color: #000;
 }
 .button {
-  color: black;
+  color: white;
 
-  width: 50px;
+  width: 40px;
  
 }
 

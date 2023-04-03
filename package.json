@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -16,6 +15,7 @@
     "vue": "^3.2.47",
     "vue-pagination-2": "^3.1.0",
     "vue-router": "^4.1.6",
+    "vuejs-autocomplete": "^0.1.1",
     "vuetify": "^3.0.0-beta.0",
     "webfontloader": "^1.0.0"
   },
