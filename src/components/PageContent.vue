@@ -11,6 +11,7 @@
       </v-col>
 
       <v-col cols="9">
+ 
         <v-card
           ><h1>All Products</h1>
           {{ totalproducts }} items found</v-card
@@ -130,6 +131,10 @@ export default {
     selectmyFilters(filter) {
       this.selectedFilters = filter;
     },
+    myProducts(){
+      this.products;
+     this.$emit("myProduct", this.products);
+    }
   },
 
   computed: {},

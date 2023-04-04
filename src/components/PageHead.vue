@@ -43,6 +43,8 @@ export default {
   methods: {
     clearSearchQuery() {
       this.searchQuery = "";
+       this.$emit("onSearch", this.searchQuery);
+
     },
     searchProducts() {
       this.searchQuery;
