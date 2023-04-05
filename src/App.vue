@@ -36,7 +36,7 @@ export default {
       this.searchQuery = keyword;
     },
     myproduct1(pa){
-      this.products= pa;
+      this.products= pa;  
 
     }
   },

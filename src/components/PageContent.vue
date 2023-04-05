@@ -11,11 +11,24 @@
       </v-col>
 
       <v-col cols="9">
- 
         <v-card
           ><h1>All Products</h1>
           {{ totalproducts }} items found</v-card
         >
+       <div class="text-center">
+          <v-menu open-on-hover>
+            <template v-slot:activator="{ props }"> 
+              <v-btn color="primary" v-bind="props"> 
+           Sort by:    {{selectedSort.name}}    </v-btn> 
+            </template>
+
+            <v-list>
+              <v-list-item v-for="(sort, index) in sorts" :key="sort"  @click="selectSort(sort)" :value="index === 0" >
+                <v-list-item-title>{{ sort.name }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </div>
 
         <br />
 
@@ -27,27 +40,26 @@
                   'https://alexander-buerkle.com/de-de/produkt/?' +
                   product.document.sku
                 "
-              > 
-              <div class="image" 
-                  >
-                <img  class="pimage"
-                  v-if="product.document && product.document.previewImageUrl"
-                  :src="
-                    product.document.previewImageUrl.replace(
-                      /^.*?format=auto\//,
-                      ''
-                    )
-                  "
-               
-                 
-                />
-               
-                </div>
-         
-                <div class="name"> item no. {{product.document.sku}}<br>
-
-                  {{ product.document.name }} </div> </a
               >
+                <div class="image">
+                  <img
+                    class="pimage"
+                    v-if="product.document && product.document.previewImageUrl"
+                    :src="
+                      product.document.previewImageUrl.replace(
+                        /^.*?format=auto\//,
+                        ''
+                      )
+                    "
+                  />
+                </div>
+
+                <div class="name">
+                  item no. {{ product.document.sku }}<br />
+
+                  {{ product.document.name }}
+                </div>
+              </a>
             </v-card>
           </v-col>
         </v-row>
@@ -66,6 +78,7 @@
 </template>
 
 <script>
+
 import PageFacet from "./PageFacet.vue";
 import PagePagination from "./PagePagination.vue";
 import axios from "axios";
@@ -83,6 +96,8 @@ export default {
       totalproducts: "",
       facets: [],
       selectedFilters: [],
+      sorts: [],
+       selectedSort: ""
     };
   },
   props: {
@@ -91,6 +106,9 @@ export default {
 
   async mounted() {
     this.fetchProducts();
+     
+  
+
   },
   watch: {
     searchQuery() {
@@ -103,14 +121,20 @@ export default {
     selectedFilters() {
       this.fetchProducts();
     },
+     selectedSort() {
+      this.fetchProducts();
+    },
+    
   },
+  
 
   methods: {
     fetchProducts() {
+    
       const selectedFilters = this.selectedFilters.join("&");
       axios
         .get(
-          `https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=${this.searchQuery}&${selectedFilters}&page=${this.currentPage}`
+          `https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=${this.searchQuery}&${selectedFilters}&sort=${this.selectedSort.id}&page=${this.currentPage}`
 
           // curl https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=wago&f.available=true&f.categories=Reihenklemmen&sort=pricdesc&page=3
         )
@@ -120,6 +144,7 @@ export default {
           this.totalproducts = response.data.result.products.total;
           console.log(1, this.totalPages);
           this.facets = response.data.result.products.facets;
+          this.sorts = response.data.result.products.sort.sort;
         })
         .catch((error) => {
           console.log(error);
@@ -131,10 +156,15 @@ export default {
     selectmyFilters(filter) {
       this.selectedFilters = filter;
     },
-    myProducts(){
+    myProducts() {
       this.products;
-     this.$emit("myProduct", this.products);
-    }
+      this.$emit("myProduct", this.products);
+    },
+     selectSort(sort) {
+      this.selectedSort = sort;
+    },
+
+    
   },
 
   computed: {},
@@ -145,11 +175,10 @@ export default {
 .pimage {
   width: 250px; /* Set the width of the container to match the image width */
   height: 250px;
-margin-left: 25px;
-margin-top: 20px;
+  margin-left: 25px;
+  margin-top: 20px;
 }
 .image {
-    
   width: 200px; /* Set the width of the container to match the image width */
   height: 300px;
 }
