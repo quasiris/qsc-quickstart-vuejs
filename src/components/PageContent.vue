@@ -15,15 +15,21 @@
           ><h1>All Products</h1>
           {{ totalproducts }} items found</v-card
         >
-       <div class="text-center">
+        <div class="text-right">
           <v-menu open-on-hover>
-            <template v-slot:activator="{ props }"> 
-              <v-btn color="primary" v-bind="props"> 
-           Sort by:    {{selectedSort.name}}    </v-btn> 
+            <template v-slot:activator="{ props }">
+              <v-btn color="primary" v-bind="props">
+                Sort by: {{ selectedSort.name }}
+              </v-btn>
             </template>
 
             <v-list>
-              <v-list-item v-for="(sort, index) in sorts" :key="sort"  @click="selectSort(sort)" :value="index === 0" >
+              <v-list-item
+                v-for="(sort, index) in sorts"
+                :key="sort"
+                @click="selectSort(sort)"
+                :value="index === 0"
+              >
                 <v-list-item-title>{{ sort.name }}</v-list-item-title>
               </v-list-item>
             </v-list>
@@ -34,25 +40,23 @@
 
         <v-row>
           <v-col cols="4" v-for="product in products" :key="product">
-            <v-card width="300px" height="360px">
+            <v-card width="300px" height="320px">
               <a
                 v-bind:href="
                   'https://alexander-buerkle.com/de-de/produkt/?' +
                   product.document.sku
                 "
               >
-                <div class="image">
-                  <img
-                    class="pimage"
-                    v-if="product.document && product.document.previewImageUrl"
-                    :src="
-                      product.document.previewImageUrl.replace(
-                        /^.*?format=auto\//,
-                        ''
-                      )
-                    "
-                  />
-                </div>
+                <img
+                  class="pimage"
+                  v-if="product.document && product.document.previewImageUrl"
+                  :src="
+                    product.document.previewImageUrl.replace(
+                      /^.*?format=auto\//,
+                      ''
+                    )
+                  "
+                />
 
                 <div class="name">
                   item no. {{ product.document.sku }}<br />
@@ -78,7 +82,6 @@
 </template>
 
 <script>
-
 import PageFacet from "./PageFacet.vue";
 import PagePagination from "./PagePagination.vue";
 import axios from "axios";
@@ -97,7 +100,7 @@ export default {
       facets: [],
       selectedFilters: [],
       sorts: [],
-       selectedSort: ""
+      selectedSort: "",
     };
   },
   props: {
@@ -106,9 +109,6 @@ export default {
 
   async mounted() {
     this.fetchProducts();
-     
-  
-
   },
   watch: {
     searchQuery() {
@@ -121,16 +121,13 @@ export default {
     selectedFilters() {
       this.fetchProducts();
     },
-     selectedSort() {
+    selectedSort() {
       this.fetchProducts();
     },
-    
   },
-  
 
   methods: {
     fetchProducts() {
-    
       const selectedFilters = this.selectedFilters.join("&");
       axios
         .get(
@@ -160,11 +157,9 @@ export default {
       this.products;
       this.$emit("myProduct", this.products);
     },
-     selectSort(sort) {
+    selectSort(sort) {
       this.selectedSort = sort;
     },
-
-    
   },
 
   computed: {},
@@ -173,8 +168,9 @@ export default {
 
 <style>
 .pimage {
-  width: 250px; /* Set the width of the container to match the image width */
-  height: 250px;
+  max-width: 200px; /* Set the width of the container to match the image width */
+  max-height: 200px;
+
   margin-left: 25px;
   margin-top: 20px;
 }
