@@ -47,6 +47,7 @@
                   product.document.sku
                 "
               >
+              <div class="image">
                 <img
                   class="pimage"
                   v-if="product.document && product.document.previewImageUrl"
@@ -57,12 +58,14 @@
                     )
                   "
                 />
+                </div>
 
                 <div class="name">
                   item no. {{ product.document.sku }}<br />
 
                   {{ product.document.name }}
                 </div>
+              
               </a>
             </v-card>
           </v-col>
@@ -168,22 +171,24 @@ export default {
 
 <style>
 .pimage {
-  max-width: 200px; /* Set the width of the container to match the image width */
+  max-width: 200px; 
   max-height: 200px;
 
-  margin-left: 25px;
-  margin-top: 20px;
+  
 }
 .image {
-  width: 200px; /* Set the width of the container to match the image width */
-  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 300px; /* Set the width of the container to match the image width */
+  height: 255px;
 }
 .toolbar {
   background-color: white;
 }
 .name {
   font-weight: bold;
-  background-color: aliceblue;
+  background-color: white;
   font-size: 14px;
   color: black;
 }
