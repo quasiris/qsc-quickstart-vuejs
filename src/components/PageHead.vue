@@ -31,12 +31,12 @@
           ><v-icon size="32">mdi-magnify </v-icon></v-btn
         >
       </v-toolbar>
-
-   <form v-for="suggest in suggests" :key="suggest">
+<ul class="">
+   <li v-for="suggest in suggests" :key="suggest" @click="selectSuggestion(suggest.suggest)">
         
      {{suggest.suggest}}
-       </form>
-
+       </li>
+</ul>
       <v-spacer></v-spacer>
     </v-toolbar>
   </v-card>
@@ -82,6 +82,10 @@ export default {
       this.searchQuery;
       this.$emit("onSearch", this.searchQuery);
     },
+    selectSuggestion(suggestion){
+    
+      this.searchQuery= suggestion;
+    }
   },
 };
 </script>
