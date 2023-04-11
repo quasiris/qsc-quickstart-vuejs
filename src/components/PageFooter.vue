@@ -7,9 +7,14 @@
 <script>
 export default {
   name: "PageFooter",
-
   data: () => ({}),
 };
 </script>
 
 <style></style>
+
+
+<style>
+
+
+</style>

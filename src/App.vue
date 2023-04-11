@@ -2,12 +2,11 @@
   <v-app>
     <page-head @onSearch="performSearch1"></page-head>
     <page-content :searchQuery="searchQuery" @myProduct="myProduct1"></page-content>
-    <li v-for="product in products" :key="product">
-      {{product.document.name}}
-    </li>
-
-    <PageFooter />
+    
+<page-footer />
   </v-app>
+
+    
 </template>
 
 <script>

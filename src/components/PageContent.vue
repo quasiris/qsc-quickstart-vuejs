@@ -11,6 +11,7 @@
       </v-col>
 
       <v-col cols="9">
+        
         <v-card
           ><h1>All Products</h1>
           {{ totalproducts }} items found</v-card
@@ -67,17 +68,18 @@
                 </div>
               </a>
             </v-card>
+        
           </v-col>
         </v-row>
-        <br />
-        <br />
-        <Page-pagination
+      <br> <br>
+            <Page-pagination
           :selectedFilters="selectedFilters"
           :searchQuery="searchQuery"
           :currentPage="currentPage"
           @page-changed="onPageChanged"
           :totalproducts="totalproducts"
         />
+        
       </v-col>
     </v-row>
   </v-container>

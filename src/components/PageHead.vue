@@ -8,7 +8,7 @@
         />
       </div>
 
-      <v-toolbar class="mysearch">
+      <v-toolbar class="mysearch" >
         <input
           class="searchbar"
           type="text"
@@ -28,28 +28,16 @@
           ><v-icon size="32">mdi-magnify </v-icon></v-btn
         >
       </v-toolbar>
-      <div>
-  <v-menu
-    v-model="menu"
-    :close-on-content-click="false"
-    :nudge-right="40"
-    offset-y
-  >
-    <template v-slot:activator="{ props }">
-      <v-card class="suggestions-card" v-if="suggests.length > 0" v-bind="props">
-        <v-list>
-          <v-list-item v-for="suggest in suggests" :key="suggest" @click="selectSuggestion(suggest.suggest)">
-            <v-list-item-title>{{ suggest.suggest }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-card>
-    </template>
-  </v-menu>
-</div>
+    <ul class="dropdown-menu" v-show="showDropdown">
+  <menu v-for="suggest in suggests"
+            :key="suggest"
+            @click="selectSuggestion(suggest.suggest)">{{ suggest.suggest}}</menu>
+</ul>
+
 
             
 
-      <v-spacer></v-spacer>
+     
     </v-toolbar>
   </v-card>
 </template>
@@ -63,11 +51,13 @@ export default {
     return {
       searchQuery: "",
       suggests: [],
+          showDropdown: true,
     };
   },
   watch: {
     searchQuery() {
       this.fetchSuggestions();
+     
     },
   },
 
@@ -91,6 +81,7 @@ export default {
     clearSearchQuery() {
       this.searchQuery = "";
       this.$emit("onSearch", this.searchQuery);
+        this.showDropdown = true; 
     },
     searchProducts() {
       this.searchQuery;
@@ -98,7 +89,9 @@ export default {
     },
     selectSuggestion(suggestion) {
       this.searchQuery = suggestion;
+       this.showDropdown = false; 
     },
+    
   },
 };
 </script>
@@ -153,26 +146,30 @@ export default {
   height: 60px;
   width: 40px;
 }
-ul {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-top: none;
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid grey;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin-top: 300px;
+  margin-left: 350px;
 }
 
-li {
-  padding: 8px;
+.dropdown-menu li {
+  padding: 10px;
   cursor: pointer;
 }
 
-li:hover { background-color: #f5f5f5;
+.dropdown-menu li:hover {
+  background-color: lightgrey;
 }
+
+
 
 </style>
 
