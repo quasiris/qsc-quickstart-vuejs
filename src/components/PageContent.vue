@@ -12,7 +12,7 @@
 
       <v-col cols="9">
         
-        <v-card
+        <v-card 
           ><h1>All Products</h1>
           {{ totalproducts }} items found</v-card
         >

@@ -1,5 +1,5 @@
 <template>
-  <v-card color="grey-lighten-4" flat height="90px">
+  <v-card class="head" color="grey-lighten-4" flat height="90px">
     <v-toolbar extended>
       <div>
         <img
@@ -96,6 +96,12 @@ export default {
 };
 </script>
 <style>
+.head{
+
+  flex-direction: column;
+
+  position: relative;
+}
 .logo {
   max-width: 170px;
   max-height: 64px;
@@ -147,6 +153,7 @@ export default {
   width: 40px;
 }
 .dropdown-menu {
+  width: 350px;
   display: flex;
   flex-direction: column;
 
