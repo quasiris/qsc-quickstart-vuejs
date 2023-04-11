@@ -46,10 +46,6 @@
     </template>
   </v-menu>
 </div>
-<v-autocomplete
-  label="Autocomplete"
-  :suggests="suggest.suggest"
-></v-autocomplete>
 
             
 
