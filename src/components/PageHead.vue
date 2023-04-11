@@ -7,7 +7,6 @@
           src="https://www.quasiris.de/wp-content/uploads/2017/03/logo.png"
         />
       </div>
-    
 
       <v-toolbar class="mysearch">
         <input
@@ -17,8 +16,6 @@
           placeholder=" article/keyword"
           @keyup.enter="searchProducts"
         />
-   
-         
 
         <v-spacer></v-spacer>
         <span v-if="searchQuery" class="clear-input" @click="clearSearchQuery">
@@ -31,12 +28,31 @@
           ><v-icon size="32">mdi-magnify </v-icon></v-btn
         >
       </v-toolbar>
-<ul class="">
-   <li v-for="suggest in suggests" :key="suggest" @click="selectSuggestion(suggest.suggest)">
-        
-     {{suggest.suggest}}
-       </li>
-</ul>
+      <div>
+  <v-menu
+    v-model="menu"
+    :close-on-content-click="false"
+    :nudge-right="40"
+    offset-y
+  >
+    <template v-slot:activator="{ props }">
+      <v-card class="suggestions-card" v-if="suggests.length > 0" v-bind="props">
+        <v-list>
+          <v-list-item v-for="suggest in suggests" :key="suggest" @click="selectSuggestion(suggest.suggest)">
+            <v-list-item-title>{{ suggest.suggest }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-card>
+    </template>
+  </v-menu>
+</div>
+<v-autocomplete
+  label="Autocomplete"
+  :suggests="suggest.suggest"
+></v-autocomplete>
+
+            
+
       <v-spacer></v-spacer>
     </v-toolbar>
   </v-card>
@@ -53,19 +69,21 @@ export default {
       suggests: [],
     };
   },
-  watch:{
-    searchQuery(){
+  watch: {
+    searchQuery() {
       this.fetchSuggestions();
-    }
+    },
   },
- 
-   async mounted() {
+
+  async mounted() {
     this.fetchSuggestions();
   },
   methods: {
     fetchSuggestions() {
       axios
-        .get(`https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=${this.searchQuery}`)
+        .get(
+          `https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=${this.searchQuery}`
+        )
         .then((response) => {
           this.suggests = response.data;
         })
@@ -82,10 +100,9 @@ export default {
       this.searchQuery;
       this.$emit("onSearch", this.searchQuery);
     },
-    selectSuggestion(suggestion){
-    
-      this.searchQuery= suggestion;
-    }
+    selectSuggestion(suggestion) {
+      this.searchQuery = suggestion;
+    },
   },
 };
 </script>
@@ -140,4 +157,30 @@ export default {
   height: 60px;
   width: 40px;
 }
+ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+li:hover { background-color: #f5f5f5;
+}
+
 </style>
+
+
+
+
+
