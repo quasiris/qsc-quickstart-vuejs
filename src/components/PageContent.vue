@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container color="grey-lighten-4" fluid>
     <v-row>
       <v-col cols="3">
         <PageFacet
@@ -47,17 +47,17 @@
                   product.document.sku
                 "
               >
-              <div class="image">
-                <img
-                  class="pimage"
-                  v-if="product.document && product.document.previewImageUrl"
-                  :src="
-                    product.document.previewImageUrl.replace(
-                      /^.*?format=auto\//,
-                      ''
-                    )
-                  "
-                />
+                <div class="image">
+                  <img
+                    class="pimage"
+                    v-if="product.document && product.document.previewImageUrl"
+                    :src="
+                      product.document.previewImageUrl.replace(
+                        /^.*?format=auto\//,
+                        ''
+                      )
+                    "
+                  />
                 </div>
 
                 <div class="name">
@@ -65,7 +65,6 @@
 
                   {{ product.document.name }}
                 </div>
-              
               </a>
             </v-card>
           </v-col>
@@ -171,10 +170,8 @@ export default {
 
 <style>
 .pimage {
-  max-width: 200px; 
+  max-width: 200px;
   max-height: 200px;
-
-  
 }
 .image {
   display: flex;
@@ -183,9 +180,7 @@ export default {
   max-width: 300px; /* Set the width of the container to match the image width */
   height: 255px;
 }
-.toolbar {
-  background-color: white;
-}
+
 .name {
   font-weight: bold;
   background-color: white;
