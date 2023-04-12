@@ -2,7 +2,7 @@
   <v-container color="grey-lighten-4" fluid>
     <v-row>
       <v-col cols="3">
-        <PageFacet
+        <PageFacet class="facet"
           :searchQuery="searchQuery"
           :facets="facets"
           :selectedFilters="selectedFilters"
@@ -205,5 +205,9 @@ margin-left: 3px;
  
   color: blue;
   cursor: pointer;
+}
+.facet{
+  display: flex;
+  position: fixed;
 }
 </style>

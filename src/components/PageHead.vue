@@ -15,6 +15,8 @@
           v-model="searchQuery"
           placeholder=" article/keyword"
           @keyup.enter="searchProducts"
+          @keyup="onKeyUp"
+           ref="searchInput"
         />
 
         <v-spacer></v-spacer>
@@ -28,16 +30,19 @@
           ><v-icon size="32">mdi-magnify </v-icon></v-btn
         >
       </v-toolbar>
-      <ul class="dropdown-menu" v-show="showDropdown" v-scroll="onScroll">
+ 
+      <ul class="dropdown-menu" v-show="showDropdown" v-scroll="onScroll"  >
       
-        <v-btn
-          aria-haspopup="true"
+        <v-btn 
+    
           v-for="suggest in suggests"
           :key="suggest"
           @click="selectSuggestion(suggest.suggest)"
+         
           >   {{ suggest.suggest }}  </v-btn
         > 
       </ul>
+
     </v-toolbar>
   </v-card>
 </template>
@@ -58,13 +63,19 @@ export default {
     searchQuery() {
       this.fetchSuggestions();
     },
+    
   },
 
-  async mounted() {
+  mounted() {
     this.fetchSuggestions();
+    this.$refs.searchInput.focus();
   },
   methods: {
     fetchSuggestions() {
+       if (this.searchQuery === '') {
+    this.suggests = [];
+    return;
+  }
       axios
         .get(
           `https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=${this.searchQuery}`
@@ -84,20 +95,32 @@ export default {
     },
     searchProducts() {
       this.searchQuery;
+       this.showDropdown = false; 
+      
       this.$emit("onSearch", this.searchQuery);
     },
     selectSuggestion(suggestion) {
       this.searchQuery = suggestion;
+       this.showDropdown= [];
       this.showDropdown = false;
+       this.searchProducts();
     },
      onScroll() {
-      if (window.scrollY === 0) {
+      if (window.scrollY === 0  && this.searchQuery.length === 2) {
         this.showDropdown = true;
       } else {
         this.showDropdown = false;
       }
-    }
-  
+    },
+  onKeyUp(event) {
+  if (event.keyCode === 8 && this.searchQuery.length === 0) {
+    this.suggests = [];
+    this.searchProducts();
+  }
+  if (this.searchQuery.length === 1) {
+    this.showDropdown = true;
+  }
+}
   },
 };
 </script>
