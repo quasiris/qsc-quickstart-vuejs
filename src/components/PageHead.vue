@@ -8,7 +8,7 @@
         />
       </div>
 
-      <v-toolbar class="mysearch" >
+      <v-toolbar class="mysearch">
         <input
           class="searchbar"
           type="text"
@@ -28,16 +28,15 @@
           ><v-icon size="32">mdi-magnify </v-icon></v-btn
         >
       </v-toolbar>
-    <ul class="dropdown-menu" v-show="showDropdown">
-  <menu v-for="suggest in suggests"
-            :key="suggest"
-            @click="selectSuggestion(suggest.suggest)">{{ suggest.suggest}}</menu>
-</ul>
-
-
-            
-
-     
+      <ul class="dropdown-menu" v-show="showDropdown" v-scroll="onScroll">
+        <v-btn
+          aria-haspopup="true"
+          v-for="suggest in suggests"
+          :key="suggest"
+          @click="selectSuggestion(suggest.suggest)"
+          >{{ suggest.suggest }}</v-btn
+        >
+      </ul>
     </v-toolbar>
   </v-card>
 </template>
@@ -51,13 +50,12 @@ export default {
     return {
       searchQuery: "",
       suggests: [],
-          showDropdown: true,
+      showDropdown: true,
     };
   },
   watch: {
     searchQuery() {
       this.fetchSuggestions();
-     
     },
   },
 
@@ -81,7 +79,7 @@ export default {
     clearSearchQuery() {
       this.searchQuery = "";
       this.$emit("onSearch", this.searchQuery);
-        this.showDropdown = true; 
+      this.showDropdown = true;
     },
     searchProducts() {
       this.searchQuery;
@@ -89,15 +87,21 @@ export default {
     },
     selectSuggestion(suggestion) {
       this.searchQuery = suggestion;
-       this.showDropdown = false; 
+      this.showDropdown = false;
     },
-    
+     onScroll() {
+      if (window.scrollY === 0) {
+        this.showDropdown = true;
+      } else {
+        this.showDropdown = false;
+      }
+    }
+  
   },
 };
 </script>
 <style>
-.head{
-
+.head {
   flex-direction: column;
 
   position: relative;
@@ -153,18 +157,16 @@ export default {
   width: 40px;
 }
 .dropdown-menu {
-  width: 350px;
+  width: 400px;
   display: flex;
   flex-direction: column;
-
+align-items: center;
   position: fixed;
   z-index: 1;
   background-color: white;
-  border: 1px solid grey;
-  list-style: none;
-  padding: 0;
-  margin-top: 300px;
-  margin-left: 350px;
+
+  margin-top: 440px;
+  margin-left: 320px;
 }
 
 .dropdown-menu li {
@@ -175,12 +177,4 @@ export default {
 .dropdown-menu li:hover {
   background-color: lightgrey;
 }
-
-
-
 </style>
-
-
-
-
-

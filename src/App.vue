@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <page-head @onSearch="performSearch1"></page-head>
+    <page-head @onSearch="performSearch1" ></page-head>
     <page-content :searchQuery="searchQuery" @myProduct="myProduct1"></page-content>
     
 <page-footer />

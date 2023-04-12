@@ -12,10 +12,12 @@
 
       <v-col cols="9">
         
-        <v-card 
+        <div
           ><h1>All Products</h1>
-          {{ totalproducts }} items found</v-card
+          {{ totalproducts }} items found</div
         >
+        <hr>
+        <!-- Here is a Sort Code-->
         <div class="text-right">
           <v-menu open-on-hover>
             <template v-slot:activator="{ props }">
@@ -41,7 +43,7 @@
 
         <v-row>
           <v-col cols="4" v-for="product in products" :key="product">
-            <v-card width="300px" height="320px">
+            <div class="productview" width="300px" height="320px">
               <a
                 v-bind:href="
                   'https://alexander-buerkle.com/de-de/produkt/?' +
@@ -67,7 +69,7 @@
                   {{ product.document.name }}
                 </div>
               </a>
-            </v-card>
+            </div>
         
           </v-col>
         </v-row>
@@ -171,6 +173,9 @@ export default {
 </script>
 
 <style>
+.productview{
+    border: 1px solid #ccc;
+}
 .pimage {
   max-width: 200px;
   max-height: 200px;
