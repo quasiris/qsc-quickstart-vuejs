@@ -29,13 +29,14 @@
         >
       </v-toolbar>
       <ul class="dropdown-menu" v-show="showDropdown" v-scroll="onScroll">
+      
         <v-btn
           aria-haspopup="true"
           v-for="suggest in suggests"
           :key="suggest"
           @click="selectSuggestion(suggest.suggest)"
-          >{{ suggest.suggest }}</v-btn
-        >
+          >   {{ suggest.suggest }}  </v-btn
+        > 
       </ul>
     </v-toolbar>
   </v-card>
@@ -160,7 +161,7 @@ export default {
   width: 400px;
   display: flex;
   flex-direction: column;
-align-items: center;
+
   position: fixed;
   z-index: 1;
   background-color: white;
@@ -170,11 +171,12 @@ align-items: center;
 }
 
 .dropdown-menu li {
-  padding: 10px;
+  padding: 100px;
   cursor: pointer;
 }
 
 .dropdown-menu li:hover {
   background-color: lightgrey;
 }
+
 </style>

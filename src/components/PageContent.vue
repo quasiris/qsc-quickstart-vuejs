@@ -185,13 +185,25 @@ export default {
   justify-content: center;
   align-items: center;
   max-width: 300px; /* Set the width of the container to match the image width */
-  height: 255px;
+  height: 250px;
 }
 
 .name {
   font-weight: bold;
   background-color: white;
-  font-size: 14px;
+  font-size: 12px;
   color: black;
+  height:70px;
+   display: flex;
+  flex-direction: column;
+  justify-content: center;
+margin-left: 3px;
+ 
+ 
+}
+:hover .name {
+ 
+  color: blue;
+  cursor: pointer;
 }
 </style>
