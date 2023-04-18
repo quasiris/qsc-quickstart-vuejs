@@ -67,6 +67,7 @@ export default {
   },
 
   mounted() {
+   
     this.fetchSuggestions();
     this.$refs.searchInput.focus();
   },
@@ -100,31 +101,36 @@ export default {
       this.showDropdown = true;
     },
     searchProducts() {
-      this.searchQuery;
-       this.showDropdown = false; 
+   
+  
+        this.showDropdown = false; 
       
       this.$emit("onSearch", this.searchQuery);
     },
     selectSuggestion(suggestion) {
       this.searchQuery = suggestion;
-       this.showDropdown= [];
+     
       this.showDropdown = false;
        this.searchProducts();
     },
      onScroll() {
-      if (window.scrollY === 0  && this.searchQuery=== this.suggests  ) {
-        this.showDropdown = true;
+      if (window.scrollY === 0   ) {
+        this.showDropdown = false;
+
       } else {
         this.showDropdown = false;
       }
     },
   onKeyUp(event) {
-  if (event.keyCode === 8 && this.searchQuery.length === 0) {
-    this.suggests = [];
-    this.searchProducts();
+  if (event.keyCode === 8 && this.searchQuery.length === '') {
+    this.showDropdown = false;
+    
+     this.clearSearchQuery();
+   
   }
-  if (this.searchQuery.length === 1) {
+  if (this.searchQuery.length > 0) {
     this.showDropdown = true;
+
   }
 }
   },
@@ -194,7 +200,7 @@ export default {
   position: fixed;
   z-index: 1030;
   background-color: white;
- top: 90px; 
+ top: 73px; 
   left: 0px;
   margin-left: 320px;
 }
