@@ -71,22 +71,28 @@ export default {
     this.$refs.searchInput.focus();
   },
   methods: {
-    fetchSuggestions() {
-       if (this.searchQuery === '') {
+   fetchSuggestions() {
+  if (this.searchQuery === '') {
     this.suggests = [];
     return;
   }
-      axios
-        .get(
-          `https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=${this.searchQuery}`
-        )
-        .then((response) => {
-          this.suggests = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+  axios
+    .get(
+      `https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=${this.searchQuery}`
+    )
+    .then((response) => {
+      this.suggests = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      if (this.suggests.length === 0) {
+        this.suggests.push({ suggest: "No suggestion found" });
+      }
+    });
+},
+
 
     clearSearchQuery() {
       this.searchQuery = "";
@@ -106,7 +112,7 @@ export default {
        this.searchProducts();
     },
      onScroll() {
-      if (window.scrollY === 0  && this.searchQuery.length === 2) {
+      if (window.scrollY === 0  && this.searchQuery=== this.suggests  ) {
         this.showDropdown = true;
       } else {
         this.showDropdown = false;
@@ -186,10 +192,10 @@ export default {
   flex-direction: column;
 
   position: fixed;
-  z-index: 1;
+  z-index: 1030;
   background-color: white;
-
-  margin-top: 440px;
+ top: 90px; 
+  left: 0px;
   margin-left: 320px;
 }
 

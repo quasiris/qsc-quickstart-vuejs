@@ -210,4 +210,13 @@ margin-left: 3px;
   display: flex;
   position: fixed;
 }
+@media only screen and (max-width: 600px) {
+  .productview {
+    width: 50%;
+  }
+  
+  .pimage {
+    max-width: 100%;
+  }
+}
 </style>
