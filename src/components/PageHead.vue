@@ -16,7 +16,7 @@
           placeholder=" article/keyword"
           @keyup.enter="searchProducts"
           @keyup="onKeyUp"
-           ref="searchInput"
+          ref="searchInput"
         />
 
         <v-spacer></v-spacer>
@@ -30,19 +30,16 @@
           ><v-icon size="32">mdi-magnify </v-icon></v-btn
         >
       </v-toolbar>
- 
-      <ul class="dropdown-menu" v-show="showDropdown" v-scroll="onScroll"  >
-      
-        <v-btn 
-    
+
+      <ul class="dropdown-menu" v-show="showDropdown" v-scroll="onScroll">
+        <v-btn
           v-for="suggest in suggests"
           :key="suggest"
           @click="selectSuggestion(suggest.suggest)"
-         
-          >   {{ suggest.suggest }}  </v-btn
-        > 
+        >
+          {{ suggest.suggest }}
+        </v-btn>
       </ul>
-
     </v-toolbar>
   </v-card>
 </template>
@@ -63,37 +60,34 @@ export default {
     searchQuery() {
       this.fetchSuggestions();
     },
-    
   },
 
   mounted() {
-   
     this.fetchSuggestions();
     this.$refs.searchInput.focus();
   },
   methods: {
-   fetchSuggestions() {
-  if (this.searchQuery === '') {
-    this.suggests = [];
-    return;
-  }
-  axios
-    .get(
-      `https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=${this.searchQuery}`
-    )
-    .then((response) => {
-      this.suggests = response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .finally(() => {
-      if (this.suggests.length === 0) {
-        this.suggests.push({ suggest: "No suggestion found" });
+    fetchSuggestions() {
+      if (this.searchQuery === "") {
+        this.suggests = [];
+        return;
       }
-    });
-},
-
+      axios
+        .get(
+          `https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=${this.searchQuery}`
+        )
+        .then((response) => {
+          this.suggests = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          if (this.suggests.length === 0) {
+            this.suggests.push({ suggest: "No suggestion found" });
+          }
+        });
+    },
 
     clearSearchQuery() {
       this.searchQuery = "";
@@ -101,38 +95,33 @@ export default {
       this.showDropdown = true;
     },
     searchProducts() {
-   
-  
-        this.showDropdown = false; 
-      
+      this.showDropdown = false;
+
       this.$emit("onSearch", this.searchQuery);
     },
     selectSuggestion(suggestion) {
       this.searchQuery = suggestion;
-     
-      this.showDropdown = false;
-       this.searchProducts();
-    },
-     onScroll() {
-      if (window.scrollY === 0   ) {
-        this.showDropdown = false;
 
+      this.showDropdown = false;
+      this.searchProducts();
+    },
+    onScroll() {
+      if (window.scrollY === 0) {
+        this.showDropdown = false;
       } else {
         this.showDropdown = false;
       }
     },
-  onKeyUp(event) {
-  if (event.keyCode === 8 && this.searchQuery.length === '') {
-    this.showDropdown = false;
-    
-     this.clearSearchQuery();
-   
-  }
-  if (this.searchQuery.length > 0) {
-    this.showDropdown = true;
+    onKeyUp(event) {
+      if (event.keyCode === 8 && this.searchQuery.length == 0) {
+        this.showDropdown = false;
 
-  }
-}
+        this.clearSearchQuery();
+      }
+      if (this.searchQuery.length > 4) {
+        this.showDropdown = true;
+      }
+    },
   },
 };
 </script>
@@ -200,7 +189,7 @@ export default {
   position: fixed;
   z-index: 1030;
   background-color: white;
- top: 73px; 
+  top: 73px;
   left: 0px;
   margin-left: 320px;
 }
@@ -213,5 +202,4 @@ export default {
 .dropdown-menu li:hover {
   background-color: lightgrey;
 }
-
 </style>
