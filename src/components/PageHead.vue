@@ -95,6 +95,7 @@ export default {
       this.showDropdown = true;
     },
     searchProducts() {
+ 
       this.showDropdown = false;
 
       this.$emit("onSearch", this.searchQuery);
@@ -106,21 +107,23 @@ export default {
       this.searchProducts();
     },
     onScroll() {
-      if (window.scrollY === 0) {
-        this.showDropdown = false;
+      if (window.scrollY === 0 && this.searchQuery.length === 2) {
+        this.showDropdown = true;
       } else {
         this.showDropdown = false;
       }
     },
     onKeyUp(event) {
-      if (event.keyCode === 8 && this.searchQuery.length == 0) {
+      if (event.keyCode === 8 && this.searchQuery === '') {
         this.showDropdown = false;
 
-        this.clearSearchQuery();
+        this.searchProducts();
       }
-      if (this.searchQuery.length > 4) {
-        this.showDropdown = true;
-      }
+        else {
+          this.showDropdown= true;
+        }
+      
+      
     },
   },
 };
