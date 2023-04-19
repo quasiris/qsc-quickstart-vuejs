@@ -35,7 +35,7 @@
         <v-btn
           v-for="suggest in suggests"
           :key="suggest"
-          @click="selectSuggestion(suggest.suggest)"
+          @click="selectSuggestion(suggest.suggest)" @keyup.enter="searchProducts"
         >
           {{ suggest.suggest }}
         </v-btn>
@@ -59,12 +59,14 @@ export default {
   watch: {
     searchQuery() {
       this.fetchSuggestions();
+      
     },
   },
 
   mounted() {
     this.fetchSuggestions();
     this.$refs.searchInput.focus();
+    this.searchProducts();
   },
   methods: {
     fetchSuggestions() {
@@ -95,7 +97,6 @@ export default {
       this.showDropdown = true;
     },
     searchProducts() {
- 
       this.showDropdown = false;
 
       this.$emit("onSearch", this.searchQuery);
@@ -106,6 +107,7 @@ export default {
       this.showDropdown = false;
       this.searchProducts();
     },
+
     onScroll() {
       if (window.scrollY === 0 && this.searchQuery.length === 2) {
         this.showDropdown = true;
@@ -114,16 +116,13 @@ export default {
       }
     },
     onKeyUp(event) {
-      if (event.keyCode === 8 && this.searchQuery === '') {
+      if (event.keyCode === 8 && this.searchQuery === "") {
         this.showDropdown = false;
 
         this.searchProducts();
+      } else {
+        this.showDropdown = true;
       }
-        else {
-          this.showDropdown= true;
-        }
-      
-      
     },
   },
 };
