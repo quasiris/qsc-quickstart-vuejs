@@ -139,16 +139,7 @@ export default {
   margin-left: 10px;
   margin-top: 30px;
 }
-.title {
-  color: red;
-  background-color: white;
 
-  font-weight: bold;
-  width: 200px;
-  height: 150px;
-  font-size: 36px;
-  padding-top: 30px;
-}
 .mysearch {
   display: flex;
   align-items: center;
@@ -156,7 +147,7 @@ export default {
   width: 550px;
   height: 60px;
   background-color: white;
-  border: 2px solid red;
+  border: 1px solid grey;
   margin-left: 140px;
   margin-top: 20px;
 }
@@ -170,7 +161,7 @@ export default {
 }
 .clear-input {
   font-size: 40px;
-  color: red;
+  color: grey;
   cursor: pointer;
 }
 

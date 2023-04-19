@@ -21,7 +21,7 @@
         <div class="text-right">
           <v-menu open-on-hover>
             <template v-slot:activator="{ props }">
-              <v-btn color="primary" v-bind="props">
+              <v-btn class="sortbutton" v-bind="props">
                 Sort by: {{ selectedSort.name }}
               </v-btn>
             </template>
@@ -191,24 +191,23 @@ export default {
 .name {
   font-weight: bold;
   background-color: white;
-  font-size: 12px;
+  font-size: 14px;
   color: black;
   height:70px;
-   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  
 margin-left: 3px;
  
  
 }
-:hover .name {
- 
-  color: blue;
-  cursor: pointer;
+a{
+  text-decoration: none;
 }
+
+
+
 .facet{
   display: flex;
-  position: fixed;
+  position: relative;
 }
 @media only screen and (max-width: 600px) {
   .productview {
@@ -218,5 +217,14 @@ margin-left: 3px;
   .pimage {
     max-width: 100%;
   }
+  
 }
+.sortbutton{
+  color: grey;
+  border: 1px solid grey;
+  font-weight: bold;
+}
+.productview:hover .name {
+    color: blue;
+  }
 </style>
