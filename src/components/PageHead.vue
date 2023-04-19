@@ -13,8 +13,9 @@
           class="searchbar"
           type="text"
           v-model="searchQuery"
-          placeholder=" article/keyword"
-          @keyup.enter="searchProducts"
+          @keydown.enter="searchProducts"
+          placeholder=" article/keyword/product"
+          
           @keyup="onKeyUp"
           ref="searchInput"
         />
@@ -98,6 +99,7 @@ export default {
     },
     searchProducts() {
       this.showDropdown = false;
+      this.suggests= "",
 
       this.$emit("onSearch", this.searchQuery);
     },
@@ -109,12 +111,10 @@ export default {
     },
 
     onScroll() {
-      if (window.scrollY === 0 && this.searchQuery.length === 2) {
-        this.showDropdown = true;
-      } else {
+     
         this.showDropdown = false;
-      }
-    },
+      },
+  
     onKeyUp(event) {
       if (event.keyCode === 8 && this.searchQuery === "") {
         this.showDropdown = false;
@@ -122,6 +122,7 @@ export default {
         this.searchProducts();
       } else {
         this.showDropdown = true;
+      
       }
     },
   },

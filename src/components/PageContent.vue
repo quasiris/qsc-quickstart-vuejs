@@ -207,7 +207,7 @@ a{
 
 .facet{
   display: flex;
-  position: relative;
+  position: relativew;
 }
 @media only screen and (max-width: 600px) {
   .productview {
