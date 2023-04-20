@@ -15,7 +15,6 @@
           v-model="searchQuery"
           @keydown.enter="searchProducts"
           placeholder=" article/keyword/product"
-          
           @keyup="onKeyUp"
           ref="searchInput"
         />
@@ -33,16 +32,21 @@
       </v-toolbar>
 
       <ul class="dropdown-menu" v-show="showDropdown" v-scroll="onScroll">
-        <v-btn
-          v-for="suggest in suggests"
-          :key="suggest"
-          @click="selectSuggestion(suggest.suggest)" @keyup.enter="searchProducts"
-        >
-          {{ suggest.suggest }}
-        </v-btn>
+
+       <v-btn
+  v-for="suggest in suggests"
+  :key="suggest"
+  @click="selectSuggestion(suggest.suggest)"
+  @keyup.enter="searchProducts"
+>
+  <v-list-item-title> {{ suggest.suggest }}</v-list-item-title>
+ 
+</v-btn>
       </ul>
+      
     </v-toolbar>
   </v-card>
+
 </template>
 
 <script>
@@ -60,7 +64,6 @@ export default {
   watch: {
     searchQuery() {
       this.fetchSuggestions();
-      
     },
   },
 
@@ -99,9 +102,7 @@ export default {
     },
     searchProducts() {
       this.showDropdown = false;
-      this.suggests= "",
-
-      this.$emit("onSearch", this.searchQuery);
+      (this.suggests = ""), this.$emit("onSearch", this.searchQuery);
     },
     selectSuggestion(suggestion) {
       this.searchQuery = suggestion;
@@ -111,10 +112,9 @@ export default {
     },
 
     onScroll() {
-     
-        this.showDropdown = false;
-      },
-  
+      this.showDropdown = false;
+    },
+
     onKeyUp(event) {
       if (event.keyCode === 8 && this.searchQuery === "") {
         this.showDropdown = false;
@@ -122,7 +122,6 @@ export default {
         this.searchProducts();
       } else {
         this.showDropdown = true;
-      
       }
     },
   },
@@ -176,7 +175,7 @@ export default {
   width: 40px;
 }
 .dropdown-menu {
-  width: 400px;
+  width: 550px;
   display: flex;
   flex-direction: column;
 
@@ -194,6 +193,7 @@ export default {
 }
 
 .dropdown-menu li:hover {
-  background-color: lightgrey;
+  background-color: grey
+  ;
 }
 </style>
