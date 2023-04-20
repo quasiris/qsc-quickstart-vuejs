@@ -42,8 +42,8 @@ export default {
 
 <style>
 .filters {
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 14px;
+
 }
 .checkbox {
   transform: scale(0.9);
