@@ -4,15 +4,18 @@
    
     <v-col cols="12" v-for="facet in facets" :key="facet">
       <h2>{{ facet.name }}</h2>
-      <div class="filters" v-for="value in facet.values" :key="value">
-        <input
-          class="checkbox"
-          type="checkbox"
-          :value="value.filter"
-          v-model="selectedFilters"
-        />
-        {{ value.value }} ({{ value.count }})
-      </div>
+     <div class="filters" v-for="value in facet.values" :key="value">
+ 
+  <input
+    class="checkbox"
+    type="checkbox"
+    :value="value.filter"
+    v-model="selectedFilters"
+    :id="'filter-' + value.filter"
+  /> <label :for="'filter-' + value.filter" class="filter-label">{{ value.value }} ({{ value.count }})</label>
+</div>
+
+  
     </v-col>
   </div>
 </template>
@@ -55,4 +58,9 @@ export default {
   border-right: .1px solid black;
   border-bottom: .1px solid black;
 }
+  .filter-label:hover {
+    color: blue;
+    cursor: pointer;
+  }
+
 </style>
