@@ -72,6 +72,7 @@ export default {
     this.fetchSuggestions();
     this.$refs.searchInput.focus();
     this.searchProducts();
+    this.searchQuery;
   },
   methods: {
     fetchSuggestions() {
@@ -103,7 +104,8 @@ export default {
     },
     searchProducts() {
       this.showDropdown = false;
-      (this.suggests = ""), this.$emit("onSearch", this.searchQuery);
+      this.suggests = "";
+      this.$emit("onSearch", this.searchQuery);
     },
     selectSuggestion(suggestion) {
       this.searchQuery = suggestion;
