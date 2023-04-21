@@ -17,7 +17,7 @@
     <p>{{ totalproducts }} items found</p>
   </div>
   <div v-else>
-    {{ totalproducts }} items found for <h4> "{{ searchQuery }}" </h4>
+    {{ totalproducts }} Hits For <h4> "{{ searchQuery }}" </h4>
   </div>
         <hr>
         <!-- Here is a Sort Code-->
