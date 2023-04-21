@@ -44,8 +44,9 @@
 </v-btn>
       </ul>
       
-    </v-toolbar>
+    </v-toolbar> 
   </v-card>
+
 
 </template>
 
@@ -196,4 +197,5 @@ export default {
   background-color: grey
   ;
 }
+
 </style>

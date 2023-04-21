@@ -11,11 +11,14 @@
       </v-col>
 
       <v-col cols="9">
-        
-        <div
-          ><h1>All Products</h1>
-          {{ totalproducts }} items found</div
-        >
+
+        <div v-if="!searchQuery">
+    <h1>All Products</h1>
+    <p>{{ totalproducts }} items found</p>
+  </div>
+  <div v-else>
+    {{ totalproducts }} items found for <h4> "{{ searchQuery }}" </h4>
+  </div>
         <hr>
         <!-- Here is a Sort Code-->
         <div class="text-right">
@@ -227,4 +230,5 @@ a{
 .productview:hover .name {
     color: blue;
   }
+ 
 </style>
