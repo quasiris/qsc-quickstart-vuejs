@@ -1,7 +1,7 @@
 <template>
   <h2>Our Products Range</h2>
   <div class="myfacet">
-   
+  
     <v-col cols="12" v-for="facet in facets" :key="facet">
       
       <h2>{{ facet.name }}</h2>
@@ -13,8 +13,10 @@
     :value="value.filter"
     v-model="selectedFilters"
     :id="'filter-' + value.filter"
+
   /> <label :for="'filter-' + value.filter" class="filter-label">{{ value.value }} ({{ value.count }})</label>
 </div>
+
 
   
     </v-col>

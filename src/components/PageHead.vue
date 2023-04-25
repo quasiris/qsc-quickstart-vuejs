@@ -37,7 +37,7 @@
   v-for="suggest in suggests"
   :key="suggest"
   @click="selectSuggestion(suggest.suggest)"
-  @keyup.enter="searchProducts"
+  
 >
   <v-list-item-title> {{ suggest.suggest }}</v-list-item-title>
  
@@ -69,15 +69,16 @@ export default {
   },
 
   mounted() {
-    this.fetchSuggestions();
+  
     this.$refs.searchInput.focus();
     this.searchProducts();
+    
     
   },
   methods: {
     fetchSuggestions() {
       if (this.searchQuery === "") {
-        this.suggests = [];
+        this.suggests = '';
         return;
       }
       axios
@@ -100,18 +101,21 @@ export default {
     clearSearchQuery() {
       this.searchQuery = "";
       this.$emit("onSearch", this.searchQuery);
-      this.showDropdown = true;
+  
     },
     searchProducts() {
       this.showDropdown = false;
-      this.suggests = '';
+      this.suggests = "";
+      if(this.searchQuery === this.suggests){
+        this.showDropdown= false;
+      }
+    
       this.$emit("onSearch", this.searchQuery);
-      window.scrollBy(0, 1);
+    
     },
     selectSuggestion(suggestion) {
       this.searchQuery = suggestion;
-
-      this.showDropdown = false;
+    this.showDropdown= false,
       this.searchProducts();
     },
 

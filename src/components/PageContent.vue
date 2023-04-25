@@ -8,16 +8,18 @@
           :selectedFilters="selectedFilters"
           @selectedFilters="selectmyFilters"
         />
+     
       </v-col>
 
       <v-col cols="9">
 
         <div v-if="!searchQuery">
     <h1>All Products</h1>
-    <p>{{ totalproducts }} items found</p>
+    {{selectedValues}}
+    <p>{{ totalproducts }} items found</p> 
   </div>
   <div v-else>
-    {{ totalproducts }} Hits for <h4> "{{ searchQuery }}" </h4>
+    {{ totalproducts }} Hits for <h2> "{{ searchQuery }}" </h2>
   </div>
         <hr>
         <!-- Here is a Sort Code-->
@@ -110,6 +112,7 @@ export default {
       selectedFilters: [],
       sorts: [],
       selectedSort: "",
+      
     };
   },
   props: {
@@ -161,6 +164,9 @@ export default {
     },
     selectmyFilters(filter) {
       this.selectedFilters = filter;
+    },
+    selectedmyValues(){
+      this.selectedValues= this.facets;
     },
     myProducts() {
       this.products;
