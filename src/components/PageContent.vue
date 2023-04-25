@@ -12,10 +12,11 @@
       </v-col>
 
       <v-col cols="9">
+       
 
         <div v-if="!searchQuery">
     <h1>All Products</h1>
-    {{selectedValues}}
+   
     <p>{{ totalproducts }} items found</p> 
   </div>
   <div v-else>
@@ -45,10 +46,12 @@
         </div>
 
         <br />
-
-        <v-row>
-          <v-col cols="4" v-for="product in products" :key="product">
-            <div class="productview" width="300px" height="320px">
+            
+<v-icon @click="gridLayout = false">mdi-view-stream</v-icon>
+<v-icon @click="gridLayout = true">mdi-view-parallel</v-icon>
+<v-row :class="{ 'product-grid': gridLayout }">
+  <v-col :cols="gridLayout ? 4 : 12" v-for="product in products" :key="product">
+    <div class="productview" width="300px" height="320px">
               <a
                 v-bind:href="
                   'https://alexander-buerkle.com/de-de/produkt/?' +
@@ -105,6 +108,7 @@ export default {
 
   data() {
     return {
+      gridLayout: false,
       products: [],
       currentPage: 1,
       totalproducts: "",
@@ -165,9 +169,7 @@ export default {
     selectmyFilters(filter) {
       this.selectedFilters = filter;
     },
-    selectedmyValues(){
-      this.selectedValues= this.facets;
-    },
+   
     myProducts() {
       this.products;
       this.$emit("myProduct", this.products);

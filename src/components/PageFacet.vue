@@ -1,25 +1,25 @@
 <template>
   <h2>Our Products Range</h2>
   <div class="myfacet">
-  
     <v-col cols="12" v-for="facet in facets" :key="facet">
-      
       <h2>{{ facet.name }}</h2>
-     <div class="filters" v-for="value in facet.values" :key="value">
- 
-  <input
-    class="checkbox"
-    type="checkbox"
-    :value="value.filter"
-    v-model="selectedFilters"
-    :id="'filter-' + value.filter"
+      <div class="filters" v-for="value in facet.values" :key="value">
+        <input
+          class="checkbox"
+          type="checkbox"
+          :value="value.filter"
+        
+          v-model="selectedFilters"
+           :id="'filter-' + value.filter"
 
-  /> <label :for="'filter-' + value.filter" class="filter-label">{{ value.value }} ({{ value.count }})</label>
-</div>
-
-
-  
+        />
+        <label :for="'filter-' + value.filter" class="filter-label"
+          >{{ value.value }} ({{ value.count }})</label
+        >
+      </div>
+    
     </v-col>
+    
   </div>
 </template>
 
@@ -29,6 +29,7 @@ export default {
   data() {
     return {
       selectedFilters: [],
+       
     };
   },
   watch: {
@@ -43,13 +44,13 @@ export default {
     facets: { type: Array, required: true },
     searchQuery: { type: String, default: "" },
   },
+  
 };
 </script>
 
 <style>
 .filters {
   font-size: 14px;
-
 }
 .checkbox {
   transform: scale(0.9);
@@ -57,13 +58,12 @@ export default {
 .toolbar {
   background-color: white;
 }
-.myfacet{
-  border-right: .1px solid black;
-  border-bottom: .1px solid black;
+.myfacet {
+  border-right: 0.1px solid black;
+  border-bottom: 0.1px solid black;
 }
-  .filter-label:hover {
-    color: blue;
-    cursor: pointer;
-  }
-
+.filter-label:hover {
+  color: blue;
+  cursor: pointer;
+}
 </style>
