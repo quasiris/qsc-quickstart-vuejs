@@ -20,9 +20,10 @@
   
     </v-col>
 
-  <v-btn
-  @click="clearFilters()"> Clear Filters</v-btn>
+
   </div>
+   <v-btn class="filterButton"
+  @click="clearFilters()"> Clear Filters</v-btn>
   
 </template>
 
@@ -76,5 +77,16 @@ clearFilters(){
 .filter-label:hover {
   color: blue;
   cursor: pointer;
+}
+.filterButton{
+border-left: 1px solid black;
+border-right: 1px solid black;
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+font-weight: bold;
+display: flex;
+justify-content: center;
+margin-left: 60px;
+margin-top: 5px;
 }
 </style>
