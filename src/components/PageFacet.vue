@@ -12,7 +12,7 @@
           :id="'filter-' + value.filter"
         />
         <label :for="'filter-' + value.filter" class="filter-label"
-          >{{ value.value }} ({{ value.count }})</label
+          > &nbsp;{{ value.value }} &nbsp;({{ value.count }})</label
         >
       </div>
     </v-col>
@@ -56,7 +56,9 @@ export default {
   font-size: 14px;
 }
 .checkbox {
-  transform: scale(0.9);
+  transform: scale(1.2);
+  margin-top: 9px;
+  
 }
 .toolbar {
   background-color: white;
