@@ -2,27 +2,26 @@
   <v-container color="grey-lighten-4" fluid>
     <v-row>
       <v-col cols="3">
-        <PageFacet class="facet"
+        <PageFacet
+          class="facet"
           :searchQuery="searchQuery"
           :facets="facets"
           :selectedFilters="selectedFilters"
           @selectedFilters="selectmyFilters"
         />
-     
       </v-col>
 
       <v-col cols="9">
-       
-
         <div v-if="!searchQuery">
-    <h1>All Products</h1>
-   
-    <p>{{ totalproducts }} items found</p> 
-  </div>
-  <div v-else>
-    {{ totalproducts }} Hits for <h2> "{{ searchQuery }}" </h2>
-  </div>
-        <hr>
+          <h1>All Products</h1>
+
+          <p>{{ totalproducts }} items found</p>
+        </div>
+        <div v-else>
+          {{ totalproducts }} Hits for
+          <h2>"{{ searchQuery }}"</h2>
+        </div>
+        <hr />
         <!-- Here is a Sort Code-->
         <div class="text-right">
           <v-menu open-on-hover>
@@ -46,13 +45,16 @@
         </div>
 
         <br />
-            
 
-<v-icon @click="gridLayout = false">mdi-view-parallel</v-icon>
-<v-icon @click="gridLayout = true">mdi-view-stream</v-icon>
-<v-row :class="{ 'product-grid': gridLayout }">
-  <v-col :cols="gridLayout ? 12 : 4" v-for="product in products" :key="product">
-    <div class="productview" width="300px" height="320px">
+        <v-icon @click="gridLayout = false">mdi-view-parallel</v-icon>
+        <v-icon @click="gridLayout = true">mdi-view-stream</v-icon>
+        <v-row :class="{ 'product-grid': gridLayout }">
+          <v-col
+            :cols="gridLayout ? 12 : 4"
+            v-for="product in products"
+            :key="product"
+          >
+            <div class="productview" width="300px" height="320px">
               <a
                 v-bind:href="
                   'https://alexander-buerkle.com/de-de/produkt/?' +
@@ -79,18 +81,17 @@
                 </div>
               </a>
             </div>
-        
           </v-col>
         </v-row>
-      <br> <br>
-            <Page-pagination
+        <br />
+        <br />
+        <Page-pagination
           :selectedFilters="selectedFilters"
           :searchQuery="searchQuery"
           :currentPage="currentPage"
           @page-changed="onPageChanged"
           :totalproducts="totalproducts"
         />
-        
       </v-col>
     </v-row>
   </v-container>
@@ -117,7 +118,6 @@ export default {
       selectedFilters: [],
       sorts: [],
       selectedSort: "",
-      
     };
   },
   props: {
@@ -170,7 +170,7 @@ export default {
     selectmyFilters(filter) {
       this.selectedFilters = filter;
     },
-   
+
     myProducts() {
       this.products;
       this.$emit("myProduct", this.products);
@@ -185,8 +185,8 @@ export default {
 </script>
 
 <style>
-.productview{
-    border: 1px solid #ccc;
+.productview {
+  border: 1px solid #ccc;
 }
 .pimage {
   max-width: 200px;
@@ -205,19 +205,15 @@ export default {
   background-color: white;
   font-size: 14px;
   color: black;
-  height:70px;
-  
-margin-left: 3px;
- 
- 
+  height: 70px;
+
+  margin-left: 3px;
 }
-a{
+a {
   text-decoration: none;
 }
 
-
-
-.facet{
+.facet {
   display: flex;
   position: relativew;
 }
@@ -225,19 +221,17 @@ a{
   .productview {
     width: 50%;
   }
-  
+
   .pimage {
     max-width: 100%;
   }
-  
 }
-.sortbutton{
+.sortbutton {
   color: grey;
   border: 1px solid grey;
   font-weight: bold;
 }
 .productview:hover .name {
-    color: blue;
-  }
- 
+  color: blue;
+}
 </style>

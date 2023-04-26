@@ -8,23 +8,16 @@
           class="checkbox"
           type="checkbox"
           :value="value.filter"
-        
           v-model="selectedFilters"
-           :id="'filter-' + value.filter"
-
+          :id="'filter-' + value.filter"
         />
         <label :for="'filter-' + value.filter" class="filter-label"
           >{{ value.value }} ({{ value.count }})</label
         >
       </div>
-  
     </v-col>
-
-
   </div>
-   <v-btn class="filterButton"
-  @click="clearFilters()"> Clear Filters</v-btn>
-  
+  <v-btn class="filterButton" @click="clearFilters()"> Clear Filters</v-btn>
 </template>
 
 <script>
@@ -33,7 +26,6 @@ export default {
   data() {
     return {
       selectedFilters: [],
-       
     };
   },
   watch: {
@@ -43,20 +35,19 @@ export default {
     searchQuery() {
       this.selectedFilters = [];
     },
-    clearFilters(){
-  this.selectedFilters = '';
-},
+    clearFilters() {
+      this.selectedFilters = "";
+    },
   },
   props: {
     facets: { type: Array, required: true },
     searchQuery: { type: String, default: "" },
   },
-  methods:{
-clearFilters(){
-  this.selectedFilters = [];
-},
-  }
-  
+  methods: {
+    clearFilters() {
+      this.selectedFilters = [];
+    },
+  },
 };
 </script>
 
@@ -78,15 +69,15 @@ clearFilters(){
   color: blue;
   cursor: pointer;
 }
-.filterButton{
-border-left: 1px solid black;
-border-right: 1px solid black;
-border-top: 1px solid black;
-border-bottom: 1px solid black;
-font-weight: bold;
-display: flex;
-justify-content: center;
-margin-left: 60px;
-margin-top: 5px;
+.filterButton {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  margin-left: 60px;
+  margin-top: 5px;
 }
 </style>
