@@ -17,10 +17,13 @@
           >{{ value.value }} ({{ value.count }})</label
         >
       </div>
-    
+  
     </v-col>
-    
+
+  <v-btn
+  @click="clearFilters()"> Clear Filters</v-btn>
   </div>
+  
 </template>
 
 <script>
@@ -39,11 +42,19 @@ export default {
     searchQuery() {
       this.selectedFilters = [];
     },
+    clearFilters(){
+  this.selectedFilters = '';
+},
   },
   props: {
     facets: { type: Array, required: true },
     searchQuery: { type: String, default: "" },
   },
+  methods:{
+clearFilters(){
+  this.selectedFilters = [];
+},
+  }
   
 };
 </script>

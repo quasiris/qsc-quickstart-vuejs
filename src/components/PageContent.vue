@@ -47,10 +47,11 @@
 
         <br />
             
-<v-icon @click="gridLayout = false">mdi-view-stream</v-icon>
-<v-icon @click="gridLayout = true">mdi-view-parallel</v-icon>
+
+<v-icon @click="gridLayout = false">mdi-view-parallel</v-icon>
+<v-icon @click="gridLayout = true">mdi-view-stream</v-icon>
 <v-row :class="{ 'product-grid': gridLayout }">
-  <v-col :cols="gridLayout ? 4 : 12" v-for="product in products" :key="product">
+  <v-col :cols="gridLayout ? 12 : 4" v-for="product in products" :key="product">
     <div class="productview" width="300px" height="320px">
               <a
                 v-bind:href="
