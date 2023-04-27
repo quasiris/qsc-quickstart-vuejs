@@ -17,7 +17,7 @@
       </div>
     </v-col>
   </div>
-  <v-btn class="filterButton" @click="clearFilters()"> Clear Filters</v-btn>
+  <v-btn class="filterButton" @click="clearFilters()"> Reset Filters</v-btn>
 </template>
 
 <script>
