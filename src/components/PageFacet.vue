@@ -12,7 +12,7 @@
           :id="'filter-' + value.filter"
         />
         <label :for="'filter-' + value.filter" class="filter-label"
-          > &nbsp;{{ value.value }} &nbsp;({{ value.count }})</label
+          > &nbsp;{{ value.value }} &nbsp; ({{ value.count }})</label
         >
       </div>
     </v-col>

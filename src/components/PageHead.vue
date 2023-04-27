@@ -13,7 +13,7 @@
           class="searchbar"
           type="text"
           v-model="searchQuery"
-          @keydown.enter="searchProducts"
+          @keydown.enter="searchProducts()"
           placeholder=" article/keyword/product"
           @keyup="onKeyUp"
           ref="searchInput"
