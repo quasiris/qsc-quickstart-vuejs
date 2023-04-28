@@ -234,4 +234,10 @@ a {
 .productview:hover .name {
   color: blue;
 }
+.image:hover img {
+  transform: scale(1.1);
+  transition: transform 0.1s ease-in-out;
+}
+
+
 </style>

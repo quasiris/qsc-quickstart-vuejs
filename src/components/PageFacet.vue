@@ -70,6 +70,7 @@ export default {
 .filter-label:hover {
   color: blue;
   cursor: pointer;
+   font-weight: bold;
 }
 .filterButton {
   border-left: 1px solid black;
@@ -82,4 +83,5 @@ export default {
   margin-left: 60px;
   margin-top: 5px;
 }
+
 </style>
