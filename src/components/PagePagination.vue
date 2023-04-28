@@ -4,7 +4,8 @@
       v-model="currentPage"
       :length="totalPage"
       :total-visible="7"
-      
+      @click="scrollToTop"
+
     ></v-pagination>
   </div>
 </template>
@@ -23,7 +24,14 @@ export default {
     selectedFilters: { type: Array, required: true },
   },
 
-  methods: {},
+  methods: {
+     scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "auto",
+      });
+    },
+  },
   computed: {
     totalPage() {
       return Math.ceil(this.totalproducts / 24);
