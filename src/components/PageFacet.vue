@@ -17,7 +17,7 @@
       </div>
     </v-col>
   </div>
-  <v-btn class="filterButton" @click="clearFilters()"> Reset Filters</v-btn>
+  <v-btn class="filterButton" @click="clearFilters()" > Reset Filters</v-btn>
 </template>
 
 <script>
@@ -46,6 +46,10 @@ export default {
   methods: {
     clearFilters() {
       this.selectedFilters = [];
+        window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     },
   },
 };

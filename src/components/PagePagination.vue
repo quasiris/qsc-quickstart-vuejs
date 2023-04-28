@@ -4,6 +4,7 @@
       v-model="currentPage"
       :length="totalPage"
       :total-visible="7"
+      
     ></v-pagination>
   </div>
 </template>
