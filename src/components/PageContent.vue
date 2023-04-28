@@ -199,6 +199,9 @@ export default {
   max-width: 300px; /* Set the width of the container to match the image width */
   height: 250px;
 }
+.productview :hover{
+  border-color: 10px solid blue;
+}
 
 .name {
   font-weight: bold;
