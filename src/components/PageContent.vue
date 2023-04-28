@@ -231,6 +231,13 @@ a {
   border: 1px solid grey;
   font-weight: bold;
 }
+.sortbutton :hover{
+    color: blue;
+  cursor: pointer;
+   font-weight: bold;
+   font-size: 14px;
+   
+}
 .productview:hover .name {
   color: blue;
 }

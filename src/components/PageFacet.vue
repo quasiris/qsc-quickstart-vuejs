@@ -83,5 +83,12 @@ export default {
   margin-left: 60px;
   margin-top: 5px;
 }
+.filterButton :hover{
+ 
+  color: blue;
+  cursor: pointer;
+   font-weight: bold;
+
+}
 
 </style>
