@@ -32,7 +32,7 @@
       </v-toolbar>
 
       <ul class="dropdown-menu" v-show="showDropdown" v-scroll="onScroll">
-<b>Search Suggestions</b>
+
        <v-btn
   v-for="suggest in suggests"
   :key="suggest"
