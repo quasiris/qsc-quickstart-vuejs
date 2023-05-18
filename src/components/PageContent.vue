@@ -64,9 +64,9 @@
                 <div class="image">
                   <img
                     class="pimage"
-                    v-if="product.document && product.document.previewImageUrl"
+                    v-if="product.document && product.document[config.document.image]"
                     :src="
-                      product.document.previewImageUrl.replace(
+                      product.document[config.document.image].replace(
                         /^.*?format=auto\//,
                         ''
                       )
@@ -75,9 +75,9 @@
                 </div>
 
                 <div class="name">
-                  item no. {{ product.document.sku }}<br />
+                  item no. {{ product.document[config.document.description] }}<br />
 
-                  {{ product.document.name }}
+                  {{ product.document[config.document.name] }}
                 </div>
               </a>
             </div>
@@ -85,6 +85,9 @@
         </v-row>
         <br />
         <br />
+
+      
+
         <Page-pagination
           :selectedFilters="selectedFilters"
           :searchQuery="searchQuery"
@@ -98,6 +101,7 @@
 </template>
 
 <script>
+import config from "@/../config.json";
 import PageFacet from "./PageFacet.vue";
 import PagePagination from "./PagePagination.vue";
 import axios from "axios";
@@ -118,6 +122,7 @@ export default {
       selectedFilters: [],
       sorts: [],
       selectedSort: "",
+      config: config,
     };
   },
   props: {
@@ -126,6 +131,11 @@ export default {
 
   async mounted() {
     this.fetchProducts();
+    const baseurl = config.baseurl;
+    console.log(baseurl);
+    const id = config.id;
+    this.apiUrl = baseurl + id;
+   
   },
   watch: {
     searchQuery() {
@@ -146,19 +156,21 @@ export default {
   methods: {
     fetchProducts() {
       const selectedFilters = this.selectedFilters.join("&");
+      const apiUrl = this.config.baseurl + this.config.id;
       axios
         .get(
-          `https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=${this.searchQuery}&${selectedFilters}&sort=${this.selectedSort.id}&page=${this.currentPage}`
-
-          // curl https://qsc-dev.quasiris.de/api/v1/search/ab/products?q=wago&f.available=true&f.categories=Reihenklemmen&sort=pricdesc&page=3
+          `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${this.selectedSort.id}&page=${this.currentPage}`
         )
         .then((response) => {
-          this.products = response.data.result.products.documents;
-          console.log(12, this.products);
+  const products = eval(this.config.product);
+this.products= products;
+
           this.totalproducts = response.data.result.products.total;
-          console.log(1, this.totalPages);
+         
           this.facets = response.data.result.products.facets;
           this.sorts = response.data.result.products.sort.sort;
+       
+
         })
         .catch((error) => {
           console.log(error);
@@ -180,7 +192,11 @@ export default {
     },
   },
 
-  computed: {},
+  computed: {
+    myUrl() {
+      return `${this.data.baseurl}${this.data.id}`;
+    },
+  },
 };
 </script>
 
@@ -199,7 +215,7 @@ export default {
   max-width: 300px; /* Set the width of the container to match the image width */
   height: 250px;
 }
-.productview :hover{
+.productview :hover {
   border-color: 10px solid blue;
 }
 
@@ -234,12 +250,11 @@ a {
   border: 1px solid grey;
   font-weight: bold;
 }
-.sortbutton :hover{
-    color: blue;
+.sortbutton :hover {
+  color: blue;
   cursor: pointer;
-   font-weight: bold;
-   font-size: 14px;
-   
+  font-weight: bold;
+  font-size: 14px;
 }
 .productview:hover .name {
   color: blue;
@@ -248,6 +263,4 @@ a {
   transform: scale(1.1);
   transition: transform 0.1s ease-in-out;
 }
-
-
 </style>

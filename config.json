@@ -1,0 +1,14 @@
+  { 
+    "id": "/ab/products",
+    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search",
+  "product": "response.data.result.products.documents",
+    "document": {
+      "name": "name",
+      "description": "sku",
+      "image": "previewImageUrl"
+    }
+  }
+
+ 
+  
+
