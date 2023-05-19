@@ -64,7 +64,10 @@
                 <div class="image">
                   <img
                     class="pimage"
-                    v-if="product.document && product.document[config.document.image]"
+                    v-if="
+                      product.document &&
+                      product.document[config.document.image]
+                    "
                     :src="
                       product.document[config.document.image].replace(
                         /^.*?format=auto\//,
@@ -75,7 +78,8 @@
                 </div>
 
                 <div class="name">
-                  item no. {{ product.document[config.document.description] }}<br />
+                  item no. {{ product.document[config.document.description]
+                  }}<br />
 
                   {{ product.document[config.document.name] }}
                 </div>
@@ -85,8 +89,6 @@
         </v-row>
         <br />
         <br />
-
-      
 
         <Page-pagination
           :selectedFilters="selectedFilters"
@@ -122,7 +124,7 @@ export default {
       selectedFilters: [],
       sorts: [],
       selectedSort: "",
-      config: config,
+      config: config[1],
     };
   },
   props: {
@@ -130,12 +132,19 @@ export default {
   },
 
   async mounted() {
-    this.fetchProducts();
+    
+      const url = window.location.href;
+  if (url.includes("/ab/products")) {
+    this.config = config[1];
+  } else if (url.includes("/jbn/qsc-documentation")) {
+    this.config = config[0];
+  }
+  this.fetchProducts();
     const baseurl = config.baseurl;
-    console.log(baseurl);
+
     const id = config.id;
     this.apiUrl = baseurl + id;
-   
+    console.log(this.apiUrl);
   },
   watch: {
     searchQuery() {
@@ -162,15 +171,18 @@ export default {
           `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${this.selectedSort.id}&page=${this.currentPage}`
         )
         .then((response) => {
-  const products = eval(this.config.product);
-this.products= products;
+          const products = eval(this.config.product);
+          this.products = products;
 
-          this.totalproducts = response.data.result.products.total;
-         
-          this.facets = response.data.result.products.facets;
-          this.sorts = response.data.result.products.sort.sort;
-       
+          this.totalproducts = eval(this.config.totalproduct);
 
+          console.log(this.totalproducts);
+
+          this.facets = eval(this.config.facet);
+
+          this.sorts = eval(this.config.sort);
+
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -192,11 +204,7 @@ this.products= products;
     },
   },
 
-  computed: {
-    myUrl() {
-      return `${this.data.baseurl}${this.data.id}`;
-    },
-  },
+  computed: {},
 };
 </script>
 
