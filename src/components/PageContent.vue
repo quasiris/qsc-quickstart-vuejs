@@ -132,14 +132,13 @@ export default {
   },
 
   async mounted() {
-    
-      const url = window.location.href;
-  if (url.includes("/ab/products")) {
-    this.config = config[1];
-  } else if (url.includes("/jbn/qsc-documentation")) {
-    this.config = config[0];
-  }
-  this.fetchProducts();
+    const url = window.location.href;
+    if (url.includes("/ab/products")) {
+      this.config = config[1];
+    } else if (url.includes("/jbn/qsc-documentation")) {
+      this.config = config[0];
+    }
+    this.fetchProducts();
     const baseurl = config.baseurl;
 
     const id = config.id;
@@ -171,18 +170,17 @@ export default {
           `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${this.selectedSort.id}&page=${this.currentPage}`
         )
         .then((response) => {
-          const products = eval(this.config.product);
+          const products = response.data.result[this.config.product].documents;
           this.products = products;
 
-          this.totalproducts = eval(this.config.totalproduct);
+          this.totalproducts = response.data.result[this.config.product].total;
 
           console.log(this.totalproducts);
 
-          this.facets = eval(this.config.facet);
+          this.facets = response.data.result[this.config.product].facets;
+          console.log(this.facets);
 
-          this.sorts = eval(this.config.sort);
-
-          console.log(response);
+          this.sorts = response.data.result[this.config.product].sort.sort;
         })
         .catch((error) => {
           console.log(error);

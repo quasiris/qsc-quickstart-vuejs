@@ -2,25 +2,17 @@
   {
     "id": "/jbn/qsc-documentation",
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search",
-    "product": "response.data.result['qsc-documentation'].documents",
-    "totalproduct": "response.data.result['qsc-documentation'].total",
-    "facet": "response.data.result['qsc-documentation'].facets",
-    "sort": "response.data.result['qsc-documentation'].sort.sort",
+    "product": "qsc-documentation",
     "document": {
       "name": "title",
       "description": "url",
-
       "image": ""
     }
   },
   {
     "id": "/ab/products",
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search",
-    "product": "response.data.result.products.documents",
-    "totalproduct": "response.data.result.products.total",
-    "facet": "response.data.result.products.facets",
-    "sort": "response.data.result.products.sort.sort",
-   
+    "product": "products",
     "document": {
       "name": "name",
       "description": "sku",
