@@ -1,7 +1,7 @@
 [
   {
-    "id": "/jbn/qsc-documentation",
-    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search",
+    "id": "/id=1",
+    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/jbn/qsc-documentation",
     "product": "qsc-documentation",
     "document": {
       "name": "title",
@@ -10,8 +10,8 @@
     }
   },
   {
-    "id": "/ab/products",
-    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search",
+    "id": "/id=2",
+    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/ab/products",
     "product": "products",
     "document": {
       "name": "name",

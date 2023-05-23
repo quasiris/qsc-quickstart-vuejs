@@ -124,7 +124,7 @@ export default {
       selectedFilters: [],
       sorts: [],
       selectedSort: "",
-      config: config[1],
+      config: config,
     };
   },
   props: {
@@ -133,16 +133,15 @@ export default {
 
   async mounted() {
     const url = window.location.href;
-    if (url.includes("/ab/products")) {
+    if (url.includes("/id=2")) {
       this.config = config[1];
-    } else if (url.includes("/jbn/qsc-documentation")) {
+    } else if (url.includes("/id=1")) {
       this.config = config[0];
     }
     this.fetchProducts();
     const baseurl = config.baseurl;
 
-    const id = config.id;
-    this.apiUrl = baseurl + id;
+    this.apiUrl = baseurl;
     console.log(this.apiUrl);
   },
   watch: {
@@ -164,7 +163,7 @@ export default {
   methods: {
     fetchProducts() {
       const selectedFilters = this.selectedFilters.join("&");
-      const apiUrl = this.config.baseurl + this.config.id;
+      const apiUrl = this.config.baseurl;
       axios
         .get(
           `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${this.selectedSort.id}&page=${this.currentPage}`
