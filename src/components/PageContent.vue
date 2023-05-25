@@ -119,7 +119,7 @@ export default {
       selectedFilters: [],
       sorts: [],
       selectedSort: "",
-      config: config,
+      config: config[1],
     };
   },
   props: {
