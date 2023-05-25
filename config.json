@@ -4,9 +4,10 @@
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/jbn/qsc-documentation",
     "product": "qsc-documentation",
     "logo": "https://images.deha.de/?file=B2BE1AAF31D93D1CE05332C8A8C0218B&preset=265x307",
+   "linkUrl":"",
     "document": {
       "name": "title",
-      "description": "url",
+      "sku": "url",
       "image": ""
     }
   },
@@ -15,12 +16,11 @@
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/ab/products",
     "product": "products",
     "logo": "https://www.quasiris.de/wp-content/uploads/2017/03/logo.png",
-
+"linkUrl": "https://alexander-buerkle.com/de-de/produkt/?",
     "document": {
       "name": "name",
-      "description": "",
-
-      "image": "previewImageUrl"
+      "sku": "sku",
+        "image": "previewImageUrl"
     }
   }
 ]
