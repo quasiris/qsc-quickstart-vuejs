@@ -1,5 +1,6 @@
 <template>
   <v-container color="grey-lighten-4" fluid>
+
     <v-row>
       <v-col cols="3">
         <PageFacet
@@ -69,16 +70,13 @@
                       product.document[config.document.image]
                     "
                     :src="
-                      product.document[config.document.image].replace(
-                        /^.*?format=auto\//,
-                        ''
-                      )
+                      product.document[config.document.image].replace(/^.*?format=auto\//,'')
                     "
                   />
                 </div>
-
+ <!-- this code was for sku, but we do not need now-->
                 <div class="name">
-                  item no. {{ product.document[config.document.description]
+                   {{ product.document[config.document.description]
                   }}<br />
 
                   {{ product.document[config.document.name] }}
@@ -133,16 +131,13 @@ export default {
 
   async mounted() {
     const url = window.location.href;
-    if (url.includes("/id=2")) {
-      this.config = config[1];
-    } else if (url.includes("/id=1")) {
+    if (url.includes("id=1")) {
       this.config = config[0];
+    } else if (url.includes("id=2")) {
+      this.config = config[1];
     }
     this.fetchProducts();
-    const baseurl = config.baseurl;
-
-    this.apiUrl = baseurl;
-    console.log(this.apiUrl);
+   
   },
   watch: {
     searchQuery() {
@@ -164,6 +159,7 @@ export default {
     fetchProducts() {
       const selectedFilters = this.selectedFilters.join("&");
       const apiUrl = this.config.baseurl;
+      console.log(apiUrl);
       axios
         .get(
           `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${this.selectedSort.id}&page=${this.currentPage}`
@@ -192,13 +188,13 @@ export default {
       this.selectedFilters = filter;
     },
 
-    myProducts() {
-      this.products;
-      this.$emit("myProduct", this.products);
-    },
+  
     selectSort(sort) {
       this.selectedSort = sort;
     },
+     sendDataToParent() {
+      this.$emit('configData', this.config);
+    }
   },
 
   computed: {},

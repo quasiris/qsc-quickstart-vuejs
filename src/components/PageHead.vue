@@ -4,8 +4,7 @@
       <div>
         <img
           class="logo"
-          src="https://www.quasiris.de/wp-content/uploads/2017/03/logo.png"
-        />
+          :src= "config.logo"  />
       </div>
 
       <v-toolbar class="mysearch">
@@ -51,6 +50,7 @@
 </template>
 
 <script>
+import config from "@/../config.json";
 import axios from "axios";
 export default {
   name: "PageHead",
@@ -60,6 +60,7 @@ export default {
       searchQuery: "",
       suggests: [],
       showDropdown: true,
+      config: config,
     };
   },
   watch: {
@@ -73,6 +74,12 @@ export default {
     this.$refs.searchInput.focus();
     this.searchProducts();
       document.addEventListener("click", this.hideDropdown);
+       const url = window.location.href;
+    if (url.includes("id=1")) {
+      this.config = config[0];
+    } else if (url.includes("id=2")) {
+      this.config = config[1];
+    }
     
   },
   methods: {
