@@ -60,7 +60,7 @@ export default {
       searchQuery: "",
       suggests: [],
       showDropdown: true,
-      config: config,
+      config: config[1],
     };
   },
   watch: {
