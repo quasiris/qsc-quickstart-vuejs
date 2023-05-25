@@ -34,7 +34,7 @@
 
             <v-list>
               <v-list-item
-                v-for="(sort, index) in sorts"
+                v-for="(sort,index) in sorts"
                 :key="sort"
                 @click="selectSort(sort)"
                 :value="index === 0"
@@ -137,6 +137,11 @@ export default {
       this.config = config[1];
     }
     this.fetchProducts();
+
+  if (this.sorts.length > 0) {
+    this.selectedSort = this.sorts[0];
+  }
+
    
   },
   watch: {
@@ -158,11 +163,12 @@ export default {
   methods: {
     fetchProducts() {
       const selectedFilters = this.selectedFilters.join("&");
+  const selectedSort = this.selectedSort ? this.selectedSort.id : '';
       const apiUrl = this.config.baseurl;
       console.log(apiUrl);
       axios
         .get(
-          `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${this.selectedSort.id}&page=${this.currentPage}`
+          `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${selectedSort}&page=${this.currentPage}`
         )
         .then((response) => {
           const products = response.data.result[this.config.product].documents;
@@ -192,9 +198,7 @@ export default {
     selectSort(sort) {
       this.selectedSort = sort;
     },
-     sendDataToParent() {
-      this.$emit('configData', this.config);
-    }
+    
   },
 
   computed: {},
