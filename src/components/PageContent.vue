@@ -57,7 +57,7 @@
           >
             <div class="productview" width="300px" height="320px">
               <a
-                v-bind:href=" [config.linkUrl] + product.document[config.document.sku]"
+                v-bind:href=" [config.linkWebsite] + product.document[config.document.sku]"
               >
                 <div class="image">
                   <img
