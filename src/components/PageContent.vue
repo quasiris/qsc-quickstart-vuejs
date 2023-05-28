@@ -47,17 +47,20 @@
 
         <br />
 
-        <v-icon @click="gridLayout = false">mdi-view-parallel</v-icon>
-        <v-icon @click="gridLayout = true">mdi-view-stream</v-icon>
-        <v-row :class="{ 'product-grid': gridLayout }">
-          <v-col
-            :cols="gridLayout ? 12 : 4"
-            v-for="product in products"
-            :key="product"
-          >
+<v-icon @click="gridLayout = 'parallel'">mdi-view-parallel</v-icon>
+<v-icon @click="gridLayout = 'stream'">mdi-view-stream</v-icon>
+<v-icon @click="gridLayout = 'list'">mdi-view-list</v-icon>
+<v-row :class="{ 'product-grid': gridLayout !== 'list' }">
+  <v-col
+    :cols="gridLayout === 'stream' ? 6 : (gridLayout === 'parallel' ? 4 : 12)"
+    v-for="product in products"
+    :key="product"
+  >
+   
+
             <div class="productview" width="300px" height="320px">
               <a
-                v-bind:href=" [config.linkWebsite] + product.document[config.document.sku]"
+                v-bind:href=" [config.linkUrl] + product.document[config.document.sku]"
               >
                 <div class="image">
                   <img
