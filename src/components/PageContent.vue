@@ -1,6 +1,5 @@
 <template>
   <v-container color="grey-lighten-4" fluid>
-
     <v-row>
       <v-col cols="3">
         <PageFacet
@@ -34,7 +33,7 @@
 
             <v-list>
               <v-list-item
-                v-for="(sort,index) in sorts"
+                v-for="(sort, index) in sorts"
                 :key="sort"
                 @click="selectSort(sort)"
                 :value="index === 0"
@@ -46,21 +45,24 @@
         </div>
 
         <br />
+   <!-- Grid Layouts are here -->
+        <v-icon @click="gridLayout = 'parallel'">mdi-view-parallel</v-icon>
+        <v-icon @click="gridLayout = 'stream'">mdi-view-stream</v-icon>
+        <v-icon @click="gridLayout = 'list'">mdi-view-list</v-icon>
 
-<v-icon @click="gridLayout = 'parallel'">mdi-view-parallel</v-icon>
-<v-icon @click="gridLayout = 'stream'">mdi-view-stream</v-icon>
-<v-icon @click="gridLayout = 'list'">mdi-view-list</v-icon>
-<v-row :class="{ 'product-grid': gridLayout !== 'list' }">
-  <v-col
-    :cols="gridLayout === 'stream' ? 6 : (gridLayout === 'parallel' ? 4 : 12)"
-    v-for="product in products"
-    :key="product"
-  >
-   
-
+        <v-row :class="{ 'product-grid': gridLayout !== 'list' }">
+          <v-col
+            :cols="
+              gridLayout === 'stream' ? 6 : gridLayout === 'parallel' ? 4 : 12
+            "
+            v-for="product in products"
+            :key="product"
+          >
             <div class="productview" width="300px" height="320px">
               <a
-                v-bind:href=" [config.linkUrl] + product.document[config.document.sku]"
+                v-bind:href="
+                  [config.linkUrl] + product.document[config.document.sku]
+                "
               >
                 <div class="image">
                   <img
@@ -70,14 +72,16 @@
                       product.document[config.document.image]
                     "
                     :src="
-                      product.document[config.document.image].replace(/^.*?format=auto\//,'')
+                      product.document[config.document.image].replace(
+                        /^.*?format=auto\//,
+                        ''
+                      )
                     "
                   />
                 </div>
- <!-- this code was for sku, but we do not need now-->
+                <!-- this code was for sku, but we do not need now-->
                 <div class="name">
-                   {{ product.document[config.document.description]
-                  }}<br />
+                  {{ product.document[config.document.description] }}<br />
 
                   {{ product.document[config.document.name] }}
                 </div>
@@ -114,7 +118,8 @@ export default {
 
   data() {
     return {
-      gridLayout: false,
+      gridLayout: 'parallel',
+
       products: [],
       currentPage: 1,
       totalproducts: "",
@@ -138,11 +143,9 @@ export default {
     }
     this.fetchProducts();
 
-  if (this.sorts.length > 0) {
-    this.selectedSort = this.sorts[0];
-  }
-
-   
+    if (this.sorts.length > 0) {
+      this.selectedSort = this.sorts[0];
+    }
   },
   watch: {
     searchQuery() {
@@ -163,7 +166,7 @@ export default {
   methods: {
     fetchProducts() {
       const selectedFilters = this.selectedFilters.join("&");
-  const selectedSort = this.selectedSort ? this.selectedSort.id : '';
+      const selectedSort = this.selectedSort ? this.selectedSort.id : "";
       const apiUrl = this.config.baseurl;
       console.log(apiUrl);
       axios
@@ -194,11 +197,9 @@ export default {
       this.selectedFilters = filter;
     },
 
-  
     selectSort(sort) {
       this.selectedSort = sort;
     },
-    
   },
 
   computed: {},
