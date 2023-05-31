@@ -59,7 +59,7 @@
             :key="product"
           >
             <div class="productview" width="300px" height="320px">
-              <a
+              <!-- Go to linkUrl Website--> <a
                 v-bind:href="
                   [config.linkUrl] + product.document[config.document.sku]
                 "
@@ -168,7 +168,7 @@ export default {
       const selectedFilters = this.selectedFilters.join("&");
       const selectedSort = this.selectedSort ? this.selectedSort.id : "";
       const apiUrl = this.config.baseurl;
-      console.log(apiUrl);
+     
       axios
         .get(
           `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${selectedSort}&page=${this.currentPage}`
@@ -179,10 +179,9 @@ export default {
 
           this.totalproducts = response.data.result[this.config.product].total;
 
-          console.log(this.totalproducts);
 
           this.facets = response.data.result[this.config.product].facets;
-          console.log(this.facets);
+         
 
           this.sorts = response.data.result[this.config.product].sort.sort;
         })

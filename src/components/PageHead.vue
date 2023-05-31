@@ -2,9 +2,11 @@
   <v-card class="head" color="grey-lighten-4" flat height="90px">
     <v-toolbar extended>
       <div>
+        <a href="javascript:window.location.reload(true);">
         <img
           class="logo"
           :src= "config.logo"  />
+        </a>
       </div>
 
       <v-toolbar class="mysearch">
