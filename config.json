@@ -2,27 +2,27 @@
   {
     "id": "id=1",
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/jbn/qsc-documentation",
+    "suggestionUrl": "",
     "product": "qsc-documentation",
     "logo": "1.png",
-    "linkUrl": "",
+
     "document": {
       "name": "title",
-      "sku": "url",
-      "image": "",
-      "description":"id" 
+      "url": ["", "url"],
+      "image": ""
     }
   },
   {
     "id": "id=2",
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/ab/products",
+    "suggestionUrl": "",
     "product": "products",
     "logo": "https://www.quasiris.de/wp-content/uploads/2017/03/logo.png",
-    "linkUrl": "https://alexander-buerkle.com/de-de/produkt/?",
+
     "document": {
       "name": "name",
-      "sku": "sku",
-      "image": "previewImageUrl",
-      "description":"" 
+      "url": ["https://alexander-buerkle.com/de-de/produkt/?", "sku"],
+      "image": "previewImageUrl"
     }
   }
 ]

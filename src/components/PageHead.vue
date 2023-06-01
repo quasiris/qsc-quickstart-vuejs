@@ -83,6 +83,7 @@ export default {
       this.config = config[1];
     }
     
+    
   },
   methods: {
      hideDropdown(event) {

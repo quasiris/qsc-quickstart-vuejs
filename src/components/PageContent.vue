@@ -61,7 +61,7 @@
             <div class="productview" width="300px" height="320px">
               <!-- Go to linkUrl Website--> <a
                 v-bind:href="
-                  [config.linkUrl] + product.document[config.document.sku]
+                  [config.document.url[0]] + product.document[config.document.url[1]]
                 "
               >
                 <div class="image">
@@ -146,6 +146,10 @@ export default {
     if (this.sorts.length > 0) {
       this.selectedSort = this.sorts[0];
     }
+
+    const qUrl= this.config.document.url;
+    this.asUrl= qUrl;
+    console.log(this.asUrl);
   },
   watch: {
     searchQuery() {
