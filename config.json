@@ -1,6 +1,6 @@
 [
   {
-    "id": "id=1",
+    "id": "jbn",
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/jbn/qsc-documentation",
     "suggestionUrl": "",
     "product": "qsc-documentation",
@@ -13,7 +13,7 @@
     }
   },
   {
-    "id": "id=2",
+    "id": "id=1",
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/ab/products",
     "suggestionUrl": "",
     "product": "products",
@@ -21,7 +21,7 @@
 
     "document": {
       "name": "name",
-      "url": ["https://alexander-buerkle.com/de-de/produkt/?", "sku"],
+      "url": ["https://alexander-buerkle.com/de-de/produkt/?", "sku"], 
       "image": "previewImageUrl"
     }
   }

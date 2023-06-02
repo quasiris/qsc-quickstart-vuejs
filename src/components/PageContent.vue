@@ -136,18 +136,19 @@ export default {
 
   async mounted() {
     const url = window.location.href;
-    if (url.includes("id=1")) {
-      this.config = config[0];
-    } else if (url.includes("id=2")) {
-      this.config = config[1];
-    }
+for (const configItem of config) {
+  if (url.includes(configItem.id)) {
+    this.config = configItem;
+    break; // Exit the loop once a match is found
+  }
+}
     this.fetchProducts();
 
     if (this.sorts.length > 0) {
       this.selectedSort = this.sorts[0];
     }
 
-    const qUrl= this.config.document.url;
+    const qUrl= this.config.id;
     this.asUrl= qUrl;
     console.log(this.asUrl);
   },
@@ -172,11 +173,33 @@ export default {
       const selectedFilters = this.selectedFilters.join("&");
       const selectedSort = this.selectedSort ? this.selectedSort.id : "";
       const apiUrl = this.config.baseurl;
+
+      const queryParameters = [];
+
+if (this.searchQuery) {
+  queryParameters.push(`q=${this.searchQuery}`);
+}
+
+if (selectedFilters) {
+  queryParameters.push(`filter=${this.selectedFilters}`);
+}
+
+if (selectedSort) {
+  queryParameters.push(`sort=${selectedSort}`);
+}
+
+if (this.currentPage) {
+  queryParameters.push(`page=${this.currentPage}`);
+}
+
+const queryString = queryParameters.join('&');
+const apiUrlWithQuery = `${apiUrl}?${queryString}`;
+
      
       axios
-        .get(
-          `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${selectedSort}&page=${this.currentPage}`
-        )
+        .get(apiUrlWithQuery)
+       //   `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${selectedSort}&page=${this.currentPage}`
+        
         .then((response) => {
           const products = response.data.result[this.config.product].documents;
           this.products = products;

@@ -3,9 +3,7 @@
     <v-toolbar extended>
       <div>
         <a href="javascript:window.location.reload(true);">
-        <img
-          class="logo"
-          :src= "config.logo"  />
+          <img class="logo" :src="config.logo" />
         </a>
       </div>
 
@@ -33,22 +31,16 @@
       </v-toolbar>
 
       <ul class="dropdown-menu" v-show="showDropdown" v-scroll="onScroll">
-
-       <v-btn
-  v-for="suggest in suggests"
-  :key="suggest"
-  @click="selectSuggestion(suggest.suggest)"
-  
->
-  <v-list-item-title> {{ suggest.suggest }}</v-list-item-title>
- 
-</v-btn>
+        <v-btn
+          v-for="suggest in suggests"
+          :key="suggest"
+          @click="selectSuggestion(suggest.suggest)"
+        >
+          <v-list-item-title> {{ suggest.suggest }}</v-list-item-title>
+        </v-btn>
       </ul>
-      
-    </v-toolbar> 
+    </v-toolbar>
   </v-card>
-
-
 </template>
 
 <script>
@@ -72,28 +64,27 @@ export default {
   },
 
   mounted() {
-  
     this.$refs.searchInput.focus();
     this.searchProducts();
-      document.addEventListener("click", this.hideDropdown);
-       const url = window.location.href;
-    if (url.includes("id=1")) {
-      this.config = config[0];
-    } else if (url.includes("id=2")) {
-      this.config = config[1];
+    document.addEventListener("click", this.hideDropdown);
+
+    const url = window.location.href;
+    for (const configItem of config) {
+      if (url.includes(configItem.id)) {
+        this.config = configItem;
+        break; // Exit the loop once a match is found
+      }
     }
-    
-    
   },
   methods: {
-     hideDropdown(event) {
-    if (!this.$refs.searchInput.contains(event.target)) {
-      this.showDropdown = false;
-    }
-  },
+    hideDropdown(event) {
+      if (!this.$refs.searchInput.contains(event.target)) {
+        this.showDropdown = false;
+      }
+    },
     fetchSuggestions() {
       if (this.searchQuery === "") {
-        this.suggests = '';
+        this.suggests = "";
         return;
       }
       axios
@@ -116,22 +107,19 @@ export default {
     clearSearchQuery() {
       this.searchQuery = "";
       this.$emit("onSearch", this.searchQuery);
-  
     },
     searchProducts() {
       this.showDropdown = false;
       this.suggests = "";
-      if(this.searchQuery === this.suggests){
-        this.showDropdown= false;
+      if (this.searchQuery === this.suggests) {
+        this.showDropdown = false;
       }
-    
+
       this.$emit("onSearch", this.searchQuery);
-    
     },
     selectSuggestion(suggestion) {
       this.searchQuery = suggestion;
-    this.showDropdown= false,
-      this.searchProducts();
+      (this.showDropdown = false), this.searchProducts();
     },
 
     onScroll() {
@@ -216,8 +204,6 @@ export default {
 }
 
 .dropdown-menu li:hover {
-  background-color: grey
-  ;
+  background-color: grey;
 }
-
 </style>
