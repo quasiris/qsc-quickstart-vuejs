@@ -148,9 +148,9 @@ for (const configItem of config) {
       this.selectedSort = this.sorts[0];
     }
 
-    const qUrl= this.config.id;
-    this.asUrl= qUrl;
-    console.log(this.asUrl);
+   // const qUrl= this.config.id;
+   // this.asUrl= qUrl;
+   // console.log(this.asUrl); 
   },
   watch: {
     searchQuery() {

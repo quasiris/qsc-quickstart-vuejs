@@ -83,13 +83,15 @@ export default {
       }
     },
     fetchSuggestions() {
+     
       if (this.searchQuery === "") {
         this.suggests = "";
         return;
       }
+      const suggestUrl = this.config.suggestionUrl;
       axios
         .get(
-          `https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=${this.searchQuery}`
+          `${suggestUrl}${this.searchQuery}`
         )
         .then((response) => {
           this.suggests = response.data;
