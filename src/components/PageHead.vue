@@ -54,7 +54,7 @@ export default {
       searchQuery: "",
       suggests: [],
       showDropdown: true,
-      config: config[1],
+      config: config[0],
     };
   },
   watch: {
