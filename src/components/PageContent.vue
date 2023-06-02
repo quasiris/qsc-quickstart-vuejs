@@ -181,7 +181,7 @@ if (this.searchQuery) {
 }
 
 if (selectedFilters) {
-  queryParameters.push(`filter=${this.selectedFilters}`);
+  queryParameters.push(selectedFilters);
 }
 
 if (selectedSort) {
