@@ -21,7 +21,8 @@ export default {
   components: {
     PageHead,
     PageContent,
-    PageFooter,
+   
+   PageFooter,
   },
 
   data() {

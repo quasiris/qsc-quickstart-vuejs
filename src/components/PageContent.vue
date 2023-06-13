@@ -1,5 +1,5 @@
 <template>
-  <v-container color="grey-lighten-4" fluid>
+  <v-container class="mt-6">
     <v-row>
       <v-col cols="3">
         <PageFacet
@@ -57,6 +57,12 @@
             "
             v-for="product in products"
             :key="product"
+            
+                                            
+   
+                                           
+
+
           >
             <div class="productview" width="300px" height="320px">
               <!-- Go to linkUrl Website--> <a
