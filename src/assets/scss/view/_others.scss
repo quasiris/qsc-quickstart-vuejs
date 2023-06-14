@@ -1,0 +1,18 @@
+
+ 
+svg.icon {
+  &:focus {
+    outline: none;
+  }
+}
+svg {
+  &:focus {
+    outline: none;
+  }
+}
+
+.bb-primary {
+  border-bottom: 2px solid $primary;
+}
+  
+  
