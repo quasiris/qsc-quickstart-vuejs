@@ -3,7 +3,7 @@
     <AppBar @onSearch="performSearch1" />
 
     <PageContent :searchQuery="searchQuery" />
-    <Footer />
+       <Footer />
   </v-app>
 </template>
 

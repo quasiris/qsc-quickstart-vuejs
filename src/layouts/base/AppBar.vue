@@ -261,7 +261,7 @@ $z-99: 99;
   position: absolute;
   z-index: 999;
     background-color: white;
-    width: 420px;
+    width: 410px;
     
 }
 .column-item {
