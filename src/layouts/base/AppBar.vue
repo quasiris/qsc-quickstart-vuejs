@@ -52,7 +52,7 @@
       :key="suggest"
       @click="selectSuggestion(suggest.suggest)"
     >
-    <v-list-item>
+    <v-list-item >
         <v-icon>mdi-magnify</v-icon> &nbsp; &nbsp; 
     {{ suggest.suggest }}</v-list-item>
   
@@ -109,6 +109,7 @@ export default {
     
   },
   mounted() {
+      window.addEventListener("click", this.handleWindowClick);
     window.addEventListener("scroll", this.handleScroll);
     this.searchProducts();
 this.fetchSuggestions();
@@ -120,7 +121,10 @@ this.fetchSuggestions();
       }
     }
   },
-
+ beforeUnmount() {
+    // Remove the event listener when the component is unmounted
+    window.removeEventListener("click", this.handleWindowClick);
+  },
   methods: {
     fetchSuggestions() {
     if (this.selectedSuggestion === this.searchQuery) {
@@ -175,9 +179,12 @@ this.fetchSuggestions();
       }
 
       this.prevScrollPos = currentScrollPos;
-    }
+    },
 
-    // rest of the code
+
+    handleWindowClick() {
+      this.suggests = []; // Clear the suggests list
+    },
   },
 
 };
