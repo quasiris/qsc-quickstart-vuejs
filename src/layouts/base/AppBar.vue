@@ -51,7 +51,7 @@
       @click="selectSuggestion(suggest.suggest)"
     >
     <v-list-item class="list-item" >
-        <v-icon>mdi-magnify</v-icon> &nbsp; &nbsp; 
+        <v-icon >mdi-magnify</v-icon> &nbsp; &nbsp; 
     {{ suggest.suggest }}</v-list-item>
   
     </ul>
@@ -305,6 +305,16 @@ $z-99: 99;
 }
 .list-item:hover {
     background-color: lightgrey;
+   
 }
+.list-item  {
+  font-weight: bold;
+}
+
+
+.list-item:hover {
+  color: red;
+}
+
 
 </style>
