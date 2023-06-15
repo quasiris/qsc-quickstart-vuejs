@@ -280,7 +280,7 @@ $z-99: 99;
 
 .list-item {
   @media (max-width: 600px) {
-    width: 350px; /* Set the width for small screens */
+    width: 290px; /* Set the width for small screens */
   }
 
   @media (min-width: 601px) and (max-width: 960px) {
@@ -292,9 +292,19 @@ $z-99: 99;
   /* Default width for larger screens */
   width: 490px;
 }
+.search-bar-dropdown {
+  
+
+  /* Override any conflicting styles on smaller screens */
+  @media (max-width: $md) {
+    display: inline-block !important;
+
+
+ 
+  }
+}
 .list-item:hover {
     background-color: lightgrey;
 }
-
 
 </style>
