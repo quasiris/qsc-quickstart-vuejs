@@ -292,6 +292,9 @@ $z-99: 99;
   /* Default width for larger screens */
   width: 490px;
 }
+.list-item:hover {
+    background-color: lightgrey;
+}
 
 
 </style>
