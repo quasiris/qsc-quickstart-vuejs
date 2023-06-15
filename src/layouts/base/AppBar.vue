@@ -15,7 +15,8 @@
             </a>
           </div>
         </v-toolbar-title>
-        <v-col cols="12" md="7">
+        <v-col cols="12" md="7" 
+        >
           <div class="search-bar d-flex p-relative">
             
             <v-text-field
@@ -42,23 +43,20 @@
             </v-btn>
              </div>
         
-           <div class="container"  sm="6"
-                          md="6"
-                          lg="4"
-                          xl="3">
-  <div class="top-priority align-center" >
+          
+  <div class="top-priority " >
     <ul
       v-for="suggest in suggests"
       :key="suggest"
       @click="selectSuggestion(suggest.suggest)"
     >
-    <v-list-item >
+    <v-list-item class="list-item" >
         <v-icon>mdi-magnify</v-icon> &nbsp; &nbsp; 
     {{ suggest.suggest }}</v-list-item>
   
     </ul>
   </div>
-</div>
+         
 
          
  
@@ -267,8 +265,11 @@ $z-99: 99;
 .top-priority {
   position: absolute;
   z-index: 999;
+
+
     background-color: white;
-    width: 410px;
+
+
     
 }
 .column-item {
@@ -277,7 +278,20 @@ $z-99: 99;
 
 
 
+.list-item {
+  @media (max-width: 600px) {
+    width: 350px; /* Set the width for small screens */
+  }
 
+  @media (min-width: 601px) and (max-width: 960px) {
+    width: 650px; /* Set the width for medium screens */
+  }
+
+  /* Add more media queries for other screen sizes as needed */
+
+  /* Default width for larger screens */
+  width: 490px;
+}
 
 
 </style>
