@@ -45,17 +45,21 @@
         
 <div class="top-priority">
   <ul>
-    <li v-for="(suggest, index) in suggests" :key="index" :class="{ 'selected': index === selectedIndex }">
-      <v-list-item
-        class="list-item"
-        @click="selectSuggestion(suggest.suggest)"
-        @keydown.enter.prevent="selectSuggestion(suggest.suggest)"
-        tabindex="0"
-      >
-        <v-icon>mdi-magnify</v-icon> &nbsp; &nbsp;
-        {{ suggest.suggest }}
-      </v-list-item>
-    </li>
+  <li v-for="(suggest, index) in suggests" :key="index" :class="{ 'selected': index === selectedIndex }">
+  <v-list-item
+    class="list-item"
+    @click="selectSuggestion(suggest.suggest)"
+    @keydown.enter.prevent="selectSuggestion(suggest.suggest)"
+    @mouseover="handleMouseOver(index)" 
+    @mouseleave="handleMouseLeave" 
+    tabindex="0"
+  >
+    <v-icon class="no-animation" :class="{ 'white--text': index === selectedIndex, 'highlighted': index === selectedIndex }">mdi-magnify</v-icon>
+  &nbsp; &nbsp;
+                  <span :class="{ 'white-font': index === selectedIndex,  'highlighted': index === selectedIndex }">
+                   {{ suggest.suggest }}</span>
+                </v-list-item>
+              </li>
   </ul>
 </div>
 
@@ -92,6 +96,7 @@ export default {
       prevScrollPos: 0,
         selectedSuggestion: "",
      selectedIndex: -1,
+      isMouseOver: false,
       
     };
   },
@@ -109,6 +114,7 @@ export default {
     
   },
   mounted() {
+      window.addEventListener("mousemove", this.handleMouseMove);
      document.addEventListener('keydown', this.handleKeyDown);
       window.addEventListener("click", this.handleWindowClick);
     window.addEventListener("scroll", this.handleScroll);
@@ -123,7 +129,7 @@ this.fetchSuggestions();
     }
   },
  beforeUnmount() {
- 
+  window.removeEventListener("mousemove", this.handleMouseMove);
     // Remove the event listener when the component is unmounted
     window.removeEventListener("click", this.handleWindowClick);
   },
@@ -188,17 +194,28 @@ this.fetchSuggestions();
     handleWindowClick() {
       this.suggests = []; // Clear the suggests list
     },
-handleKeyDown(event) {
+  handleMouseOver(index) {
+  this.selectedIndex = index;
+  this.isMouseOver = true;
+},
+
+    handleMouseLeave() {
+      this.isMouseOver = false;
+    },
+
+    handleKeyDown(event) {
   if (event.key === 'ArrowUp') {
     event.preventDefault();
     if (this.selectedIndex > 0) {
       this.selectedIndex--;
     }
+    this.isMouseOver = false; // Reset the isMouseOver flag when using keyboard navigation
   } else if (event.key === 'ArrowDown') {
     event.preventDefault();
     if (this.selectedIndex < this.suggests.length - 1) {
       this.selectedIndex++;
     }
+    this.isMouseOver = false; // Reset the isMouseOver flag when using keyboard navigation
   } else if (event.key === 'Enter') {
     event.preventDefault();
     if (this.selectedIndex !== -1) {
@@ -207,8 +224,10 @@ handleKeyDown(event) {
     } else if (this.searchQuery.trim() !== "") {
       this.searchProducts();
     }
+    this.isMouseOver = false; // Reset the isMouseOver flag when using keyboard navigation
   }
-}
+},
+
 
 
 
@@ -285,7 +304,7 @@ $z-99: 99;
  /* Adjust this value to position the list properly */
 
   z-index: 999; /* Ensure a high z-index to make the list appear above other elements */
-  background-color: #fff;
+
 
 
   /* Limit the height of the list to enable scrolling if needed */
@@ -307,9 +326,7 @@ $z-99: 99;
     }
     
 }
-.column-item {
-  margin-bottom: 10px; /* Adjust this value to control the spacing between buttons */
-}
+
 
 
 
@@ -338,26 +355,26 @@ $z-99: 99;
  
   }
 }
-.list-item:hover {
-    background-color: lightgrey;
-   
-}
+
 .list-item  {
   font-weight: bold;
+  
 }
 
 
-.list-item:hover {
-  color: red;
-}
+
 .selected {
-  background-color: lightgrey;
-}
+ background-color: #d23f57;
 
-.rounded-list-item {
-  border-radius: 16px;
-  /* Add any other styling you want for the rounded list item */
 }
-
+.white-font {
+  color: white;
+}
+.highlighted {
+  font-size: 1.5em; /* Adjust the desired font size for the highlighted suggestion */
+}
+.no-animation {
+  transition: none !important;
+}
  
 </style>
