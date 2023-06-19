@@ -22,7 +22,7 @@
             <v-text-field
               type="text"
               v-model="searchQuery"
-              @keydown.enter="searchProducts"
+           
               placeholder=" article / keyword / product"
               filled
               rounded
@@ -43,20 +43,22 @@
             </v-btn>
              </div>
         
-          
-  <div class="top-priority " >
-    <ul
-      v-for="suggest in suggests"
-      :key="suggest"
-      @click="selectSuggestion(suggest.suggest)"
-    >
-    <v-list-item class="list-item" >
-        <v-icon >mdi-magnify</v-icon> &nbsp; &nbsp; 
-    {{ suggest.suggest }}</v-list-item>
-  
-    </ul>
-  </div>
-         
+<div class="top-priority">
+  <ul>
+    <li v-for="(suggest, index) in suggests" :key="index" :class="{ 'selected': index === selectedIndex }">
+      <v-list-item
+        class="list-item"
+        @click="selectSuggestion(suggest.suggest)"
+        @keydown.enter.prevent="selectSuggestion(suggest.suggest)"
+        tabindex="0"
+      >
+        <v-icon>mdi-magnify</v-icon> &nbsp; &nbsp;
+        {{ suggest.suggest }}
+      </v-list-item>
+    </li>
+  </ul>
+</div>
+
 
          
  
@@ -89,13 +91,13 @@ export default {
       isFixedAppBar: false,
       prevScrollPos: 0,
         selectedSuggestion: "",
-   
+     selectedIndex: -1,
       
     };
   },
   watch: {
     searchQuery() {
-      
+            this.selectedIndex = -1; 
      if (this.searchQuery.trim() === "") {
       this.searchProducts();
     } else {
@@ -107,6 +109,7 @@ export default {
     
   },
   mounted() {
+     document.addEventListener('keydown', this.handleKeyDown);
       window.addEventListener("click", this.handleWindowClick);
     window.addEventListener("scroll", this.handleScroll);
     this.searchProducts();
@@ -120,6 +123,7 @@ this.fetchSuggestions();
     }
   },
  beforeUnmount() {
+ 
     // Remove the event listener when the component is unmounted
     window.removeEventListener("click", this.handleWindowClick);
   },
@@ -157,6 +161,7 @@ this.fetchSuggestions();
     },
   
  selectSuggestion(suggestion) {
+    console.log('Selected suggestion:', suggestion);
       this.searchQuery = suggestion;
       this.selectedSuggestion = suggestion;
       this.searchProducts();
@@ -183,6 +188,34 @@ this.fetchSuggestions();
     handleWindowClick() {
       this.suggests = []; // Clear the suggests list
     },
+handleKeyDown(event) {
+  if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    if (this.selectedIndex > 0) {
+      this.selectedIndex--;
+    }
+  } else if (event.key === 'ArrowDown') {
+    event.preventDefault();
+    if (this.selectedIndex < this.suggests.length - 1) {
+      this.selectedIndex++;
+    }
+  } else if (event.key === 'Enter') {
+    event.preventDefault();
+    if (this.selectedIndex !== -1) {
+      const selectedSuggestion = this.suggests[this.selectedIndex].suggest;
+      this.selectSuggestion(selectedSuggestion);
+    } else if (this.searchQuery.trim() !== "") {
+      this.searchProducts();
+    }
+  }
+}
+
+
+
+
+
+
+
   },
 
 };
@@ -269,7 +302,9 @@ $z-99: 99;
 
     background-color: white;
 
-
+ ul {
+      list-style: none; // Remove bullet circle
+    }
     
 }
 .column-item {
@@ -315,6 +350,14 @@ $z-99: 99;
 .list-item:hover {
   color: red;
 }
+.selected {
+  background-color: lightgrey;
+}
 
+.rounded-list-item {
+  border-radius: 16px;
+  /* Add any other styling you want for the rounded list item */
+}
 
+ 
 </style>
