@@ -124,8 +124,8 @@
         </v-card>
           <div class="box-content">
             <div class="d-flex justify-end pa-2 d-block d-md-none">
-              <v-btn icon @click="isSidebar = !isSidebar"> 
-                <v-icon dark>
+              <v-btn color="#d23f57" icon @click="isSidebar = !isSidebar"> 
+                <v-icon color="#d23f57">
                   mdi-format-list-bulleted-square
                 </v-icon> Filters&nbsp;&nbsp;&nbsp;&nbsp;
               </v-btn>

@@ -371,7 +371,7 @@ $z-99: 99;
   color: white;
 }
 .highlighted {
-  font-size: 1.5em; /* Adjust the desired font size for the highlighted suggestion */
+  font-size: 1.2em; /* Adjust the desired font size for the highlighted suggestion */
 }
 .no-animation {
   transition: none !important;
