@@ -1,7 +1,5 @@
 <template>
-
   <v-container class="mt-6">
-
     <v-row>
       <v-col cols="12">
         <v-card-text
@@ -15,13 +13,12 @@
               {{ totalproducts }} results found
             </p>
           </div>
-           <div class="my-2" v-else>
-          
-          <h3>  Hits for "{{ searchQuery }}"</h3>
-           <p class="gray--text text--darken-1 mb-0">
+          <div class="my-2" v-else>
+            <h3>Hits for "{{ searchQuery }}"</h3>
+            <p class="gray--text text--darken-1 mb-0">
               {{ totalproducts }} results found
             </p>
-        </div>
+          </div>
           <div class="d-flex align-center flex-wrap">
             <div class="grey--text text--darken-1 me-2 my-2">Sort by :</div>
 
@@ -38,7 +35,7 @@
               hide-details
               flat
             ></v-select>
- <!--  In this bar, i have results and Sorting and views
+            <!--  In this bar, i have results and Sorting and views
             <div class="grey--text text--darken-1 me-2 my-2">View :</div>
             <v-btn icon>
               <img
@@ -57,11 +54,10 @@
               />
             </v-btn>-->
           </div>
-          
         </v-card-text>
         <v-divider class="mx-6 my-1 "></v-divider>
       </v-col>
-   
+
       <v-col cols="12">
         <div class="box-wrapper">
           <div
@@ -69,65 +65,72 @@
             :class="{ open: isSidebar }"
             @click="isSidebar = !isSidebar"
           ></div>
-           <v-card>
-          <div class="box-sidebar pb-4 shadow-sm" :class="{ open: isSidebar }"  >
-            <div class="mx-6 pt-3">
-              <h3 class="pt-3 d-flex align-center justify-center flex-column">
-          Our Products Range
-              </h3>
+          <v-card>
+            <div
+              class="box-sidebar pb-4 shadow-sm"
+              :class="{ open: isSidebar }"
+            >
+              <div class="mx-6 pt-3">
+                <h3 class="pt-3 d-flex align-center justify-center flex-column">
+                  Our Products Range
+                </h3>
 
-              <!--  Here I have Code of Facets-->
-              <div class="myfacet">
-                <v-col cols="12" v-for="facet in facets" :key="facet.id">
-                  <v-divider class="mx-6 my-1"></v-divider>
-                  <h4
-                    class="pt-3 d-flex align-center justify-center flex-column"
-                  >
-                    {{ facet.name }}
-                  </h4>
-                  <div
-                    class="filters"
-                    v-for="value in facet.values"
-                    :key="value"
-                  >
-                    <v-checkbox
-                      hide-details
-                      class="mt-3 smaller-checkbox
-                      "
-                      type="checkbox"
-                      :value="value.filter"
-                      v-model="selectedFilters"
-                      :id="'filter-' + value.filter"
+                <!--  Here I have Code of Facets-->
+                <div class="myfacet">
+                  <v-col cols="12" v-for="facet in facets" :key="facet.id">
+                    <v-divider class="mx-6 my-1"></v-divider>
+                    <h4
+                      class="pt-3 d-flex align-center justify-center flex-column"
                     >
-                      <template #label>
-                        <label
-                          class="text-decoration-none grey--text text--darken-2"
-                          style="font-size: 12px;"
-                        >
-                          {{ value.value }} &nbsp; ({{ value.count }})
-                        </label>
-                      </template>
-                    </v-checkbox>
-                  </div>
-                </v-col>
+                      {{ facet.name }}
+                    </h4>
+                    <div
+                      class="filters"
+                      v-for="value in facet.values"
+                      :key="value"
+                    >
+                      <v-checkbox
+                        hide-details
+                        class="mt-3 smaller-checkbox
+                      "
+                        type="checkbox"
+                        :value="value.filter"
+                        v-model="selectedFilters"
+                        :id="'filter-' + value.filter"
+                      >
+                        <template #label>
+                          <label
+                            class="text-decoration-none grey--text text--darken-2"
+                            style="font-size: 12px;"
+                          >
+                            {{ value.value }} &nbsp; ({{ value.count }})
+                          </label>
+                        </template>
+                      </v-checkbox>
+                    </div>
+                  </v-col>
+                </div>
+              </div>
+
+              <v-divider class="mt-3"></v-divider>
+
+              <div class="d-flex justify-center mt-4">
+                <v-btn
+                  color="primary"
+                  class="text-capitalize search-bar-dropdown px-10 font-600"
+                  @click="clearFilters()"
+                  >Reset Filters</v-btn
+                >
               </div>
             </div>
-
-               <v-divider class="mt-3"></v-divider>
-             
-            <div class="d-flex justify-center mt-4">  
-              <v-btn  color="primary"
-              class="text-capitalize search-bar-dropdown px-10 font-600" @click="clearFilters()">Reset Filters</v-btn>
-            </div>
-        
-           </div>
-        </v-card>
+          </v-card>
           <div class="box-content">
             <div class="d-flex justify-end pa-2 d-block d-md-none">
-              <v-btn color="#d23f57" icon @click="isSidebar = !isSidebar"> 
+              <v-btn color="#d23f57" icon @click="isSidebar = !isSidebar">
                 <v-icon color="#d23f57">
                   mdi-format-list-bulleted-square
-                </v-icon> Filters&nbsp;&nbsp;&nbsp;&nbsp;
+                </v-icon>
+                Filters&nbsp;&nbsp;&nbsp;&nbsp;
               </v-btn>
             </div>
             <div class="box-container">
@@ -147,42 +150,41 @@
                           xl="3"
                         >
                           <v-card height="300">
-                             <a
-                v-bind:href="
-                  [config.document.url[0]] + product.document[config.document.url[1]]
-                "
-              >
-                            <div class="image">
-                              <img
-                                class="br-t-8"
-                                v-if="
-                                  product.document &&
-                                    product.document[config.document.image]
-                                "
-                                :src="
-                                  product.document[config.document.image].replace(
-                                    /^.*?format=auto\//,
-                                    ''
-                                  )
-                                "
-                                style="max-width: 100%; max-height: 100%; object-fit: contain; object-position: center;"
-                              />
-                            </div>
-
-                            <v-card-text
-                              class="d-flex justify-content-between align-end"
+                            <a
+                              v-bind:href="
+                                [config.document.url[0]] +
+                                  product.document[config.document.url[1]]
+                              "
                             >
-                              <div class="flex-grow-1 my-3">
-                                <h6
-                                  class="mb-0 grey--text text--darken-4 "
-                                  style="font-size: 12px;"
-                                >
-                                  {{ product.document[config.document.name] }}
-                                </h6>
+                              <div class="image">
+                                <img
+                                  class="br-t-8"
+                                  v-if="
+                                    product.document &&
+                                      product.document[config.document.image]
+                                  "
+                                  :src="
+                                    product.document[
+                                      config.document.image
+                                    ].replace(/^.*?format=auto\//, '')
+                                  "
+                                  style="max-width: 100%; max-height: 100%; object-fit: contain; object-position: center;"
+                                />
                               </div>
-                            </v-card-text>
-                                          </a>
 
+                              <v-card-text
+                                class="d-flex justify-content-between align-end"
+                              >
+                                <div class="flex-grow-1 my-3">
+                                  <h6
+                                    class="mb-0 grey--text text--darken-4 "
+                                    style="font-size: 12px;"
+                                  >
+                                    {{ product.document[config.document.name] }}
+                                  </h6>
+                                </div>
+                              </v-card-text>
+                            </a>
                           </v-card>
                         </v-col>
                       </v-row>
@@ -231,7 +233,6 @@
       </v-col>
     </v-row>
     <diV> </diV>
- 
   </v-container>
 </template>
 <script>
@@ -252,8 +253,7 @@ export default {
       selectedSort: "",
       currentPage: 1,
       isSidebar: false,
-       config: config[0],
-
+      config: config[0]
     };
   },
   props: {
@@ -277,14 +277,13 @@ export default {
   },
 
   async mounted() {
-
-   const url = window.location.href;
-for (const configItem of config) {
-  if (url.includes(configItem.id)) {
-    this.config = configItem;
-    break; // Exit the loop once a match is found
-  }
-}
+    const url = window.location.href;
+    for (const configItem of config) {
+      if (url.includes(configItem.id)) {
+        this.config = configItem;
+        break; // Exit the loop once a match is found
+      }
+    }
     this.fetchProducts();
   },
   watch: {
@@ -307,61 +306,58 @@ for (const configItem of config) {
   },
 
   methods: {
-   fetchProducts() { 
+    fetchProducts() {
       const selectedFilters = this.selectedFilters.join("&");
-      const selectedSort = this.selectedSort ;
+      const selectedSort = this.selectedSort;
       const apiUrl = this.config.baseurl;
 
       const queryParameters = [];
 
-if (this.searchQuery) {
-  queryParameters.push(`q=${this.searchQuery}`);
-}
+      if (this.searchQuery) {
+        queryParameters.push(`q=${this.searchQuery}`);
+      }
 
-if (selectedFilters) {
-  queryParameters.push(selectedFilters);
-}
+      if (selectedFilters) {
+        queryParameters.push(selectedFilters);
+      }
 
-if (selectedSort) {
-  queryParameters.push(`sort=${selectedSort}`);
-}
+      if (selectedSort) {
+        queryParameters.push(`sort=${selectedSort}`);
+      }
 
-if (this.currentPage) {
-  queryParameters.push(`page=${this.currentPage}`);
-}
+      if (this.currentPage) {
+        queryParameters.push(`page=${this.currentPage}`);
+      }
 
-const queryString = queryParameters.join('&');
-const apiUrlWithQuery = `${apiUrl}?${queryString}`;
-  
-     
+      const queryString = queryParameters.join("&");
+      const apiUrlWithQuery = `${apiUrl}?${queryString}`;
+
       axios
         .get(apiUrlWithQuery)
-       //   `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${selectedSort}&page=${this.currentPage}`
-        
-        .then((response) => {
+        //   `${apiUrl}?q=${this.searchQuery}&${selectedFilters}&sort=${selectedSort}&page=${this.currentPage}`
+
+        .then(response => {
           const products = response.data.result[this.config.product].documents;
           this.products = products;
 
           this.totalproducts = response.data.result[this.config.product].total;
 
-
           this.facets = response.data.result[this.config.product].facets;
-         
 
           this.sorts = response.data.result[this.config.product].sort.sort;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     },
     selectmyFilters(filter) {
       this.selectedFilters = filter;
     },
-    
-      selectSort(sort) {
+
+    selectSort(sort) {
       this.selectedSort = sort;
     },
-  
+
     nextPage() {
       if (this.currentPage + 1 <= this.totalPage) this.currentPage += 1;
     },
@@ -420,5 +416,4 @@ a {
 .image :hover .name {
   color: blue;
 }
-
 </style>

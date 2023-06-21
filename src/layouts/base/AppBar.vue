@@ -15,14 +15,11 @@
             </a>
           </div>
         </v-toolbar-title>
-        <v-col cols="12" md="7" 
-        >
+        <v-col cols="12" md="7">
           <div class="search-bar d-flex p-relative">
-            
             <v-text-field
               type="text"
               v-model="searchQuery"
-           
               placeholder=" article / keyword / product"
               filled
               rounded
@@ -30,9 +27,7 @@
               dense
               prepend-inner-icon="mdi-magnify"
             >
-             
             </v-text-field>
-            
 
             <v-btn
               @click="searchProducts"
@@ -41,46 +36,54 @@
             >
               Search
             </v-btn>
-             </div>
-        
-<div class="top-priority">
-  <ul>
-  <li v-for="(suggest, index) in suggests" :key="index" :class="{ 'selected': index === selectedIndex }">
-  <v-list-item
-    class="list-item"
-    @click="selectSuggestion(suggest.suggest)"
-    @keydown.enter.prevent="selectSuggestion(suggest.suggest)"
-    @mouseover="handleMouseOver(index)" 
-    @mouseleave="handleMouseLeave" 
-    tabindex="0"
-  >
-    <v-icon class="no-animation" :class="{ 'white--text': index === selectedIndex, 'highlighted': index === selectedIndex }">mdi-magnify</v-icon>
-  &nbsp; &nbsp;
-                  <span :class="{ 'white-font': index === selectedIndex,  'highlighted': index === selectedIndex }">
-                   {{ suggest.suggest }}</span>
+          </div>
+
+          <div class="top-priority">
+            <ul>
+              <li
+                v-for="(suggest, index) in suggests"
+                :key="index"
+                :class="{ selected: index === selectedIndex }"
+              >
+                <v-list-item
+                  class="list-item"
+                  @click="selectSuggestion(suggest.suggest)"
+                  @keydown.enter.prevent="selectSuggestion(suggest.suggest)"
+                  @mouseover="handleMouseOver(index)"
+                  @mouseleave="handleMouseLeave"
+                  tabindex="0"
+                >
+                  <v-icon
+                    class="no-animation"
+                    :class="{
+                      'white--text': index === selectedIndex,
+                      highlighted: index === selectedIndex
+                    }"
+                    >mdi-magnify</v-icon
+                  >
+                  &nbsp; &nbsp;
+                  <span
+                    :class="{
+                      'white-font': index === selectedIndex,
+                      highlighted: index === selectedIndex
+                    }"
+                  >
+                    {{ suggest.suggest }}</span
+                  >
                 </v-list-item>
               </li>
-  </ul>
-</div>
-
-
-         
- 
-
-
+            </ul>
+          </div>
         </v-col>
         <div class="">
           <div class="d-md-block d-none"></div>
         </div>
-    
-
       </div>
     </v-container>
   </v-card>
 </template>
 
 <script>
-
 import config from "@/../config.json";
 import axios from "axios";
 
@@ -94,32 +97,28 @@ export default {
       config: config[0],
       isFixedAppBar: false,
       prevScrollPos: 0,
-        selectedSuggestion: "",
-     selectedIndex: -1,
-      isMouseOver: false,
-      
+      selectedSuggestion: "",
+      selectedIndex: -1,
+      isMouseOver: false
     };
   },
   watch: {
     searchQuery() {
-            this.selectedIndex = -1; 
-     if (this.searchQuery.trim() === "") {
-      this.searchProducts();
-    } else {
-      this.fetchSuggestions();
+      this.selectedIndex = -1;
+      if (this.searchQuery.trim() === "") {
+        this.searchProducts();
+      } else {
+        this.fetchSuggestions();
+      }
     }
   },
-  
-  
-    
-  },
   mounted() {
-      window.addEventListener("mousemove", this.handleMouseMove);
-     document.addEventListener('keydown', this.handleKeyDown);
-      window.addEventListener("click", this.handleWindowClick);
+    window.addEventListener("mousemove", this.handleMouseMove);
+    document.addEventListener("keydown", this.handleKeyDown);
+    window.addEventListener("click", this.handleWindowClick);
     window.addEventListener("scroll", this.handleScroll);
     this.searchProducts();
-this.fetchSuggestions();
+    this.fetchSuggestions();
     const url = window.location.href;
     for (const configItem of config) {
       if (url.includes(configItem.id)) {
@@ -128,26 +127,25 @@ this.fetchSuggestions();
       }
     }
   },
- beforeUnmount() {
-  window.removeEventListener("mousemove", this.handleMouseMove);
+  beforeUnmount() {
+    window.removeEventListener("mousemove", this.handleMouseMove);
     // Remove the event listener when the component is unmounted
     window.removeEventListener("click", this.handleWindowClick);
   },
   methods: {
     fetchSuggestions() {
-    if (this.selectedSuggestion === this.searchQuery) {
-    // If the selected suggestion is equal to the current search query,
-    // do not make the API call
-    this.suggests = [];
-    return;
-  }
+      if (this.selectedSuggestion === this.searchQuery) {
+        // If the selected suggestion is equal to the current search query,
+        // do not make the API call
+        this.suggests = [];
+        return;
+      }
 
-  if (this.searchQuery.trim() === "") {
-    this.suggests = [];
-    return;
-  }
+      if (this.searchQuery.trim() === "") {
+        this.suggests = [];
+        return;
+      }
 
-  
       axios
         .get(
           `https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=${this.searchQuery}`
@@ -161,13 +159,11 @@ this.fetchSuggestions();
     },
     searchProducts() {
       this.$emit("onSearch", this.searchQuery);
-        this.suggests = [];
-
-      
+      this.suggests = [];
     },
-  
- selectSuggestion(suggestion) {
-    console.log('Selected suggestion:', suggestion);
+
+    selectSuggestion(suggestion) {
+      console.log("Selected suggestion:", suggestion);
       this.searchQuery = suggestion;
       this.selectedSuggestion = suggestion;
       this.searchProducts();
@@ -190,53 +186,43 @@ this.fetchSuggestions();
       this.prevScrollPos = currentScrollPos;
     },
 
-
     handleWindowClick() {
       this.suggests = []; // Clear the suggests list
     },
-  handleMouseOver(index) {
-  this.selectedIndex = index;
-  this.isMouseOver = true;
-},
+    handleMouseOver(index) {
+      this.selectedIndex = index;
+      this.isMouseOver = true;
+    },
 
     handleMouseLeave() {
       this.isMouseOver = false;
     },
 
     handleKeyDown(event) {
-  if (event.key === 'ArrowUp') {
-    event.preventDefault();
-    if (this.selectedIndex > 0) {
-      this.selectedIndex--;
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        if (this.selectedIndex > 0) {
+          this.selectedIndex--;
+        }
+        this.isMouseOver = false; // Reset the isMouseOver flag when using keyboard navigation
+      } else if (event.key === "ArrowDown") {
+        event.preventDefault();
+        if (this.selectedIndex < this.suggests.length - 1) {
+          this.selectedIndex++;
+        }
+        this.isMouseOver = false; // Reset the isMouseOver flag when using keyboard navigation
+      } else if (event.key === "Enter") {
+        event.preventDefault();
+        if (this.selectedIndex !== -1) {
+          const selectedSuggestion = this.suggests[this.selectedIndex].suggest;
+          this.selectSuggestion(selectedSuggestion);
+        } else if (this.searchQuery.trim() !== "") {
+          this.searchProducts();
+        }
+        this.isMouseOver = false; // Reset the isMouseOver flag when using keyboard navigation
+      }
     }
-    this.isMouseOver = false; // Reset the isMouseOver flag when using keyboard navigation
-  } else if (event.key === 'ArrowDown') {
-    event.preventDefault();
-    if (this.selectedIndex < this.suggests.length - 1) {
-      this.selectedIndex++;
-    }
-    this.isMouseOver = false; // Reset the isMouseOver flag when using keyboard navigation
-  } else if (event.key === 'Enter') {
-    event.preventDefault();
-    if (this.selectedIndex !== -1) {
-      const selectedSuggestion = this.suggests[this.selectedIndex].suggest;
-      this.selectSuggestion(selectedSuggestion);
-    } else if (this.searchQuery.trim() !== "") {
-      this.searchProducts();
-    }
-    this.isMouseOver = false; // Reset the isMouseOver flag when using keyboard navigation
   }
-},
-
-
-
-
-
-
-
-
-  },
-
 };
 </script>
 <style lang="scss" scoped>
@@ -301,14 +287,11 @@ $z-99: 99;
 }
 .suggestions-list {
   position: absolute;
- /* Adjust this value to position the list properly */
+  /* Adjust this value to position the list properly */
 
   z-index: 999; /* Ensure a high z-index to make the list appear above other elements */
 
-
-
   /* Limit the height of the list to enable scrolling if needed */
-  
 }
 .container {
   position: relative;
@@ -318,17 +301,12 @@ $z-99: 99;
   position: absolute;
   z-index: 999;
 
+  background-color: white;
 
-    background-color: white;
-
- ul {
-      list-style: none; // Remove bullet circle
-    }
-    
+  ul {
+    list-style: none; // Remove bullet circle
+  }
 }
-
-
-
 
 .list-item {
   @media (max-width: 600px) {
@@ -345,27 +323,18 @@ $z-99: 99;
   width: 490px;
 }
 .search-bar-dropdown {
-  
-
   /* Override any conflicting styles on smaller screens */
   @media (max-width: $md) {
     display: inline-block !important;
-
-
- 
   }
 }
 
-.list-item  {
+.list-item {
   font-weight: bold;
-  
 }
 
-
-
 .selected {
- background-color: #d23f57;
-
+  background-color: #d23f57;
 }
 .white-font {
   color: white;
@@ -376,5 +345,4 @@ $z-99: 99;
 .no-animation {
   transition: none !important;
 }
- 
 </style>
