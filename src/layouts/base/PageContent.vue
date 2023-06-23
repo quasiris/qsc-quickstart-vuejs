@@ -35,24 +35,24 @@
               hide-details
               flat
             ></v-select>
-            <!--  In this bar, i have results and Sorting and views
+            <!--  In this bar, i have results and Sorting and views -->
             <div class="grey--text text--darken-1 me-2 my-2">View :</div>
-            <v-btn icon>
-              <img
+<v-btn icon @click="viewMode = 'grid'" :disabled="viewMode === 'grid'">
+              <img 
                 v-svg-inline
                 class="icon"
                 src="@/assets/images/icons/grid.svg"
                 alt=""
               />
             </v-btn>
-            <v-btn icon>
+<v-btn icon @click="viewMode = 'list'" :disabled="viewMode === 'list'">
               <img
                 v-svg-inline
                 class="icon"
                 src="@/assets/images/icons/menu.svg"
                 alt=""
               />
-            </v-btn>-->
+            </v-btn>
           </div>
         </v-card-text>
         <v-divider class="mx-6 my-1 "></v-divider>
@@ -143,13 +143,14 @@
                         <v-col
                           v-for="product in products"
                           :key="product.name"
-                          cols="12"
-                          sm="6"
-                          md="6"
-                          lg="4"
-                          xl="3"
+                               :cols="viewMode === 'list' ? 12 : 12"
+      :sm="viewMode === 'list' ? 12 : 6"
+      :md="viewMode === 'list' ? 12 : 6"
+      :lg="viewMode === 'list' ? 12 : 4"
+      :xl="viewMode === 'list' ? 12 : 3"
+
                         >
-                          <v-card height="300">
+                       <v-card :style="{ height: cardHeight }" :class="{ 'list-view': viewMode === 'list' }">
                             <a
                               v-bind:href="
                                 [config.document.url[0]] +
@@ -253,7 +254,8 @@ export default {
       selectedSort: "",
       currentPage: 1,
       isSidebar: false,
-      config: config[0]
+      config: config[0],
+       viewMode: 'grid',
     };
   },
   props: {
@@ -261,6 +263,9 @@ export default {
   },
 
   computed: {
+   cardHeight() {
+    return this.viewMode === 'list' ? '270px' : '300px';
+  },
     totalPage() {
       return Math.ceil(this.totalproducts / 24);
     },
@@ -415,5 +420,28 @@ a {
 }
 .image :hover .name {
   color: blue;
+}
+
+
+
+
+.list-view .v-card {
+  margin-bottom: 16px;
+}
+
+
+  .list-view .image {
+     margin-right: 50px;
+     margin-left: 50px;; /* Set the margin to 0 */
+    }
+
+.list-view .name {
+  font-size: 46px;
+  font-weight: bold;
+  margin-bottom: 0px;
+
+}
+.v-select {
+  max-width: 200px; /* Adjust the value as needed */
 }
 </style>
