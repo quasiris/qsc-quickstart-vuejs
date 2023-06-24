@@ -67,7 +67,7 @@
           ></div>
           <v-card>
             <div
-              class="box-sidebar pb-4 shadow-sm"
+              class="box-sidebar pb-4 shadow-sm"  style="height: 100%;"
               :class="{ open: isSidebar }"
             >
               <div class="mx-6 pt-3">
@@ -153,8 +153,8 @@
                        <v-card :style="{ height: cardHeight }" :class="{ 'list-view': viewMode === 'list' }">
                             <a
                               v-bind:href="
-                                [config.document.url[0]] +
-                                  product.document[config.document.url[1]]
+                                [config.document.url] +   product.document[config.document.sku] 
+                                 
                               "
                             >
                               <div class="image">
@@ -256,6 +256,7 @@ export default {
       isSidebar: false,
       config: config[0],
        viewMode: 'grid',
+       
     };
   },
   props: {
