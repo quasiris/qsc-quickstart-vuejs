@@ -17,17 +17,25 @@
         </v-toolbar-title>
         <v-col cols="12" md="7">
           <div class="search-bar d-flex p-relative">
-            <v-text-field
-              type="text"
-              v-model="searchQuery"
-              placeholder=" article / keyword / product"
-              filled
-              rounded
-              hide-details
-              dense
-              prepend-inner-icon="mdi-magnify"
-            >
-            </v-text-field>
+        
+  <v-text-field
+    type="text"
+    v-model="searchQuery"
+    placeholder=" article / keyword / product"
+    filled
+    rounded
+    hide-details
+    dense
+    prepend-inner-icon="mdi-magnify"
+    
+  >
+   <template #append>
+    <span v-if="searchQuery" class="clear-input" @click="clearSearchQuery">
+      &times;
+    </span>
+  </template>
+  </v-text-field>
+  
 
             <v-btn
               @click="searchProducts"
@@ -36,6 +44,7 @@
             >
               Search
             </v-btn>
+           
           </div>
 
           <div class="top-priority">
@@ -221,7 +230,11 @@ export default {
         }
         this.isMouseOver = false; // Reset the isMouseOver flag when using keyboard navigation
       }
-    }
+    },
+    clearSearchQuery() {
+      this.searchQuery = "";
+      this.$emit("onSearch", this.searchQuery);
+    },
   }
 };
 </script>
@@ -345,4 +358,13 @@ $z-99: 99;
 .no-animation {
   transition: none !important;
 }
+.clear-input {
+  font-size: 30px;
+  color: #d23f57;
+  cursor: pointer;
+  margin-right: 140px;
+  position: relative;
+  top: -5px;
+}
+
 </style>
