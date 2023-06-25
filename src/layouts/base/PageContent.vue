@@ -36,8 +36,16 @@
               flat
             ></v-select>
             <!--  In this bar, i have results and Sorting and views -->
-            <div class="grey--text text--darken-1 me-2 my-2">View :</div>
-<v-btn icon @click="viewMode = 'grid'" :disabled="viewMode === 'grid'">
+            <div class="grey--text text--darken-1 me-2 my-2"></div>
+            <v-btn icon @click="viewMode = 'grid'" :disabled="viewMode === 'grid'">
+              <img 
+                v-svg-inline
+                class="icon"
+                src="@/assets/images/icons/gift.svg"
+                alt=""
+              />
+            </v-btn>
+<v-btn icon @click="viewMode = 'gift'" :disabled="viewMode === 'gift'">
               <img 
                 v-svg-inline
                 class="icon"
@@ -141,13 +149,13 @@
                     <template>
                       <v-row>
                         <v-col
-                          v-for="product in products"
-                          :key="product.name"
-                               :cols="viewMode === 'list' ? 12 : 12"
-      :sm="viewMode === 'list' ? 12 : 6"
-      :md="viewMode === 'list' ? 12 : 6"
-      :lg="viewMode === 'list' ? 12 : 4"
-      :xl="viewMode === 'list' ? 12 : 3"
+                           v-for="product in products"
+    :key="product.name"
+    :cols="viewMode === 'list' ? 12 : (viewMode === 'gift' ? 12 : 12)"
+    :sm="viewMode === 'list' ? 12 : (viewMode === 'gift' ? 6 : 6)"
+    :md="viewMode === 'list' ? 12 : (viewMode === 'gift' ? 6 : 6)"
+    :lg="viewMode === 'list' ? 12 : (viewMode === 'gift' ? 6 : 4)"
+    :xl="viewMode === 'list' ? 12 : (viewMode === 'gift' ? 6 : 3)"
 
                         >
                        <v-card :style="{ height: cardHeight }" :class="{ 'list-view': viewMode === 'list' }">
