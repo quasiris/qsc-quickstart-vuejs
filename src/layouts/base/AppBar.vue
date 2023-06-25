@@ -101,7 +101,7 @@ export default {
 
   data() {
     return {
-      searchQuery: "",
+    
       suggests: [],
       config: config[0],
       isFixedAppBar: false,
@@ -110,6 +110,9 @@ export default {
       selectedIndex: -1,
       isMouseOver: false
     };
+  },
+  props: {
+    searchQuery: { type: String, default: "" }
   },
   watch: {
     searchQuery() {

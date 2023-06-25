@@ -14,18 +14,22 @@
             </p>
           </div>
           <div class="my-2" v-else>
-            <h3>Hits for "{{ searchQuery }}"</h3>
+            <h3>Hits for "{{ searchQuery }}"</h3> 
+          
             <p class="gray--text text--darken-1 mb-0">
               {{ totalproducts }} results found
             </p>
-          </div>
+          </div> 
+          <v-card> {{ searchQuery }} <span v-if="searchQuery" class="clear-input justify-center " @click="clearSearchQuery">
+      &times;
+    </span></v-card>
           <div class="d-flex align-center flex-wrap">
-            <div class="grey--text text--darken-1 me-2 my-2">Sort by :</div>
+          <!--   <div class="grey--text text--darken-1 me-2 my-2">Sort by :</div> -->
 
             <v-select
               class="border me-5"
               :items="sorts"
-              label="Relevance"
+              label="sort by"
               dense
               v-model="selectedSort"
               @change="selectSort"
@@ -73,6 +77,8 @@
             :class="{ open: isSidebar }"
             @click="isSidebar = !isSidebar"
           ></div>
+
+           
           <v-card>
             <div
               class="box-sidebar pb-4 shadow-sm"  style="height: 100%;"
@@ -317,6 +323,8 @@ export default {
     currentPage() {
       this.fetchProducts();
     }
+
+     
   },
 
   methods: {
@@ -398,7 +406,11 @@ export default {
         top: 0,
         behavior: "smooth"
       });
-    }
+    },
+     clearSearchQuery() {
+      this.searchQuery = "";
+      this.$emit("onSearch", this.searchQuery);
+      },
   }
 };
 </script>
@@ -452,5 +464,13 @@ a {
 }
 .v-select {
   max-width: 200px; /* Adjust the value as needed */
+}
+.clear-input {
+  font-size: 20px;
+  color: grey;
+  cursor: pointer;
+ 
+  position: relative;
+
 }
 </style>

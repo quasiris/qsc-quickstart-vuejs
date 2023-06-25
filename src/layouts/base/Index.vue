@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <AppBar @onSearch="performSearch1" />
+    <AppBar @onSearch="performSearch1" :searchQuery="searchQuery" />
 
-    <PageContent :searchQuery="searchQuery" />
+    <PageContent :searchQuery="searchQuery" @onSearch="performSearch1"/>
     <Footer />
   </v-app>
 </template>
@@ -22,7 +22,8 @@ export default {
   },
   data() {
     return {
-      searchQuery: ""
+      searchQuery: "",
+      
     };
   },
   methods: {
