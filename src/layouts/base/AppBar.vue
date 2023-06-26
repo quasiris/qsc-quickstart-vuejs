@@ -21,7 +21,7 @@
   <v-text-field
     type="text"
     v-model="searchQuery"
-    placeholder=" article / keyword / product"
+    placeholder=" article / product"
     filled
     rounded
     hide-details
@@ -368,6 +368,9 @@ $z-99: 99;
   margin-right: 140px;
   position: relative;
   top: -5px;
+}
+.v-hidden {
+  visibility: hidden;
 }
 
 </style>
