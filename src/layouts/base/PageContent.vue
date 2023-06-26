@@ -14,17 +14,25 @@
             </p>
           </div>
           <div class="my-2" v-else>
-            <h3>Hits for "{{ searchQuery }}"</h3> 
-          
+            <h3>Hits for "{{ searchQuery }}"</h3>
+
             <p class="gray--text text--darken-1 mb-0">
               {{ totalproducts }} results found
             </p>
-          </div> 
-          <v-card> {{ searchQuery }} <span v-if="searchQuery" class="clear-input justify-center " @click="clearSearchQuery">
-      &times;
-    </span></v-card>
+          </div>
+          <div class="sQuery" v-show="searchQuery"  @click="clearSearchQuery" >
+          &nbsp;  "{{ searchQuery }}" &nbsp;
+            <div 
+              v-if="searchQuery"
+              class="clear-input justify-center "
+              @click="clearSearchQuery"
+            >
+          &times;     &nbsp;
+            </div> </div
+          > 
+
           <div class="d-flex align-center flex-wrap">
-          <!--   <div class="grey--text text--darken-1 me-2 my-2">Sort by :</div> -->
+            <!--   <div class="grey--text text--darken-1 me-2 my-2">Sort by :</div> -->
 
             <v-select
               class="border me-5"
@@ -41,23 +49,35 @@
             ></v-select>
             <!--  In this bar, i have results and Sorting and views -->
             <div class="grey--text text--darken-1 me-2 my-2"></div>
-            <v-btn icon @click="viewMode = 'grid'" :disabled="viewMode === 'grid'">
-              <img 
+            <v-btn
+              icon
+              @click="viewMode = 'grid'"
+              :disabled="viewMode === 'grid'"
+            >
+              <img
                 v-svg-inline
                 class="icon"
                 src="@/assets/images/icons/gift.svg"
                 alt=""
               />
             </v-btn>
-<v-btn icon @click="viewMode = 'gift'" :disabled="viewMode === 'gift'">
-              <img 
+            <v-btn
+              icon
+              @click="viewMode = 'gift'"
+              :disabled="viewMode === 'gift'"
+            >
+              <img
                 v-svg-inline
                 class="icon"
                 src="@/assets/images/icons/grid.svg"
                 alt=""
               />
             </v-btn>
-<v-btn icon @click="viewMode = 'list'" :disabled="viewMode === 'list'">
+            <v-btn
+              icon
+              @click="viewMode = 'list'"
+              :disabled="viewMode === 'list'"
+            >
               <img
                 v-svg-inline
                 class="icon"
@@ -78,10 +98,10 @@
             @click="isSidebar = !isSidebar"
           ></div>
 
-           
           <v-card>
             <div
-              class="box-sidebar pb-4 shadow-sm"  style="height: 100%;"
+              class="box-sidebar pb-4 shadow-sm"
+              style="height: 100%;"
               :class="{ open: isSidebar }"
             >
               <div class="mx-6 pt-3">
@@ -115,9 +135,16 @@
                         <template #label>
                           <label
                             class="text-decoration-none grey--text text--darken-2"
-                            style="font-size: 12px;"
                           >
-                            {{ value.value }} &nbsp; ({{ value.count }})
+                            <span
+                              class="hover-color"
+                              @mouseover="hoverColor = true"
+                              @mouseout="hoverColor = false"
+                              style="font-size: 12px;"
+                            >
+                              {{ value.value }}
+                              &nbsp; ({{ value.count }})
+                            </span>
                           </label>
                         </template>
                       </v-checkbox>
@@ -155,20 +182,52 @@
                     <template>
                       <v-row>
                         <v-col
-                           v-for="product in products"
-    :key="product.name"
-    :cols="viewMode === 'list' ? 12 : (viewMode === 'gift' ? 12 : 12)"
-    :sm="viewMode === 'list' ? 12 : (viewMode === 'gift' ? 6 : 6)"
-    :md="viewMode === 'list' ? 12 : (viewMode === 'gift' ? 6 : 6)"
-    :lg="viewMode === 'list' ? 12 : (viewMode === 'gift' ? 6 : 4)"
-    :xl="viewMode === 'list' ? 12 : (viewMode === 'gift' ? 6 : 3)"
-
+                          v-for="product in products"
+                          :key="product.name"
+                          :cols="
+                            viewMode === 'list'
+                              ? 12
+                              : viewMode === 'gift'
+                              ? 12
+                              : 12
+                          "
+                          :sm="
+                            viewMode === 'list'
+                              ? 12
+                              : viewMode === 'gift'
+                              ? 6
+                              : 6
+                          "
+                          :md="
+                            viewMode === 'list'
+                              ? 12
+                              : viewMode === 'gift'
+                              ? 6
+                              : 6
+                          "
+                          :lg="
+                            viewMode === 'list'
+                              ? 12
+                              : viewMode === 'gift'
+                              ? 6
+                              : 4
+                          "
+                          :xl="
+                            viewMode === 'list'
+                              ? 12
+                              : viewMode === 'gift'
+                              ? 6
+                              : 3
+                          "
                         >
-                       <v-card :style="{ height: cardHeight }" :class="{ 'list-view': viewMode === 'list' }">
+                          <v-card
+                            :style="{ height: cardHeight }"
+                            :class="{ 'list-view': viewMode === 'list' }"
+                          >
                             <a
                               v-bind:href="
-                                [config.document.url] +   product.document[config.document.sku] 
-                                 
+                                [config.document.url] +
+                                  product.document[config.document.sku]
                               "
                             >
                               <div class="image">
@@ -269,8 +328,7 @@ export default {
       currentPage: 1,
       isSidebar: false,
       config: config[0],
-       viewMode: 'grid',
-       
+      viewMode: "grid"
     };
   },
   props: {
@@ -278,9 +336,9 @@ export default {
   },
 
   computed: {
-   cardHeight() {
-    return this.viewMode === 'list' ? '270px' : '300px';
-  },
+    cardHeight() {
+      return this.viewMode === "list" ? "270px" : "300px";
+    },
     totalPage() {
       return Math.ceil(this.totalproducts / 24);
     },
@@ -323,8 +381,6 @@ export default {
     currentPage() {
       this.fetchProducts();
     }
-
-     
   },
 
   methods: {
@@ -407,10 +463,10 @@ export default {
         behavior: "smooth"
       });
     },
-     clearSearchQuery() {
+    clearSearchQuery() {
       this.searchQuery = "";
       this.$emit("onSearch", this.searchQuery);
-      },
+    }
   }
 };
 </script>
@@ -443,34 +499,47 @@ a {
   color: blue;
 }
 
-
-
-
 .list-view .v-card {
   margin-bottom: 16px;
 }
 
-
-  .list-view .image {
-     margin-right: 50px;
-     margin-left: 50px;; /* Set the margin to 0 */
-    }
+.list-view .image {
+  margin-right: 50px;
+  margin-left: 50px; /* Set the margin to 0 */
+}
 
 .list-view .name {
   font-size: 46px;
   font-weight: bold;
   margin-bottom: 0px;
-
 }
 .v-select {
   max-width: 200px; /* Adjust the value as needed */
 }
 .clear-input {
   font-size: 20px;
-  color: grey;
+  
   cursor: pointer;
- 
-  position: relative;
 
+  position: relative;
 }
+.clear-input:hover{
+   color: #d23f57;
+}
+.hover-color:hover {
+  color: #d23f57; /* Change the color to your desired hover color */
+   cursor: pointer;
+}
+.sQuery{
+background-color: white;
+  border: 1px solid black;
+  display: flex; /* Set display to flex */
+  align-items: center;
+   border-radius: 13px;
+}
+.sQuery:hover{
+   color: #d23f57;
+    cursor: pointer;
+}
+
 </style>
