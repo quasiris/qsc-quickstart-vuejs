@@ -20,16 +20,7 @@
               {{ totalproducts }} results found
             </p>
           </div>
-          <div class="sQuery" v-show="searchQuery"  @click="clearSearchQuery" >
-          &nbsp;  "{{ searchQuery }}" &nbsp;
-            <div 
-              v-if="searchQuery"
-              class="clear-input justify-center "
-              @click="clearSearchQuery"
-            >
-          &times;     &nbsp;
-            </div> </div
-          > 
+ 
 
           <div class="d-flex align-center flex-wrap">
             <!--   <div class="grey--text text--darken-1 me-2 my-2">Sort by :</div> -->
@@ -176,11 +167,23 @@
             </div>
             <div class="box-container">
               <v-row>
+                <div class="sQuery" v-show="searchQuery"  @click="clearSearchQuery" >
+          &nbsp;  "{{ searchQuery }}" &nbsp;
+            <div 
+              v-if="searchQuery"
+              class="clear-input justify-center "
+              @click="clearSearchQuery"
+            >
+          &times;     &nbsp;
+            </div> </div
+          > 
                 <v-col cols="12">
                   <v-data-iterator :items="items" hide-default-footer>
                     <!--  Here I have Products-->
                     <template>
+                      
                       <v-row>
+                        
                         <v-col
                           v-for="product in products"
                           :key="product.name"
@@ -531,11 +534,12 @@ a {
    cursor: pointer;
 }
 .sQuery{
+  margin-left: 17px;
 background-color: white;
   border: 1px solid black;
   display: flex; /* Set display to flex */
   align-items: center;
-   border-radius: 13px;
+   border-radius: 23px;
 }
 .sQuery:hover{
    color: #d23f57;
