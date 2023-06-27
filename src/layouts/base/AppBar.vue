@@ -21,7 +21,7 @@
   <v-text-field
     type="text"
     v-model="searchQuery"
-    placeholder=" article / keyword / product"
+    placeholder=" article / keyword "
     filled
     rounded
     hide-details
@@ -30,14 +30,14 @@
     
   >
    <template #append>
-    <span v-if="searchQuery" class="clear-input" @click="clearSearchQuery">
+    <span  v-if="searchQuery && $vuetify.breakpoint.width >= 600" class="clear-input" @click="clearSearchQuery">
       &times;
     </span>
   </template>
   </v-text-field>
   
 
-            <v-btn
+            <v-btn   v-if="$vuetify.breakpoint.width >= 600"
               @click="searchProducts"
               color="primary"
               class="text-capitalize search-bar-dropdown px-10 font-600"
@@ -338,22 +338,12 @@ $z-99: 99;
   /* Default width for larger screens */
   width: 490px;
 }
-  .search-bar-dropdown {
-   
-     height: 39px;
-    position: absolute;
-    top: 20px;
-    transform: translateY(-50%);
-    right: 2px;
-    border-radius: 22px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-left: 1px solid rgb(218, 225, 231) !important;
-    box-shadow: none !important;
-    @media (max-width: $md) {
-      display: none;
-    }
+.search-bar-dropdown {
+  /* Override any conflicting styles on smaller screens */
+  @media (max-width: $md) {
+    display: inline-block !important;
   }
+}
 
 .list-item {
   font-weight: bold;
@@ -378,9 +368,6 @@ $z-99: 99;
   margin-right: 140px;
   position: relative;
   top: -5px;
-  @media (max-width: $md) {
-      display: none;
-    }
 }
 .v-hidden {
   visibility: hidden;

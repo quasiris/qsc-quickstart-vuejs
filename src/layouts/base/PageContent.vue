@@ -40,7 +40,7 @@
             ></v-select>
             <!--  In this bar, i have results and Sorting and views -->
             <div class="grey--text text--darken-1 me-2 my-2"></div>
-            <v-btn
+            <v-btn   v-if="$vuetify.breakpoint.width >= 600"
               icon
               @click="viewMode = 'grid'"
               :disabled="viewMode === 'grid'"
@@ -53,6 +53,7 @@
               />
             </v-btn>
             <v-btn
+ v-if="$vuetify.breakpoint.width >= 600"
               icon
               @click="viewMode = 'gift'"
               :disabled="viewMode === 'gift'"
@@ -64,7 +65,7 @@
                 alt=""
               />
             </v-btn>
-            <v-btn
+            <v-btn   v-if="$vuetify.breakpoint.width >= 600"
               icon
               @click="viewMode = 'list'"
               :disabled="viewMode === 'list'"
@@ -545,5 +546,9 @@ background-color: white;
    color: #d23f57;
     cursor: pointer;
 }
-
+.viewIcon{
+   @media (max-width: $md) {
+      display: none;
+    }
+}
 </style>
