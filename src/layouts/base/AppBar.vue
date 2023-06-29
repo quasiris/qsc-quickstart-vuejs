@@ -21,7 +21,7 @@
   <v-text-field
     type="text"
     v-model="searchQuery"
-    placeholder=" article / keyword "
+    placeholder=" article / keyword / product"
     filled
     rounded
     hide-details
@@ -40,7 +40,7 @@
             <v-btn   v-if="$vuetify.breakpoint.width >= 600"
               @click="searchProducts"
               color="primary"
-              class="text-capitalize search-bar-dropdown px-10 font-600"
+              class="text-capitalize search-bar-dropdown px-10 font-600 search-button"
             >
               Search
             </v-btn>

@@ -30,5 +30,21 @@
      
       "image": ""
     }
+  },
+  {
+    "id": "wins",
+    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/wins/basiswissen?",
+    "suggestionUrl": "https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=",
+    "product": "basiswissen",
+    "logo": "wins-logo.png",
+
+    "document": {
+      "name": "id",
+   
+      "url": "",
+      "sku": "url",
+     
+      "image": ""
+    }
   }
 ]
