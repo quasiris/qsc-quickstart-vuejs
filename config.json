@@ -36,13 +36,13 @@
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/wins/basiswissen?",
     "suggestionUrl": "https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=",
     "product": "basiswissen",
-    "logo": "wins-logo.png",
+    "logo": "winss.png",
 
     "document": {
-      "name": "id",
+      "name": "title_nouns",
    
       "url": "",
-      "sku": "url",
+      "sku": "",
      
       "image": ""
     }
