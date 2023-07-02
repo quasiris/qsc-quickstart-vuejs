@@ -25,7 +25,7 @@
           <div class="d-flex align-center flex-wrap">
             <!--   <div class="grey--text text--darken-1 me-2 my-2">Sort by :</div> -->
 
-            <v-select
+            <v-select  v-if="sorts.length > 0"
               class="border me-5"
               :items="sorts"
               label="sort by"
@@ -81,7 +81,7 @@
         </v-card-text>
         <v-divider class="mx-6 my-1 "></v-divider>
       </v-col>
-
+     
       <v-col cols="12">
         <div class="box-wrapper">
           <div
@@ -90,7 +90,7 @@
             @click="isSidebar = !isSidebar"
           ></div>
 
-          <v-card>
+          <v-card  v-if="facets && facets.length > 0">
             <div
               class="box-sidebar pb-4 shadow-sm"
               style="height: 100%;"
@@ -159,7 +159,7 @@
           </v-card>
           <div class="box-content">
             <div class="d-flex justify-end pa-2 d-block d-md-none">
-              <v-btn color="#d23f57" icon @click="isSidebar = !isSidebar">
+              <v-btn color="#d23f57" icon @click="isSidebar = !isSidebar"  v-show="facets && facets.length > 0">
                 <v-icon color="#d23f57">
                   mdi-format-list-bulleted-square
                 </v-icon>
@@ -181,7 +181,7 @@
                 <v-col cols="12">
                   <v-data-iterator :items="items" hide-default-footer>
                     <!--  Here I have Products-->
-                    <template>
+             
                       
                       <v-row>
                         
@@ -266,7 +266,7 @@
                           </v-card>
                         </v-col>
                       </v-row>
-                    </template>
+                 
                     <!--  Here I have Code of Pagination-->
                     <template v-slot:footer>
                       <v-row class="my-5 me-1" align="center" justify="center">
@@ -547,8 +547,15 @@ background-color: white;
     cursor: pointer;
 }
 .viewIcon{
-   @media (max-width: $md) {
+   @media (max-width: 768px) {
       display: none;
     }
+}
+.box-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  border-radius: 8px;
 }
 </style>
