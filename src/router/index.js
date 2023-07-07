@@ -16,7 +16,7 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      component: () => import("@/layouts/base/Index.vue"),
+   
     }
   ]
 });
