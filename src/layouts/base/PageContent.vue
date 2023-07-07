@@ -360,9 +360,12 @@ export default {
 
   async mounted() {
     const url = window.location.href;
+    console.log(url)
     for (const configItem of config) {
+      console.log("configItem.id)" ,configItem.id)
       if (url.includes(configItem.id)) {
         this.config = configItem;
+        console.log("this.config" ,this.config);
         break; // Exit the loop once a match is found
       }
     }
