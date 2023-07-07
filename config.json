@@ -1,6 +1,6 @@
 [
   {
-    "id": "qsc",
+    "id": "id=1",
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/ab/products",
     "suggestionUrl": "https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=",
     "product": "products",

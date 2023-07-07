@@ -2,6 +2,7 @@
 
 <v-card> 
   
+  
   <v-footer  dark color="secondary" height="100px">   </v-footer>
 
   </v-card>
