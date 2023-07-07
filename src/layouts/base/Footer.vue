@@ -14,6 +14,8 @@ export default {
 <style lang="scss">
 .v-footer {
   padding-top: 3rem;
-  padding-bottom: 3rem;
+
+  
+  padding-bottom:   3rem;
 }
 </style>
