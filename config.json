@@ -49,7 +49,7 @@
   },
   {
     "id": "hornbach",
-    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/hornbach-de/best-keywords?",
+    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/hornbach-de/best-keywords",
     "suggestionUrl": "https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=",
     "product": "best-keywords",
     "logo": "hornbachlogo.png",
