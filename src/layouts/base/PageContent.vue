@@ -361,10 +361,10 @@ export default {
     const url = window.location.href;
     console.log(url)
     for (const configItem of config) {
-      console.log("configItem.id)" ,configItem.id)
+     
       if (url.includes(configItem.id)) {
         this.config = configItem;
-        console.log("this.config" ,this.config);
+       
         break; // Exit the loop once a match is found
       }
     }
@@ -430,7 +430,7 @@ export default {
 
           this.sorts = response.data.result[this.config.product].sort.sort;
           this.totalPages=response.data.result[this.config.product].paging.pageCount;
-          console.log("adms",this.totalPages);
+         
         })
         .catch(error => {
           console.log(error);

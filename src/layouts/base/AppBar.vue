@@ -124,13 +124,13 @@ export default {
       }
     }
   },
-  mounted() {
+  async mounted() {
     window.addEventListener("mousemove", this.handleMouseMove);
     document.addEventListener("keydown", this.handleKeyDown);
     window.addEventListener("click", this.handleWindowClick);
     window.addEventListener("scroll", this.handleScroll);
     this.searchProducts();
-    this.fetchSuggestions();
+
     const url = window.location.href;
     for (const configItem of config) {
       if (url.includes(configItem.id)) {
@@ -138,6 +138,7 @@ export default {
         break; // Exit the loop once a match is found
       }
     }
+    this.fetchSuggestions();
   },
   beforeUnmount() {
     window.removeEventListener("mousemove", this.handleMouseMove);
@@ -146,6 +147,9 @@ export default {
   },
   methods: {
     fetchSuggestions() {
+      const suggestUrl = this.config.suggestionUrl;
+
+    
       if (this.selectedSuggestion === this.searchQuery) {
         // If the selected suggestion is equal to the current search query,
         // do not make the API call
@@ -160,7 +164,7 @@ export default {
 
       axios
         .get(
-          `https://qsc-dev.quasiris.de/api/v1/search/hornbach-de/best-keywords?q=katze${this.searchQuery}`
+          `${suggestUrl}${this.searchQuery}`
         )
         .then(response => {
           this.suggests = response.data;
