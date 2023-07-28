@@ -276,7 +276,7 @@
                           class="mr-4
                                         grey--text"
                         >
-                          Page {{ currentPage }} of {{ totalPage }}
+                          Page {{ currentPage }} of {{ totalPages }}
                         </span>
                         <v-btn
                           fab
@@ -291,7 +291,7 @@
                         </v-btn>
                         <v-btn
                           fab
-                          :disabled="currentPage == totalPage"
+                          :disabled="currentPage == totalPages"
                           v-model="currentPage"
                           @click="myhandleClick"
                           small
@@ -332,7 +332,8 @@ export default {
       currentPage: 1,
       isSidebar: false,
       config: config[0],
-      viewMode: "grid"
+      viewMode: "grid",
+      totalPages: "",
     };
   },
   props: {
@@ -343,9 +344,7 @@ export default {
     cardHeight() {
       return this.viewMode === "list" ? "270px" : "300px";
     },
-    totalPage() {
-      return Math.ceil(this.totalproducts / 24);
-    },
+  
 
     ...mapGetters(["getProducts"])
   },
@@ -430,6 +429,8 @@ export default {
           this.facets = response.data.result[this.config.product].facets;
 
           this.sorts = response.data.result[this.config.product].sort.sort;
+          this.totalPages=response.data.result[this.config.product].paging.pageCount;
+          console.log("adms",this.totalPages);
         })
         .catch(error => {
           console.log(error);
@@ -444,7 +445,7 @@ export default {
     },
 
     nextPage() {
-      if (this.currentPage + 1 <= this.totalPage) this.currentPage += 1;
+      if (this.currentPage + 1 <= this.totalPages) this.currentPage += 1;
     },
     myhandleClick() {
       this.nextPage();

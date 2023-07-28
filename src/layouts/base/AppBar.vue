@@ -160,7 +160,7 @@ export default {
 
       axios
         .get(
-          `https://qsc-dev.quasiris.de/api/v1/suggest/ab/products?q=${this.searchQuery}`
+          `https://qsc-dev.quasiris.de/api/v1/search/hornbach-de/best-keywords?q=katze${this.searchQuery}`
         )
         .then(response => {
           this.suggests = response.data;
