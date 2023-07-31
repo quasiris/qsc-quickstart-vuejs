@@ -373,9 +373,11 @@ export default {
   watch: {
     searchQuery() {
       // Call the fetchProducts method with the updated search query
-      this.fetchProducts();
-      this.currentPage = 1;
+      
+     
       this.selectedFilters = [];
+      this.currentPage = 1;
+      this.fetchProducts();
     },
     selectedFilters() {
       this.fetchProducts();
