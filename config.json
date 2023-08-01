@@ -62,5 +62,21 @@
 
       "image": "image"
     }
+  },
+  {
+    "id": "openbrewerydb",
+    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/test-jan/openbrewerydb",
+    "suggestionUrl": "https://qsc-dev.quasiris.de/api/v1/search/suggest/test-jan/openbrewerydb?q=",
+    "product": "openbrewerydb",
+    "logo": "https://heimathafen-bier.de/wp-content/themes/heimathafen-child/heimathafen-logo.svg",
+
+    "document": {
+      "name": "name",
+
+      "url": "website_url",
+      "sku": "",
+
+      "image": ""
+    }
   }
 ]
