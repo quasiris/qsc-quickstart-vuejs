@@ -314,6 +314,7 @@
   </v-container>
 </template>
 <script>
+
 import config from "@/../config.json";
 import axios from "axios";
 
@@ -371,14 +372,11 @@ export default {
     this.fetchProducts();
   },
   watch: {
-    searchQuery() {
-      // Call the fetchProducts method with the updated search query
-      
-     
-      this.selectedFilters = [];
-      this.currentPage = 1;
-      this.fetchProducts();
-    },
+    searchQuery(val) {
+    this.selectedFilters = [];
+    this.currentPage = 1;
+    debouncedFetchProducts(val);
+  },
     selectedFilters() {
       this.fetchProducts();
       this.currentPage = 1;
