@@ -73,7 +73,7 @@
     "document": {
       "name": "name",
 
-      "url": "website_url",
+      "website_url": "url",
       "sku": "",
 
       "image": ""
