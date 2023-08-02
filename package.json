@@ -11,6 +11,7 @@
         "apexcharts": "^3.27.1",
         "axios": "^1.4.0",
         "core-js": "^3.6.5",
+        "lodash.debounce": "^4.0.8",
         "vue": "^2.6.11",
         "vue-apexcharts": "^1.6.1",
         "vue-clickaway": "^2.2.2",

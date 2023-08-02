@@ -372,21 +372,23 @@ export default {
     this.fetchProducts();
   },
   watch: {
-    searchQuery(val) {
-    this.selectedFilters = [];
-    this.currentPage = 1;
-    debouncedFetchProducts(val);
-  },
+    searchQuery() {
+  this.clearFilters();
+  this.currentPage=1;
+
+
+
+   },
+
     selectedFilters() {
       this.fetchProducts();
-      this.currentPage = 1;
+    this.currentPage= 1;
+      
     },
     selectedSort() {
       this.fetchProducts();
     },
-    currentPage() {
-      this.fetchProducts();
-    }
+  
   },
 
   methods: {
@@ -438,6 +440,7 @@ export default {
     },
     selectmyFilters(filter) {
       this.selectedFilters = filter;
+     
     },
 
     selectSort(sort) {
@@ -446,6 +449,7 @@ export default {
 
     nextPage() {
       if (this.currentPage + 1 <= this.totalPages) this.currentPage += 1;
+      this.fetchProducts();
     },
     myhandleClick() {
       this.nextPage();
@@ -457,6 +461,7 @@ export default {
     },
     formerPage() {
       if (this.currentPage - 1 >= 1) this.currentPage -= 1;
+      this.fetchProducts();
     },
     scrollToTop() {
       window.scrollTo({
@@ -466,6 +471,8 @@ export default {
     },
     clearFilters() {
       this.selectedFilters = [];
+
+    
       window.scrollTo({
         top: 0,
         behavior: "smooth"
