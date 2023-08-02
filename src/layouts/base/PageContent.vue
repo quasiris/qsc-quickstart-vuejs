@@ -381,8 +381,9 @@ export default {
    },
 
     selectedFilters() {
+      this.currentPage= 1;
       this.fetchProducts();
-    this.currentPage= 1;
+  
       
     },
     selectedSort() {
