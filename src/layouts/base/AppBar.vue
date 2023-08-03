@@ -161,11 +161,9 @@ export default {
         this.suggests = [];
         return;
       }
-
+      const encodedSearchQuery = encodeURIComponent(this.searchQuery);
       axios
-        .get(
-          `${suggestUrl}${this.searchQuery}`
-        )
+     .get(`${suggestUrl}${encodedSearchQuery}`)
         .then(response => {
           this.suggests = response.data;
         })
