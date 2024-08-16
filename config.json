@@ -94,5 +94,21 @@
       
       "image": "image"
     }
+  },
+  {
+    "id": "hornbach",
+    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/demo/hb_products_mki",
+    "suggestionUrl": "https://qsc-dev.quasiris.de/api/v1/search/suggest/demo/hb_products_mki?q=",
+    "product": "hb_products_mki",
+    "logo": "https://www.hornbach.de/header/img/hornbach_logo_de.a88b42bc1220d54085d512fa0cb330c5.svg",
+
+    "document": {
+      "name": "title",
+
+      "url": "url",
+      "sku": "sku",
+
+      "image": "image"
+    }
   }
 ]
