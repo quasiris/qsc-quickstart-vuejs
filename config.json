@@ -48,22 +48,6 @@
     }
   },
   {
-    "id": "hornbach",
-    "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/hornbach-de/best-keywords",
-    "suggestionUrl": "https://qsc-dev.quasiris.de/api/v1/search/suggest/hornbach-de/best-keywords?q=",
-    "product": "best-keywords",
-    "logo": "hornbachlogo.png",
-
-    "document": {
-      "name": "title",
-
-      "url": "",
-      "sku": "url",
-
-      "image": "image"
-    }
-  },
-  {
     "id": "openbrewerydb",
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/test-jan/openbrewerydb",
     "suggestionUrl": "https://qsc-dev.quasiris.de/api/v1/search/suggest/test-jan/openbrewerydb?q=",
@@ -100,7 +84,7 @@
     "baseurl": "https://qsc-dev.quasiris.de/api/v1/search/demo/hb_products_mki",
     "suggestionUrl": "https://qsc-dev.quasiris.de/api/v1/search/suggest/demo/hb_products_mki?q=",
     "product": "hb_products_mki",
-    "logo": "https://www.hornbach.de/header/img/hornbach_logo_de.a88b42bc1220d54085d512fa0cb330c5.svg",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Hornbach_Logo_black.svg",
 
     "document": {
       "name": "title",
